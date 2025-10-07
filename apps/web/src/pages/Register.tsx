@@ -1,65 +1,80 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
-export default function Login() {
+export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [role, setRole] = useState('user')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [localError, setLocalError] = useState<string | null>(null)
   
-  const { login, error, clearError, user } = useAuth()
+  const { register, error, clearError, user } = useAuth()
   const navigate = useNavigate()
-  const location = useLocation()
 
-  // Get the page user was trying to visit, or default to assets
-  const from = (location.state as any)?.from?.pathname || '/assets'
-
-  // Clear error when component mounts
+  // Clear errors when component mounts
   useEffect(() => {
     clearError()
+    setLocalError(null)
   }, [clearError])
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      navigate(from, { replace: true })
+      navigate('/assets', { replace: true })
     }
-  }, [user, navigate, from])
+  }, [user, navigate])
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!email || !password) {
+    setLocalError(null)
+    
+    if (!email || !password || !confirmPassword) {
+      setLocalError('Todos los campos son requeridos')
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setLocalError('Las contraseñas no coinciden')
+      return
+    }
+
+    if (password.length < 6) {
+      setLocalError('La contraseña debe tener al menos 6 caracteres')
       return
     }
 
     setIsSubmitting(true)
     
     try {
-      await login(email, password)
+      await register(email, password, role)
       // Navigation will happen automatically due to useEffect above
     } catch (err) {
       // Error is handled by the context
-      console.error('Login failed:', err)
+      console.error('Registration failed:', err)
     } finally {
       setIsSubmitting(false)
     }
   }
+
+  const displayError = localError || error
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Iniciar Sesión
+            Crear Cuenta
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             O{' '}
             <Link
-              to="/register"
+              to="/login"
               className="font-medium text-blue-600 hover:text-blue-500"
             >
-              crear una cuenta nueva
+              iniciar sesión con tu cuenta existente
             </Link>
           </p>
         </div>
@@ -92,26 +107,61 @@ export default function Login() {
                 id="password"
                 name="password"
                 type="password"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 required
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Tu contraseña"
+                placeholder="Mínimo 6 caracteres"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isSubmitting}
               />
             </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                Confirmar Contraseña
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                autoComplete="new-password"
+                required
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                placeholder="Repite tu contraseña"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div>
+              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                Rol
+              </label>
+              <select
+                id="role"
+                name="role"
+                className="mt-1 block w-full px-3 py-2 pr-10 bg-white border border-gray-300 rounded-md text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                disabled={isSubmitting}
+              >
+                <option value="user" className="bg-white text-gray-900">Usuario</option>
+                <option value="admin" className="bg-white text-gray-900">Administrador</option>
+              </select>
+            </div>
           </div>
 
-          {error && (
+          {displayError && (
             <div className="rounded-md bg-red-50 p-4">
               <div className="flex">
                 <div className="ml-3">
                   <h3 className="text-sm font-medium text-red-800">
-                    Error de autenticación
+                    Error de registro
                   </h3>
                   <div className="mt-2 text-sm text-red-700">
-                    <p>{error}</p>
+                    <p>{displayError}</p>
                   </div>
                 </div>
               </div>
@@ -121,10 +171,10 @@ export default function Login() {
           <div>
             <button
               type="submit"
-              disabled={isSubmitting || !email || !password}
+              disabled={isSubmitting || !email || !password || !confirmPassword}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+              {isSubmitting ? 'Creando cuenta...' : 'Crear Cuenta'}
             </button>
           </div>
         </form>
