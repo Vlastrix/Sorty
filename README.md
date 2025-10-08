@@ -39,7 +39,7 @@ sorty/
 ### 1) Clonar e instalar
 
 ```powershell
-git clone <URL-DE-TU-REPO> sorty
+git clone https://github.com/Vlastrix/sorty.git
 cd sorty
 pnpm -w add -D turbo@2.5.8
 pnpm install
