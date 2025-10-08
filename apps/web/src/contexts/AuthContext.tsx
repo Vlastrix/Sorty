@@ -59,15 +59,37 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const { user, token } = response.data
         apiClient.setToken(token)
         setUser(user)
+        setLoading(false) // Éxito - terminar loading
       } else {
         throw new Error(response.error || 'Login failed')
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Login failed'
+      setLoading(false) // Error - terminar loading inmediatamente
+      
+      let message = 'Correo electrónico o contraseña incorrectos'
+      
+      if (err instanceof Error) {
+        const errorMessage = err.message.toLowerCase()
+        
+        // Manejar diferentes tipos de errores
+        if (errorMessage.includes('credenciales inválidas') || 
+            errorMessage.includes('invalid credentials') ||
+            errorMessage.includes('unauthorized') ||
+            errorMessage.includes('401')) {
+          message = 'Correo electrónico o contraseña incorrectos'
+        } else if (errorMessage.includes('network') || 
+                   errorMessage.includes('fetch') ||
+                   errorMessage.includes('failed to fetch')) {
+          message = 'Error de conexión. Verifica tu conexión a internet'
+        } else if (errorMessage.includes('500')) {
+          message = 'Error del servidor. Intenta más tarde'
+        } else if (errorMessage.includes('timeout')) {
+          message = 'Tiempo de espera agotado. Intenta nuevamente'
+        }
+      }
+      
       setError(message)
-      throw err
-    } finally {
-      setLoading(false)
+      throw err // Lanzar el error original
     }
   }
 
@@ -86,7 +108,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
         throw new Error(response.error || 'Registration failed')
       }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Registration failed'
+      let message = 'Error inesperado al registrar usuario'
+      
+      if (err instanceof Error) {
+        const errorMessage = err.message.toLowerCase()
+        
+        // Manejar diferentes tipos de errores
+        if (errorMessage.includes('el usuario ya existe') || 
+            errorMessage.includes('user already exists') ||
+            errorMessage.includes('email already exists') ||
+            errorMessage.includes('conflict') ||
+            errorMessage.includes('409')) {
+          message = 'Ya existe una cuenta con este correo electrónico'
+        } else if (errorMessage.includes('email inválido') || 
+                   errorMessage.includes('invalid email')) {
+          message = 'El formato del correo electrónico no es válido'
+        } else if (errorMessage.includes('contraseña') || 
+                   errorMessage.includes('password')) {
+          message = 'La contraseña debe tener al menos 6 caracteres'
+        } else if (errorMessage.includes('network') || 
+                   errorMessage.includes('fetch') ||
+                   errorMessage.includes('failed to fetch')) {
+          message = 'Error de conexión. Verifica tu conexión a internet'
+        } else if (errorMessage.includes('500')) {
+          message = 'Error del servidor. Intenta más tarde'
+        } else {
+          // Para cualquier otro error, usar el mensaje original si es útil
+          message = err.message || 'Error al crear la cuenta'
+        }
+      }
+      
       setError(message)
       throw err
     } finally {

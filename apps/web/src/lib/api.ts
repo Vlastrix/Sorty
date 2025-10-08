@@ -65,12 +65,21 @@ class ApiClient {
         headers,
       })
 
-      const data = await response.json()
-
+      // Si la respuesta no es ok, intentar obtener el mensaje de error
       if (!response.ok) {
-        throw new Error(data.error || `HTTP error! status: ${response.status}`)
+        let errorMessage = `HTTP error! status: ${response.status}`
+        
+        try {
+          const errorData = await response.json()
+          errorMessage = errorData.error || errorData.message || errorMessage
+        } catch {
+          // Si no se puede parsear el JSON, usar el mensaje por defecto
+        }
+        
+        throw new Error(errorMessage)
       }
 
+      const data = await response.json()
       return data
     } catch (error) {
       console.error('API request failed:', error)

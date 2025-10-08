@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 
+// Función para validar email
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
 export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -9,15 +15,10 @@ export default function Register() {
   const [role, setRole] = useState('user')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
+  const [emailError, setEmailError] = useState<string | null>(null)
   
   const { register, error, clearError, user } = useAuth()
   const navigate = useNavigate()
-
-  // Clear errors when component mounts
-  useEffect(() => {
-    clearError()
-    setLocalError(null)
-  }, [clearError])
 
   // Redirect if already logged in
   useEffect(() => {
@@ -30,9 +31,16 @@ export default function Register() {
     e.preventDefault()
     
     setLocalError(null)
+    setEmailError(null)
     
     if (!email || !password || !confirmPassword) {
       setLocalError('Todos los campos son requeridos')
+      return
+    }
+
+    if (!isValidEmail(email)) {
+      setEmailError('Por favor ingresa un correo electrónico válido')
+      setLocalError('Por favor corrige los errores antes de continuar')
       return
     }
 
@@ -91,12 +99,39 @@ export default function Register() {
                 type="email"
                 autoComplete="email"
                 required
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                className={`mt-1 block w-full px-3 py-2 bg-white border rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed ${
+                  emailError 
+                    ? 'border-red-300 focus:border-red-500 focus:ring-red-500' 
+                    : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
+                }`}
                 placeholder="tu@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  const newEmail = e.target.value
+                  setEmail(newEmail)
+                  
+                  // Limpiar errores cuando el usuario escriba
+                  if (error || localError) {
+                    clearError()
+                    setLocalError(null)
+                  }
+                  
+                  // Validar email en tiempo real (solo si ya escribió algo)
+                  if (newEmail.length > 0) {
+                    if (!isValidEmail(newEmail)) {
+                      setEmailError('Ingresa un correo electrónico válido')
+                    } else {
+                      setEmailError(null)
+                    }
+                  } else {
+                    setEmailError(null)
+                  }
+                }}
                 disabled={isSubmitting}
               />
+              {emailError && (
+                <p className="mt-1 text-sm text-red-600">{emailError}</p>
+              )}
             </div>
 
             <div>
@@ -112,7 +147,13 @@ export default function Register() {
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Mínimo 6 caracteres"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  if (error || localError) {
+                    clearError()
+                    setLocalError(null)
+                  }
+                }}
                 disabled={isSubmitting}
               />
             </div>
@@ -130,7 +171,13 @@ export default function Register() {
                 className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="Repite tu contraseña"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value)
+                  if (error || localError) {
+                    clearError()
+                    setLocalError(null)
+                  }
+                }}
                 disabled={isSubmitting}
               />
             </div>
