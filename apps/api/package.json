@@ -8,6 +8,10 @@
     "build": "tsc -b",
     "start": "node dist/index.js",
     "lint": "echo \"lint api\"",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "prisma:gen": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
@@ -22,8 +26,10 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.7.0",
+    "@vitest/ui": "^3.2.4",
     "prisma": "^5.20.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "vitest": "^3.2.4"
   }
 }
