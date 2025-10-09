@@ -1,0 +1,337 @@
+
+> @sorty/web@0.1.0 dev C:\Vladi\Taller V Projects\sorty\apps\web
+> vite
+
+
+  [32m[1mVITE[22m v5.4.20[39m  [2mready in [0m[1m750[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+[2m12:48:48 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:48:50 a.m.[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Vladi\Taller V Projects\sorty\apps\web\src\pages\Login.tsx: Unterminated JSX contents. (169:10)
+
+[0m [90m 167 |[31m         [33m<[31m[33m/[31m[33mform[31m[33m>[31m
+ [90m 168 |[31m       [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+[31m[1m>[22m[31m[90m 169 |[31m     [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 170 |[31m   )
+ [90m 171 |[31m }[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Vladi/Taller V Projects/sorty/apps/web/src/pages/Login.tsx[39m:169:10
+[33m  167|          </form>
+  168|        </div>
+  169|      </div>
+     |            ^
+  170|    )
+  171|  }[39m
+      at constructor (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6630:19)
+      at TypeScriptParserMixin.jsxReadToken (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4481:20)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4807:12)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10009:11)
+      at TypeScriptParserMixin.nextToken (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5813:10)
+      at TypeScriptParserMixin.next (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5723:10)
+      at TypeScriptParserMixin.eat (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5727:12)
+      at TypeScriptParserMixin.expect (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6929:15)
+      at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4713:10)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4728:37)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4731:32)
+      at TypeScriptParserMixin.jsxParseElement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4782:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4792:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:39
+      at TypeScriptParserMixin.tryParse (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6938:20)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:18)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12436:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12503:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11683:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11335:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4797:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9806:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10788:23)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12431:16)
+      at TypeScriptParserMixin.parseExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:17)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13151:28)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12807:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9532:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12776:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12756:17)
+[2m12:49:03 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:49:05 a.m.[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Vladi\Taller V Projects\sorty\apps\web\src\pages\Login.tsx: Unterminated JSX contents. (170:10)
+
+[0m [90m 168 |[31m         [33m<[31m[33m/[31m[33mform[31m[33m>[31m
+ [90m 169 |[31m       [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+[31m[1m>[22m[31m[90m 170 |[31m     [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 171 |[31m   )
+ [90m 172 |[31m }[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Vladi/Taller V Projects/sorty/apps/web/src/pages/Login.tsx[39m:170:10
+[33m  168|          </form>
+  169|        </div>
+  170|      </div>
+     |            ^
+  171|    )
+  172|  }[39m
+      at constructor (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6630:19)
+      at TypeScriptParserMixin.jsxReadToken (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4481:20)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4807:12)
+      at TypeScriptParserMixin.getTokenFromCode (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10009:11)
+      at TypeScriptParserMixin.nextToken (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5813:10)
+      at TypeScriptParserMixin.next (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5723:10)
+      at TypeScriptParserMixin.eat (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:5727:12)
+      at TypeScriptParserMixin.expect (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6929:15)
+      at TypeScriptParserMixin.jsxParseClosingElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4713:10)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4728:37)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4731:32)
+      at TypeScriptParserMixin.jsxParseElement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4782:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4792:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:39
+      at TypeScriptParserMixin.tryParse (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6938:20)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:18)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12436:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12503:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11683:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11335:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4797:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9806:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10788:23)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12431:16)
+      at TypeScriptParserMixin.parseExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:17)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13151:28)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12807:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9532:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12776:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12756:17)
+[2m12:49:20 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:49:27 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:49:47 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:49:57 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:51:14 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:51:49 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:51:58 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:52:09 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:52:36 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:52:47 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:52:58 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:53:08 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m12:55:04 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m12:55:13 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:00:11 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:00:11 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:00:27 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:00:30 a.m.[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Vladi\Taller V Projects\sorty\apps\web\src\pages\Login.tsx: Unexpected token (47:6)
+
+[0m [90m 45 |[31m
+ [90m 46 |[31m   [36mreturn[31m (
+[31m[1m>[22m[31m[90m 47 |[31m       [36mreturn[31m (
+ [90m    |[31m       [31m[1m^[22m[31m
+ [90m 48 |[31m     [33m<[31m[33mdiv[31m className[33m=[31m[32m"min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 py-12 px-4 sm:px-6 lg:px-8"[31m[33m>[31m
+ [90m 49 |[31m       [33m<[31m[33mdiv[31m className[33m=[31m[32m"max-w-md w-full bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 space-y-6"[31m[33m>[31m
+ [90m 50 |[31m         {[90m/* Contenedor principal con sombra y bordes redondeados */[31m}[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Vladi/Taller V Projects/sorty/apps/web/src/pages/Login.tsx[39m:47:6
+[33m  45 |  
+  46 |    return (
+  47 |        return (
+     |        ^
+  48 |      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 py-12 px-4 sm:px-6 lg:px-8">
+  49 |        <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 space-y-6">[39m
+      at constructor (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6630:19)
+      at TypeScriptParserMixin.unexpected (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6650:16)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11451:16)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4797:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9806:20)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12436:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12503:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11683:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11335:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4797:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9806:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10788:23)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12431:16)
+      at TypeScriptParserMixin.parseExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:17)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13151:28)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12807:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9532:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12776:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12756:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13325:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13318:10)
+      at TypeScriptParserMixin.parseBlock (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13306:10)
+      at TypeScriptParserMixin.parseFunctionBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12110:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12096:10)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9252:18)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13454:12
+      at TypeScriptParserMixin.withSmartMixTopicForbiddingContext (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12413:14)
+      at TypeScriptParserMixin.parseFunction (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13453:10)
+      at TypeScriptParserMixin.parseExportDefaultExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13916:19)
+      at TypeScriptParserMixin.parseExportDefaultExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9492:18)
+[2m1:00:38 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:00:44 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:00:52 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:00:59 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:01:05 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:01:12 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:03:43 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:03:43 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:04:40 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:04:42 a.m.[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\Vladi\Taller V Projects\sorty\apps\web\src\pages\Login.tsx: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (171:4)
+
+[0m [90m 169 |[31m         [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+ [90m 170 |[31m       [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+[31m[1m>[22m[31m[90m 171 |[31m     [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+ [90m     |[31m     [31m[1m^[22m[31m
+ [90m 172 |[31m   )
+ [90m 173 |[31m }[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/Vladi/Taller V Projects/sorty/apps/web/src/pages/Login.tsx[39m:171:4
+[33m  169|          </div>
+  170|        </div>
+  171|      </div>
+     |      ^
+  172|    )
+  173|  }[39m
+      at constructor (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6630:19)
+      at TypeScriptParserMixin.jsxParseElementAt (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4775:18)
+      at TypeScriptParserMixin.jsxParseElement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4782:17)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4792:19)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:39
+      at TypeScriptParserMixin.tryParse (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:6938:20)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9795:18)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12436:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10804:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12503:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11683:28)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11335:23)
+      at TypeScriptParserMixin.parseExprAtom (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:4797:20)
+      at TypeScriptParserMixin.parseExprSubscripts (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11085:23)
+      at TypeScriptParserMixin.parseUpdate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11070:21)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:11050:23)
+      at TypeScriptParserMixin.parseMaybeUnary (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9857:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10903:61)
+      at TypeScriptParserMixin.parseExprOps (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10908:23)
+      at TypeScriptParserMixin.parseMaybeConditional (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10885:23)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10835:21)
+      at TypeScriptParserMixin.parseMaybeAssign (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9806:20)
+      at TypeScriptParserMixin.parseExpressionBase (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10788:23)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:39
+      at TypeScriptParserMixin.allowInAnd (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12431:16)
+      at TypeScriptParserMixin.parseExpression (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:10784:17)
+      at TypeScriptParserMixin.parseReturnStatement (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13151:28)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12807:21)
+      at TypeScriptParserMixin.parseStatementContent (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9532:18)
+      at TypeScriptParserMixin.parseStatementLike (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12776:17)
+      at TypeScriptParserMixin.parseStatementListItem (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12756:17)
+      at TypeScriptParserMixin.parseBlockOrModuleBlockBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13325:61)
+      at TypeScriptParserMixin.parseBlockBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13318:10)
+      at TypeScriptParserMixin.parseBlock (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13306:10)
+      at TypeScriptParserMixin.parseFunctionBody (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12110:24)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12096:10)
+      at TypeScriptParserMixin.parseFunctionBodyAndFinish (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:9252:18)
+      at C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13454:12
+      at TypeScriptParserMixin.withSmartMixTopicForbiddingContext (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:12413:14)
+      at TypeScriptParserMixin.parseFunction (C:\Vladi\Taller V Projects\sorty\node_modules\.pnpm\@babel+parser@7.28.4\node_modules\@babel\parser\lib\index.js:13453:10)
+[2m1:04:50 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:04:57 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:05:08 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m1:05:23 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m1:05:46 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:05:46 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m1:05:46 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:06:53 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m1:07:26 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:10:02 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:10:10 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:10:25 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m1:10:33 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:10:43 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:10:52 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:10:59 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:11:13 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:11:20 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:11:26 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:11:34 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m1:12:16 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m1:12:16 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m1:12:16 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.tsx, /src/index.css[22m
+[2m1:12:16 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:05:42 a.m.[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m2:07:39 a.m.[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m2:08:58 a.m.[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m2:09:16 a.m.[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m2:16:13 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:16:50 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:17:32 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:18:31 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:18:41 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:19:06 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
+[2m2:19:26 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.tsx, /src/index.css[22m
