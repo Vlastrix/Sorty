@@ -14,23 +14,72 @@ model User {
   role      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  
+  // Relación con activos creados
+  createdAssets Asset[]
 }
 
 model Category {
-  id        String   @id @default(cuid())
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  assets    Asset[]
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relación jerárquica para subcategorías
+  parentId    String?
+  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  subcategories Category[] @relation("CategoryHierarchy")
+  
+  // Relación con activos
+  assets      Asset[]
+  
+  @@map("categories")
 }
 
 model Asset {
-  id          String    @id @default(cuid())
-  code        String    @unique
-  name        String
-  description String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  categoryId  String?
-  category    Category? @relation(fields: [categoryId], references: [id])
+  id            String      @id @default(cuid())
+  code          String      @unique // Código único del activo
+  name          String
+  description   String?
+  
+  // Información técnica
+  brand         String?     // Marca
+  model         String?     // Modelo  
+  serialNumber  String?     // Número de serie
+  
+  // Datos contables
+  acquisitionCost Decimal   // Costo de adquisición
+  purchaseDate    DateTime  // Fecha de compra
+  supplier        String?   // Proveedor
+  usefulLife      Int       // Vida útil en años
+  residualValue   Decimal   @default(0) // Valor residual
+  
+  // Ubicación física
+  building      String?     // Edificio
+  office        String?     // Oficina
+  laboratory    String?     // Laboratorio
+  location      String?     // Ubicación general
+  
+  // Estado del activo
+  status        AssetStatus @default(AVAILABLE)
+  
+  // Relaciones
+  categoryId    String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  
+  // Auditoría
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  createdById   String
+  createdBy     User        @relation(fields: [createdById], references: [id])
+  
+  @@map("assets")
+}
+
+enum AssetStatus {
+  AVAILABLE     // Disponible
+  IN_USE        // En uso
+  IN_REPAIR     // En reparación
+  DECOMMISSIONED // Dado de baja
 }

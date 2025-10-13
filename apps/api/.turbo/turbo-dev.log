@@ -1,0 +1,12 @@
+
+> @sorty/api@0.1.0 dev C:\Vladi\Taller V Projects\sorty\apps\api
+> tsx watch src/index.ts
+
+🚀 API corriendo en http://localhost:4000
+📦 Catálogo de Activos disponible en las rutas:
+   GET    /categories - Listar categorías
+   POST   /categories - Crear categoría
+   GET    /assets - Listar activos
+   POST   /assets - Crear activo
+   GET    /assets-stats - Estadísticas
+🗑️ Intentando eliminar categoría con ID: cmgizx1is000ej5e2caldoid0

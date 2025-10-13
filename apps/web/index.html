@@ -23,6 +23,24 @@
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- Script de redirección para navegadores problemáticos -->
+    <script>
+      // Solo ejecutar si estamos en la ruta raíz
+      if (window.location.pathname === '/') {
+        console.log('Pre-React redirect check for:', navigator.userAgent);
+        
+        // Verificar si hay token en localStorage
+        const token = localStorage.getItem('auth_token');
+        const targetPath = token ? '/assets' : '/login';
+        
+        console.log('Token exists:', !!token, 'Redirecting to:', targetPath);
+        
+        // Redireccionar inmediatamente
+        window.location.replace(targetPath);
+      }
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

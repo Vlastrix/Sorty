@@ -26,18 +26,27 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const checkAuth = async () => {
       const token = apiClient.getToken()
+      console.log('🔍 AuthContext: Checking authentication. Token exists:', !!token)
+      
       if (!token) {
+        console.log('❌ AuthContext: No token found')
         setLoading(false)
         return
       }
 
       try {
+        console.log('🔄 AuthContext: Verifying token with /auth/me')
         const response = await apiClient.getMe()
+        console.log('📝 AuthContext: /auth/me response:', response)
+        
         if (response.success && response.data?.user) {
+          console.log('✅ AuthContext: User authenticated:', response.data.user.email)
           setUser(response.data.user)
+        } else {
+          console.log('❌ AuthContext: Invalid response from /auth/me')
         }
       } catch (err) {
-        console.error('Auth check failed:', err)
+        console.error('❌ AuthContext: Auth check failed:', err)
         // Token is invalid, remove it
         apiClient.setToken(null)
       } finally {
@@ -49,16 +58,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   const login = async (email: string, password: string) => {
+    console.log('🔄 AuthContext: Starting login for:', email)
     setLoading(true)
     setError(null)
 
     try {
       const response = await apiClient.login(email, password)
+      console.log('📝 AuthContext: Login response:', response)
       
       if (response.success && response.data) {
         const { user, token } = response.data
+        console.log('✅ AuthContext: Login successful. Setting token and user:', user.email)
         apiClient.setToken(token)
         setUser(user)
+        console.log('🔑 AuthContext: Token saved. Current token:', apiClient.getToken()?.substring(0, 20) + '...')
         setLoading(false) // Éxito - terminar loading
       } else {
         throw new Error(response.error || 'Login failed')
