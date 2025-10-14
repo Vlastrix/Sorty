@@ -1,5 +1,5 @@
 
-> @sorty/api@0.1.0 dev C:\Vladi\Taller V Projects\sorty\apps\api
+> @sorty/api@0.1.0 dev C:\Users\user\Desktop\Sorty\apps\api
 > tsx watch src/index.ts
 
 🚀 API corriendo en http://localhost:4000
@@ -9,4 +9,72 @@
    GET    /assets - Listar activos
    POST   /assets - Crear activo
    GET    /assets-stats - Estadísticas
-🗑️ Intentando eliminar categoría con ID: cmgizx1is000ej5e2caldoid0
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmgpms6nm000p124nrrdljcl0',
+  data: {
+    name: 'Proyector Epson 3500',
+    description: 'Proyector para presentaciones corporativas',
+    brand: 'Epson',
+    model: 'PowerLite X49',
+    serialNumber: 'EPS-X49-001',
+    acquisitionCost: 680,
+    purchaseDate: 2024-04-15T00:00:00.000Z,
+    supplier: 'Epson Bolivia',
+    usefulLife: 10,
+    residualValue: 200,
+    building: 'Edificio Principal',
+    office: 'Sala de Conferencias',
+    status: 'DECOMMISSIONED',
+    categoryId: 'cmgpmrc49000casxbyy6x40s8'
+  }
+}
+✅ Activo actualizado correctamente: PRO-001
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmgpms6nm000p124nrrdljcl0',
+  data: {
+    name: 'Proyector Epson 3500',
+    description: 'Proyector para presentaciones corporativas',
+    brand: 'Epson',
+    model: 'PowerLite X49',
+    serialNumber: 'EPS-X49-001',
+    acquisitionCost: 680,
+    purchaseDate: 2024-04-15T00:00:00.000Z,
+    supplier: 'Epson Bolivia',
+    usefulLife: 10,
+    residualValue: 200,
+    building: 'Edificio Principal',
+    office: 'Sala de Conferencias',
+    status: 'AVAILABLE',
+    categoryId: 'cmgpmrc49000casxbyy6x40s8'
+  }
+}
+✅ Activo actualizado correctamente: PRO-001
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmgpms6nm000p124nrrdljcl0',
+  data: {
+    name: 'Proyector Epson 3500',
+    description: 'Proyector para presentaciones corporativas',
+    brand: 'Epson',
+    model: 'PowerLite X49',
+    serialNumber: 'EPS-X49-001',
+    acquisitionCost: 680,
+    purchaseDate: 2024-04-15T00:00:00.000Z,
+    supplier: 'Epson Bolivia',
+    usefulLife: 10,
+    residualValue: 200,
+    building: 'Edificio Principal',
+    office: 'Sala de Conferencias',
+    status: 'DECOMMISSIONED',
+    categoryId: 'cmgpmrc49000casxbyy6x40s8'
+  }
+}
+✅ Activo actualizado correctamente: PRO-001
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmgpms6nm000p124nrrdljcl0',
+  data: {
+    name: 'Proyector Epson 35000',
+    description: 'Proyector para presentaciones corporativas',
+    brand: 'Epson',
+    model: 'PowerLite X49',
+    serialNumber: 'EPS-X49-001',
+    acquisitionCost: 680,

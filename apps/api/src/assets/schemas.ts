@@ -40,7 +40,33 @@ export const createAssetSchema = z.object({
 })
 
 // Schema para actualizar activo (todos los campos opcionales excepto código)
-export const updateAssetSchema = createAssetSchema.partial().omit({ code: true })
+// Nota: Mantenemos la transformación de fecha para campos opcionales
+export const updateAssetSchema = z.object({
+  name: z.string().min(1, 'El nombre es requerido').max(200, 'El nombre es muy largo').optional(),
+  description: z.string().optional(),
+  
+  // Información técnica
+  brand: z.string().max(100, 'La marca es muy larga').optional(),
+  model: z.string().max(100, 'El modelo es muy largo').optional(),
+  serialNumber: z.string().max(100, 'El número de serie es muy largo').optional(),
+  
+  // Datos contables
+  acquisitionCost: z.number().positive('El costo debe ser positivo').optional(),
+  purchaseDate: z.string().transform((str) => new Date(str)).optional(),
+  supplier: z.string().max(200, 'El proveedor es muy largo').optional(),
+  usefulLife: z.number().int().positive('La vida útil debe ser positiva').max(100, 'La vida útil es muy alta').optional(),
+  residualValue: z.number().min(0, 'El valor residual no puede ser negativo').optional(),
+  
+  // Ubicación
+  building: z.string().max(100, 'El edificio es muy largo').optional(),
+  office: z.string().max(100, 'La oficina es muy larga').optional(),
+  laboratory: z.string().max(100, 'El laboratorio es muy largo').optional(),
+  location: z.string().max(200, 'La ubicación es muy larga').optional(),
+  
+  // Estado y categoría
+  status: AssetStatus.optional(),
+  categoryId: z.string().cuid('ID de categoría inválido').optional()
+})
 
 // Schema para actualizar categoría
 export const updateCategorySchema = createCategorySchema.partial()

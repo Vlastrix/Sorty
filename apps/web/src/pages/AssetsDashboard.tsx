@@ -27,6 +27,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [showCategoriesManager, setShowCategoriesManager] = useState(false)
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
+  const [editingAsset, setEditingAsset] = useState<Asset | null>(null)
 
   // Cargar datos iniciales (UNA SOLA VEZ)
   useEffect(() => {
@@ -168,6 +169,39 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       setError(null) // Limpiar errores previos
     } catch (err) {
       throw err // Re-lanzar para que el modal lo maneje
+    }
+  }
+
+  // Editar asset existente
+  const handleUpdateAsset = async (assetData: CreateAssetInput) => {
+    if (!editingAsset) {
+      console.error('No hay activo para editar')
+      return
+    }
+    
+    console.log('🔄 Actualizando activo:', editingAsset.id, assetData)
+    
+    try {
+      const updatedAsset = await assetApi.update(editingAsset.id, assetData)
+      console.log('✅ Activo actualizado:', updatedAsset)
+      
+      setAllAssets(prev => prev.map(asset => 
+        asset.id === editingAsset.id ? updatedAsset : asset
+      ))
+      setError(null)
+      setEditingAsset(null)
+    } catch (err) {
+      console.error('❌ Error al actualizar activo:', err)
+      throw err // Re-lanzar para que el modal lo maneje
+    }
+  }
+
+  // Manejar envío del formulario (crear o editar)
+  const handleFormSubmit = async (assetData: CreateAssetInput) => {
+    if (editingAsset) {
+      await handleUpdateAsset(assetData)
+    } else {
+      await handleCreateAsset(assetData)
     }
   }
 
@@ -381,12 +415,21 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                       <button
                         onClick={() => setSelectedAsset(asset)}
                         className="text-blue-600 hover:text-blue-900"
+                        title="Ver detalles"
                       >
                         👁️ Ver
                       </button>
                       <button
+                        onClick={() => setEditingAsset(asset)}
+                        className="text-green-600 hover:text-green-900"
+                        title="Editar activo"
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button
                         onClick={() => handleDeleteAsset(asset.id)}
                         className="text-red-600 hover:text-red-900"
+                        title="Eliminar activo"
                       >
                         🗑️ Eliminar
                       </button>
@@ -509,12 +552,16 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         </div>
       )}
 
-      {/* Modal de creación de activo */}
+      {/* Modal de creación/edición de activo */}
       <CreateAssetModal
-        isOpen={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-        onSubmit={handleCreateAsset}
+        isOpen={showCreateModal || !!editingAsset}
+        onClose={() => {
+          setShowCreateModal(false)
+          setEditingAsset(null)
+        }}
+        onSubmit={handleFormSubmit}
         categories={categories}
+        editingAsset={editingAsset}
       />
     </div>
   )

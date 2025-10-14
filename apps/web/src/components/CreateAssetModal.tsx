@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Asset, Category, AssetStatus, AssetStatusLabels, CreateAssetInput } from '../types/assets'
 
 interface CreateAssetModalProps {
@@ -6,16 +6,20 @@ interface CreateAssetModalProps {
   onClose: () => void
   onSubmit: (assetData: CreateAssetInput) => Promise<void>
   categories: Category[]
+  editingAsset?: Asset | null
 }
 
 export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  categories
+  categories,
+  editingAsset = null
 }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const isEditMode = !!editingAsset
 
   // Estados del formulario
   const [formData, setFormData] = useState<CreateAssetInput>({
@@ -38,6 +42,53 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
     status: 'AVAILABLE'
   })
 
+  // Cargar datos del activo cuando se abre en modo edición
+  useEffect(() => {
+    if (editingAsset) {
+      setFormData({
+        code: editingAsset.code,
+        name: editingAsset.name,
+        description: editingAsset.description || '',
+        categoryId: editingAsset.categoryId,
+        brand: editingAsset.brand || '',
+        model: editingAsset.model || '',
+        serialNumber: editingAsset.serialNumber || '',
+        acquisitionCost: editingAsset.acquisitionCost,
+        purchaseDate: editingAsset.purchaseDate ? new Date(editingAsset.purchaseDate).toISOString().split('T')[0] : '',
+        supplier: editingAsset.supplier || '',
+        usefulLife: editingAsset.usefulLife,
+        residualValue: editingAsset.residualValue || 0,
+        building: editingAsset.building || '',
+        office: editingAsset.office || '',
+        laboratory: editingAsset.laboratory || '',
+        location: editingAsset.location || '',
+        status: editingAsset.status
+      })
+    } else {
+      // Resetear formulario cuando no hay activo a editar
+      setFormData({
+        code: '',
+        name: '',
+        description: '',
+        categoryId: '',
+        brand: '',
+        model: '',
+        serialNumber: '',
+        acquisitionCost: 0,
+        purchaseDate: '',
+        supplier: '',
+        usefulLife: 1,
+        residualValue: 0,
+        building: '',
+        office: '',
+        laboratory: '',
+        location: '',
+        status: 'AVAILABLE'
+      })
+    }
+    setError(null)
+  }, [editingAsset, isOpen])
+
   const handleInputChange = (field: keyof CreateAssetInput, value: any) => {
     setFormData(prev => ({
       ...prev,
@@ -49,6 +100,8 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    console.log('📝 Enviando formulario:', { isEditMode, formData })
     
     // Validaciones básicas
     if (!formData.code.trim()) {
@@ -94,7 +147,14 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         location: formData.location?.trim() || undefined,
       }
       
+      // En modo edición, no enviar el código (no se puede cambiar)
+      if (isEditMode) {
+        delete (submitData as any).code
+      }
+      
+      console.log('📤 Datos a enviar:', submitData)
       await onSubmit(submitData)
+      console.log('✅ Formulario enviado exitosamente')
       
       // Resetear formulario
       setFormData({
@@ -119,7 +179,9 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
       
       onClose()
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear activo')
+      console.error('❌ Error en el formulario:', err)
+      const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
+      setError(isEditMode ? `Error al actualizar activo: ${errorMessage}` : `Error al crear activo: ${errorMessage}`)
     } finally {
       setLoading(false)
     }
@@ -133,7 +195,9 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         <form onSubmit={handleSubmit}>
           {/* Header */}
           <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
-            <h2 className="text-xl font-bold text-gray-900">➕ Nuevo Activo</h2>
+            <h2 className="text-xl font-bold text-gray-900">
+              {isEditMode ? '✏️ Editar Activo' : '➕ Nuevo Activo'}
+            </h2>
             <button
               type="button"
               onClick={onClose}
@@ -154,11 +218,13 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Código <span className="text-red-500">*</span>
+                    {isEditMode && <span className="text-xs text-gray-500 ml-2">(No editable)</span>}
                   </label>
                   <input
                     type="text"
-                    required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required={!isEditMode}
+                    disabled={isEditMode}
+                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${isEditMode ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                     placeholder="ACT-001"
                     value={formData.code}
                     onChange={(e) => handleInputChange('code', e.target.value)}
@@ -456,11 +522,11 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                  Creando...
+                  {isEditMode ? 'Guardando...' : 'Creando...'}
                 </>
               ) : (
                 <>
-                  ✅ Crear Activo
+                  {isEditMode ? '💾 Guardar Cambios' : '✅ Crear Activo'}
                 </>
               )}
             </button>
