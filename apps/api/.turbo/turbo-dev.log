@@ -10,71 +10,22 @@
    POST   /assets - Crear activo
    GET    /assets-stats - Estadísticas
 🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmgpms6nm000p124nrrdljcl0',
+  id: 'cmgrebvav000333bkai7hr6eo',
   data: {
-    name: 'Proyector Epson 3500',
-    description: 'Proyector para presentaciones corporativas',
-    brand: 'Epson',
-    model: 'PowerLite X49',
-    serialNumber: 'EPS-X49-001',
-    acquisitionCost: 680,
-    purchaseDate: 2024-04-15T00:00:00.000Z,
-    supplier: 'Epson Bolivia',
+    name: 'Laptop Lenovo iPro 7',
+    description: 'Laptop Gamer Para Tareas Pesadas y Para Desarrolladores',
+    brand: 'Lenovo',
+    model: 'iPro 7',
+    serialNumber: 'SN789456124',
+    acquisitionCost: 2000,
+    purchaseDate: 1999-06-09T00:00:00.000Z,
+    supplier: 'Lenovo',
     usefulLife: 10,
-    residualValue: 200,
-    building: 'Edificio Principal',
-    office: 'Sala de Conferencias',
-    status: 'DECOMMISSIONED',
-    categoryId: 'cmgpmrc49000casxbyy6x40s8'
-  }
-}
-✅ Activo actualizado correctamente: PRO-001
-🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmgpms6nm000p124nrrdljcl0',
-  data: {
-    name: 'Proyector Epson 3500',
-    description: 'Proyector para presentaciones corporativas',
-    brand: 'Epson',
-    model: 'PowerLite X49',
-    serialNumber: 'EPS-X49-001',
-    acquisitionCost: 680,
-    purchaseDate: 2024-04-15T00:00:00.000Z,
-    supplier: 'Epson Bolivia',
-    usefulLife: 10,
-    residualValue: 200,
-    building: 'Edificio Principal',
-    office: 'Sala de Conferencias',
+    residualValue: 500,
+    building: 'Edificio Lenovo',
+    office: 'Oficina 666',
+    laboratory: 'Lab. Sistemas',
+    location: 'Calle Los punhetes barrio la cuchilla',
     status: 'AVAILABLE',
-    categoryId: 'cmgpmrc49000casxbyy6x40s8'
+    categoryId: 'cmgpmrc470006asxbix8q7vv5'
   }
-}
-✅ Activo actualizado correctamente: PRO-001
-🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmgpms6nm000p124nrrdljcl0',
-  data: {
-    name: 'Proyector Epson 3500',
-    description: 'Proyector para presentaciones corporativas',
-    brand: 'Epson',
-    model: 'PowerLite X49',
-    serialNumber: 'EPS-X49-001',
-    acquisitionCost: 680,
-    purchaseDate: 2024-04-15T00:00:00.000Z,
-    supplier: 'Epson Bolivia',
-    usefulLife: 10,
-    residualValue: 200,
-    building: 'Edificio Principal',
-    office: 'Sala de Conferencias',
-    status: 'DECOMMISSIONED',
-    categoryId: 'cmgpmrc49000casxbyy6x40s8'
-  }
-}
-✅ Activo actualizado correctamente: PRO-001
-🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmgpms6nm000p124nrrdljcl0',
-  data: {
-    name: 'Proyector Epson 35000',
-    description: 'Proyector para presentaciones corporativas',
-    brand: 'Epson',
-    model: 'PowerLite X49',
-    serialNumber: 'EPS-X49-001',
-    acquisitionCost: 680,
