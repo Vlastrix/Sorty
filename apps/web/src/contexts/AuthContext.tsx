@@ -1,14 +1,30 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import { apiClient, type User, type AuthResponse } from '../lib/api'
+import { 
+  UserRole, 
+  hasPermission, 
+  canManageAssets, 
+  canManageUsers, 
+  canViewAllAssets,
+  type RolePermissions 
+} from '@sorty/validators'
 
 interface AuthContextType {
   user: User | null
   loading: boolean
   error: string | null
   login: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string, role?: string) => Promise<void>
+  register: (email: string, password: string, role?: UserRole) => Promise<void>
   logout: () => void
   clearError: () => void
+  // Funciones de permisos
+  hasPermission: (resource: keyof RolePermissions, action: string) => boolean
+  canManageAssets: () => boolean
+  canManageUsers: () => boolean
+  canViewAllAssets: () => boolean
+  isAdmin: () => boolean
+  isInventoryManager: () => boolean
+  isAssetResponsible: () => boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -106,7 +122,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (email: string, password: string, role: string = 'user') => {
+  const register = async (email: string, password: string, role: UserRole = UserRole.ASSET_RESPONSIBLE) => {
     setLoading(true)
     setError(null)
 
@@ -168,6 +184,39 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setError(null)
   }
 
+  // Funciones de permisos
+  const checkPermission = (resource: keyof RolePermissions, action: string): boolean => {
+    if (!user) return false
+    return hasPermission(user.role, resource, action)
+  }
+
+  const checkCanManageAssets = (): boolean => {
+    if (!user) return false
+    return canManageAssets(user.role)
+  }
+
+  const checkCanManageUsers = (): boolean => {
+    if (!user) return false
+    return canManageUsers(user.role)
+  }
+
+  const checkCanViewAllAssets = (): boolean => {
+    if (!user) return false
+    return canViewAllAssets(user.role)
+  }
+
+  const isAdmin = (): boolean => {
+    return user?.role === UserRole.ADMIN
+  }
+
+  const isInventoryManager = (): boolean => {
+    return user?.role === UserRole.INVENTORY_MANAGER
+  }
+
+  const isAssetResponsible = (): boolean => {
+    return user?.role === UserRole.ASSET_RESPONSIBLE
+  }
+
   const value: AuthContextType = {
     user,
     loading,
@@ -176,6 +225,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     register,
     logout,
     clearError,
+    hasPermission: checkPermission,
+    canManageAssets: checkCanManageAssets,
+    canManageUsers: checkCanManageUsers,
+    canViewAllAssets: checkCanViewAllAssets,
+    isAdmin,
+    isInventoryManager,
+    isAssetResponsible
   }
 
   return (

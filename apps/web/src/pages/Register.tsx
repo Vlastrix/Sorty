@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
+import { UserRole, RoleLabels } from '@sorty/validators'
 
 // Función para validar email
 const isValidEmail = (email: string): boolean => {
@@ -12,7 +13,6 @@ export default function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [role, setRole] = useState('user')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [localError, setLocalError] = useState<string | null>(null)
   const [emailError, setEmailError] = useState<string | null>(null)
@@ -57,7 +57,7 @@ export default function Register() {
     setIsSubmitting(true)
     
     try {
-      await register(email, password, role)
+      await register(email, password, UserRole.ASSET_RESPONSIBLE)
       // Navigation will happen automatically due to useEffect above
     } catch (err) {
       // Error is handled by the context
@@ -201,23 +201,6 @@ export default function Register() {
                 }}
                 disabled={isSubmitting}
               />
-            </div>
-
-            <div>
-              <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                Rol
-              </label>
-              <select
-                id="role"
-                name="role"
-                className="mt-1 block w-full px-4 py-3 pr-10 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-                disabled={isSubmitting}
-              >
-                <option value="user" className="bg-white text-gray-900">Usuario</option>
-                <option value="admin" className="bg-white text-gray-900">Administrador</option>
-              </select>
             </div>
           </div>
 

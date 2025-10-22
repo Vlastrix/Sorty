@@ -1,12 +1,21 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Asset, Category, AssetStatus, AssetStatusLabels, AssetStatusColors, CreateAssetInput } from '../types/assets'
 import { assetApi, categoryApi } from '../services/assetApi'
+import { assignmentApi } from '../services/assignmentApi'
 import { CategoriesManager } from '../components/CategoriesManager'
 import { CreateAssetModal } from '../components/CreateAssetModal'
+import AssignAssetModal from '../components/AssignAssetModal'
+import TransferAssetModal from '../components/TransferAssetModal'
+import { useAuth } from '../contexts/AuthContext'
+import { User } from '@sorty/validators'
 
 interface AssetsDashboardProps {}
 
 export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
+  // Auth y permisos
+  const { canManageAssets } = useAuth()
+  const canEdit = canManageAssets()
+
   // Estados principales
   const [allAssets, setAllAssets] = useState<Asset[]>([])
   const [categories, setCategories] = useState<Category[]>([])
@@ -28,6 +37,11 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   const [showCategoriesManager, setShowCategoriesManager] = useState(false)
   const [selectedAsset, setSelectedAsset] = useState<Asset | null>(null)
   const [editingAsset, setEditingAsset] = useState<Asset | null>(null)
+  const [showAssignModal, setShowAssignModal] = useState(false)
+  const [showTransferModal, setShowTransferModal] = useState(false)
+  const [assetToAssign, setAssetToAssign] = useState<Asset | null>(null)
+  const [users, setUsers] = useState<User[]>([])
+  const [loadingUsers, setLoadingUsers] = useState(false)
 
   // Cargar datos iniciales (UNA SOLA VEZ)
   useEffect(() => {
@@ -217,6 +231,98 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
     }
   }
 
+  // Cargar usuarios para asignación
+  const loadUsers = async () => {
+    try {
+      setLoadingUsers(true)
+      const response = await fetch('http://localhost:4000/users', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+        }
+      })
+      const data = await response.json()
+      setUsers(data.data.filter((u: User) => u.isActive))
+    } catch (err) {
+      console.error('Error loading users:', err)
+    } finally {
+      setLoadingUsers(false)
+    }
+  }
+
+  // Abrir modal de asignación
+  const handleOpenAssignModal = async (asset: Asset) => {
+    setAssetToAssign(asset)
+    await loadUsers()
+    setShowAssignModal(true)
+  }
+
+  // Abrir modal de transferencia
+  const handleOpenTransferModal = async (asset: Asset) => {
+    setAssetToAssign(asset)
+    await loadUsers()
+    setShowTransferModal(true)
+  }
+
+  // Asignar activo
+  const handleAssignAsset = async (data: {
+    assignedToId: string
+    location?: string
+    reason?: string
+    notes?: string
+  }) => {
+    if (!assetToAssign) return
+
+    try {
+      await assignmentApi.assignAsset({
+        assetId: assetToAssign.id,
+        ...data
+      })
+      
+      // Recargar activos
+      await loadInitialData()
+      alert('Activo asignado correctamente')
+    } catch (err: any) {
+      alert(err.response?.data?.error || 'Error al asignar activo')
+    }
+  }
+
+  // Transferir activo
+  const handleTransferAsset = async (data: {
+    newAssignedToId: string
+    location?: string
+    reason?: string
+    notes?: string
+  }) => {
+    if (!assetToAssign) return
+
+    try {
+      await assignmentApi.transferAsset(assetToAssign.id, data)
+      
+      // Recargar activos
+      await loadInitialData()
+      alert('Activo transferido correctamente')
+    } catch (err: any) {
+      alert(err.response?.data?.error || 'Error al transferir activo')
+    }
+  }
+
+  // Devolver activo
+  const handleReturnAsset = async (assetId: string) => {
+    if (confirm('¿Confirmar devolución de este activo?')) {
+      try {
+        await assignmentApi.returnAsset(assetId, {
+          notes: 'Devolución desde dashboard'
+        })
+        
+        // Recargar activos
+        await loadInitialData()
+        alert('Activo devuelto correctamente')
+      } catch (err: any) {
+        alert(err.response?.data?.error || 'Error al devolver activo')
+      }
+    }
+  }
+
   // Recargar categorías después de gestionar
   const handleCategoriesChange = async () => {
     try {
@@ -246,20 +352,22 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
             {searchTerm && <span className="text-blue-600"> • Buscando: "{searchTerm}"</span>}
           </p>
         </div>
-        <div className="flex gap-3">
-          <button
-            onClick={() => setShowCategoriesManager(true)}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            🏷️ Gestionar Categorías
-          </button>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            ➕ Nuevo Activo
-          </button>
-        </div>
+        {canEdit && (
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowCategoriesManager(true)}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              🏷️ Gestionar Categorías
+            </button>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+            >
+              ➕ Nuevo Activo
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Filtros de búsqueda - TIEMPO REAL */}
@@ -411,7 +519,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                     {asset.office && <div className="text-xs text-gray-500">{asset.office}</div>}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 flex-wrap">
                       <button
                         onClick={() => setSelectedAsset(asset)}
                         className="text-blue-600 hover:text-blue-900"
@@ -419,20 +527,52 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                       >
                         👁️ Ver
                       </button>
-                      <button
-                        onClick={() => setEditingAsset(asset)}
-                        className="text-green-600 hover:text-green-900"
-                        title="Editar activo"
-                      >
-                        ✏️ Editar
-                      </button>
-                      <button
-                        onClick={() => handleDeleteAsset(asset.id)}
-                        className="text-red-600 hover:text-red-900"
-                        title="Eliminar activo"
-                      >
-                        🗑️ Eliminar
-                      </button>
+                      {canEdit && (
+                        <>
+                          <button
+                            onClick={() => setEditingAsset(asset)}
+                            className="text-green-600 hover:text-green-900"
+                            title="Editar activo"
+                          >
+                            ✏️ Editar
+                          </button>
+                          <button
+                            onClick={() => handleDeleteAsset(asset.id)}
+                            className="text-red-600 hover:text-red-900"
+                            title="Eliminar activo"
+                          >
+                            🗑️ Eliminar
+                          </button>
+                          
+                          {/* Botones de asignación */}
+                          {!asset.assignedToId ? (
+                            <button
+                              onClick={() => handleOpenAssignModal(asset)}
+                              className="text-purple-600 hover:text-purple-900"
+                              title="Asignar activo"
+                            >
+                              📌 Asignar
+                            </button>
+                          ) : (
+                            <>
+                              <button
+                                onClick={() => handleOpenTransferModal(asset)}
+                                className="text-orange-600 hover:text-orange-900"
+                                title="Transferir activo"
+                              >
+                                🔄 Transferir
+                              </button>
+                              <button
+                                onClick={() => handleReturnAsset(asset.id)}
+                                className="text-gray-600 hover:text-gray-900"
+                                title="Devolver activo"
+                              >
+                                ↩️ Devolver
+                              </button>
+                            </>
+                          )}
+                        </>
+                      )}
                     </div>
                   </td>
                 </tr>
@@ -562,6 +702,35 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         onSubmit={handleFormSubmit}
         categories={categories}
         editingAsset={editingAsset}
+      />
+
+      {/* Modal de asignación de activo */}
+      <AssignAssetModal
+        isOpen={showAssignModal}
+        onClose={() => {
+          setShowAssignModal(false)
+          setAssetToAssign(null)
+        }}
+        onSubmit={handleAssignAsset}
+        assetCode={assetToAssign?.code || ''}
+        assetName={assetToAssign?.name || ''}
+        users={users}
+        isLoading={loadingUsers}
+      />
+
+      {/* Modal de transferencia de activo */}
+      <TransferAssetModal
+        isOpen={showTransferModal}
+        onClose={() => {
+          setShowTransferModal(false)
+          setAssetToAssign(null)
+        }}
+        onSubmit={handleTransferAsset}
+        assetCode={assetToAssign?.code || ''}
+        assetName={assetToAssign?.name || ''}
+        currentAssignee={assetToAssign?.assignedToId ? 'Usuario asignado' : undefined}
+        users={users}
+        isLoading={loadingUsers}
       />
     </div>
   )

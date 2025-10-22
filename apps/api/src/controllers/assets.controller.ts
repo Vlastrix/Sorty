@@ -1,5 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { AssetService } from '../assets/assetService.js'
+import { UserRole } from '@prisma/client'
 import { 
   createAssetSchema, 
   updateAssetSchema, 
@@ -11,7 +12,10 @@ export class AssetsController {
   static async getAll(request: FastifyRequest, reply: FastifyReply) {
     try {
       const filters = assetFiltersSchema.parse(request.query)
-      const result = await AssetService.getAssets(filters)
+      const userId = (request as any).user.userId
+      const userRole = (request as any).user.role as UserRole
+      
+      const result = await AssetService.getAssets(filters, userId, userRole)
       return reply.send({ success: true, data: result })
     } catch (error: any) {
       return reply.status(500).send({ success: false, error: error.message })
@@ -21,10 +25,14 @@ export class AssetsController {
   static async getById(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { id } = request.params as { id: string }
-      const asset = await AssetService.getAssetById(id)
+      const userId = (request as any).user.userId
+      const userRole = (request as any).user.role as UserRole
+      
+      const asset = await AssetService.getAssetById(id, userId, userRole)
       return reply.send({ success: true, data: asset })
     } catch (error: any) {
-      return reply.status(404).send({ success: false, error: error.message })
+      const status = error.message.includes('permiso') ? 403 : 404
+      return reply.status(status).send({ success: false, error: error.message })
     }
   }
 
@@ -97,6 +105,48 @@ export class AssetsController {
       return reply.send({ success: true, data: stats })
     } catch (error: any) {
       return reply.status(500).send({ success: false, error: error.message })
+    }
+  }
+
+  // Asignar activo a un responsable
+  static async assignAsset(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string }
+      const { userId } = request.body as { userId: string }
+      
+      if (!userId) {
+        return reply.status(400).send({ 
+          success: false, 
+          error: 'El ID del usuario es requerido' 
+        })
+      }
+
+      const asset = await AssetService.assignAsset(id, userId)
+      
+      return reply.send({ 
+        success: true, 
+        message: 'Activo asignado correctamente',
+        data: asset 
+      })
+    } catch (error: any) {
+      return reply.status(400).send({ success: false, error: error.message })
+    }
+  }
+
+  // Desasignar activo
+  static async unassignAsset(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string }
+      
+      const asset = await AssetService.unassignAsset(id)
+      
+      return reply.send({ 
+        success: true, 
+        message: 'Activo desasignado correctamente',
+        data: asset 
+      })
+    } catch (error: any) {
+      return reply.status(400).send({ success: false, error: error.message })
     }
   }
 }

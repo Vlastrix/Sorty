@@ -1,31 +1,14 @@
 
-> @sorty/api@0.1.0 dev C:\Users\user\Desktop\Sorty\apps\api
+> @sorty/api@0.1.0 dev C:\Users\herma\Desktop\Sorty\apps\api
 > tsx watch src/index.ts
 
 🚀 API corriendo en http://localhost:4000
-📦 Catálogo de Activos disponible en las rutas:
-   GET    /categories - Listar categorías
-   POST   /categories - Crear categoría
-   GET    /assets - Listar activos
-   POST   /assets - Crear activo
-   GET    /assets-stats - Estadísticas
-🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmgrebvav000333bkai7hr6eo',
-  data: {
-    name: 'Laptop Lenovo iPro 7',
-    description: 'Laptop Gamer Para Tareas Pesadas y Para Desarrolladores',
-    brand: 'Lenovo',
-    model: 'iPro 7',
-    serialNumber: 'SN789456124',
-    acquisitionCost: 2000,
-    purchaseDate: 1999-06-09T00:00:00.000Z,
-    supplier: 'Lenovo',
-    usefulLife: 10,
-    residualValue: 500,
-    building: 'Edificio Lenovo',
-    office: 'Oficina 666',
-    laboratory: 'Lab. Sistemas',
-    location: 'Calle Los punhetes barrio la cuchilla',
-    status: 'AVAILABLE',
-    categoryId: 'cmgpmrc470006asxbix8q7vv5'
-  }
+📦 Sistema de Gestión de Activos:
+   Auth: /auth/login, /auth/register
+   Usuarios: /users (CRUD, roles)
+   Categorías: /categories
+   Activos: /assets
+   Asignaciones: /assignments (historial y control)
+6:39:00 PM [tsx] change in ./src\controllers\assignments.controller.ts Restarting...
+c🚀 API corriendo en http://localhost:4000
+📦 Sistema de Gestión de Activos:

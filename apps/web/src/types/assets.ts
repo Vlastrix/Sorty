@@ -49,6 +49,11 @@ export interface Asset {
   categoryId: string
   category: Category
   
+  // Asignación
+  assignedToId?: string | null
+  assignedAt?: string | null
+  currentLocation?: string | null
+  
   // Auditoría
   createdAt: string
   updatedAt: string

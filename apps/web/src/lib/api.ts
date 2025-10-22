@@ -1,4 +1,6 @@
 // API client configuration
+import type { User as ValidatorUser, UserRole, LoginResponse } from '@sorty/validators'
+
 const API_BASE_URL = (import.meta.env?.VITE_API_URL as string) || 'http://localhost:4000'
 
 export interface ApiResponse<T = any> {
@@ -8,12 +10,8 @@ export interface ApiResponse<T = any> {
   error?: string
 }
 
-export interface User {
-  id: string
-  email: string
-  role: string
-  createdAt: string
-}
+// Export User type from validators
+export type User = ValidatorUser
 
 export interface AuthResponse {
   user: User

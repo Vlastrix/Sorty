@@ -1,5 +1,5 @@
 import argon2 from 'argon2'
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, UserRole } from '@prisma/client'
 import { generateToken, type JWTPayload } from './jwt.js'
 import type { RegisterInput, LoginInput } from './schemas.js'
 
@@ -22,8 +22,9 @@ export async function registerUser(data: RegisterInput) {
   const user = await prisma.user.create({
     data: {
       email: data.email,
+      name: data.name,
       password: hashedPassword,
-      role: data.role || 'user'
+      role: data.role || UserRole.ASSET_RESPONSIBLE
     }
   })
 
@@ -40,6 +41,7 @@ export async function registerUser(data: RegisterInput) {
     user: {
       id: user.id,
       email: user.email,
+      name: user.name,
       role: user.role,
       createdAt: user.createdAt
     },
@@ -55,6 +57,11 @@ export async function loginUser(data: LoginInput) {
 
   if (!user) {
     throw new Error('Credenciales inválidas')
+  }
+
+  // Verificar si el usuario está activo
+  if (!user.isActive) {
+    throw new Error('Usuario inactivo. Contacte al administrador')
   }
 
   // Verificar contraseña
@@ -77,6 +84,7 @@ export async function loginUser(data: LoginInput) {
     user: {
       id: user.id,
       email: user.email,
+      name: user.name,
       role: user.role,
       createdAt: user.createdAt
     },
