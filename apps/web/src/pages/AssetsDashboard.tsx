@@ -6,6 +6,7 @@ import { CategoriesManager } from '../components/CategoriesManager'
 import { CreateAssetModal } from '../components/CreateAssetModal'
 import AssignAssetModal from '../components/AssignAssetModal'
 import TransferAssetModal from '../components/TransferAssetModal'
+import DecommissionAssetModal from '../components/DecommissionAssetModal'
 import { useAuth } from '../contexts/AuthContext'
 import { User } from '@sorty/validators'
 
@@ -39,7 +40,9 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   const [editingAsset, setEditingAsset] = useState<Asset | null>(null)
   const [showAssignModal, setShowAssignModal] = useState(false)
   const [showTransferModal, setShowTransferModal] = useState(false)
+  const [showDecommissionModal, setShowDecommissionModal] = useState(false)
   const [assetToAssign, setAssetToAssign] = useState<Asset | null>(null)
+  const [assetToDecommission, setAssetToDecommission] = useState<Asset | null>(null)
   const [users, setUsers] = useState<User[]>([])
   const [loadingUsers, setLoadingUsers] = useState(false)
 
@@ -159,6 +162,12 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   // Cambiar estado de asset (actualización local inmediata)
   const handleAssetStatusChange = async (assetId: string, newStatus: AssetStatus) => {
     try {
+      // Si intenta dar de baja, mostrar error - debe usar el modal específico
+      if (newStatus === 'DECOMMISSIONED') {
+        setError('Para dar de baja un activo debe usar el botón "Dar de Baja" que requiere motivo y documento de respaldo')
+        return
+      }
+      
       // Actualizar optimistamente en la UI
       setAllAssets(prev => prev.map(asset => 
         asset.id === assetId ? { ...asset, status: newStatus } : asset
@@ -323,6 +332,34 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
     }
   }
 
+  // Dar de baja activo (requiere motivo y documento)
+  const handleDecommissionAsset = async (data: {
+    reason: string
+    documentReference: string
+    notes?: string
+  }) => {
+    if (!assetToDecommission) return
+
+    try {
+      await assetApi.decommission(assetToDecommission.id, data)
+      
+      // Actualizar activo en la lista local
+      setAllAssets(prev => prev.map(asset => 
+        asset.id === assetToDecommission.id 
+          ? { ...asset, status: 'DECOMMISSIONED' as AssetStatus, assignedToId: null, assignedTo: null }
+          : asset
+      ))
+      
+      // Cerrar modal
+      setShowDecommissionModal(false)
+      setAssetToDecommission(null)
+      
+      alert('Activo dado de baja correctamente')
+    } catch (err: any) {
+      throw new Error(err.message || 'Error al dar de baja el activo')
+    }
+  }
+
   // Recargar categorías después de gestionar
   const handleCategoriesChange = async () => {
     try {
@@ -477,6 +514,9 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                   Ubicación
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Responsable
+                </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Acciones
                 </th>
               </tr>
@@ -502,24 +542,29 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4">
-                    <select
-                      value={asset.status}
-                      onChange={(e) => handleAssetStatusChange(asset.id, e.target.value as AssetStatus)}
-                      className={`text-xs px-2 py-1 rounded-full border-0 ${AssetStatusColors[asset.status]} cursor-pointer`}
+                    <span
+                      className={`inline-block text-xs px-3 py-1 rounded-full font-medium ${AssetStatusColors[asset.status]}`}
                     >
-                      {Object.entries(AssetStatusLabels).map(([status, label]) => (
-                        <option key={status} value={status}>
-                          {label}
-                        </option>
-                      ))}
-                    </select>
+                      {AssetStatusLabels[asset.status]}
+                    </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900">
                     {asset.building || 'Sin especificar'}
                     {asset.office && <div className="text-xs text-gray-500">{asset.office}</div>}
                   </td>
+                  <td className="px-6 py-4 text-sm text-gray-900">
+                    {asset.assignedTo ? (
+                      <div>
+                        <div className="font-medium">{asset.assignedTo.name}</div>
+                        <div className="text-xs text-gray-500">{asset.assignedTo.email}</div>
+                      </div>
+                    ) : (
+                      <span className="text-gray-400 italic">Sin asignar</span>
+                    )}
+                  </td>
                   <td className="px-6 py-4 text-sm font-medium">
                     <div className="flex gap-2 flex-wrap">
+                      {/* Botón Ver - Siempre visible */}
                       <button
                         onClick={() => setSelectedAsset(asset)}
                         className="text-blue-600 hover:text-blue-900"
@@ -527,49 +572,93 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                       >
                         👁️ Ver
                       </button>
+                      
                       {canEdit && (
                         <>
-                          <button
-                            onClick={() => setEditingAsset(asset)}
-                            className="text-green-600 hover:text-green-900"
-                            title="Editar activo"
-                          >
-                            ✏️ Editar
-                          </button>
-                          <button
-                            onClick={() => handleDeleteAsset(asset.id)}
-                            className="text-red-600 hover:text-red-900"
-                            title="Eliminar activo"
-                          >
-                            🗑️ Eliminar
-                          </button>
-                          
-                          {/* Botones de asignación */}
-                          {!asset.assignedToId ? (
+                          {/* Botón Editar - Solo si NO está dado de baja */}
+                          {asset.status !== 'DECOMMISSIONED' && (
                             <button
-                              onClick={() => handleOpenAssignModal(asset)}
-                              className="text-purple-600 hover:text-purple-900"
-                              title="Asignar activo"
+                              onClick={() => setEditingAsset(asset)}
+                              className="text-green-600 hover:text-green-900"
+                              title="Editar activo"
                             >
-                              📌 Asignar
+                              ✏️ Editar
                             </button>
-                          ) : (
+                          )}
+                          
+                          {/* Botón Dar de Baja - Solo si NO está dado de baja y NO está en reparación */}
+                          {asset.status !== 'DECOMMISSIONED' && asset.status !== 'IN_REPAIR' && (
+                            <button
+                              onClick={() => {
+                                setAssetToDecommission(asset)
+                                setShowDecommissionModal(true)
+                              }}
+                              className="text-red-700 hover:text-red-900 font-semibold"
+                              title="Dar de baja activo (requiere motivo y documento)"
+                            >
+                              ⛔ Dar de Baja
+                            </button>
+                          )}
+                          
+                          {/* Botón Eliminar - Solo si está dado de baja */}
+                          {asset.status === 'DECOMMISSIONED' && (
+                            <button
+                              onClick={() => handleDeleteAsset(asset.id)}
+                              className="text-red-600 hover:text-red-900"
+                              title="Eliminar activo permanentemente"
+                            >
+                              🗑️ Eliminar
+                            </button>
+                          )}
+                          
+                          {/* Botones de asignación - Solo si NO está dado de baja ni en reparación */}
+                          {asset.status !== 'DECOMMISSIONED' && asset.status !== 'IN_REPAIR' && (
                             <>
-                              <button
-                                onClick={() => handleOpenTransferModal(asset)}
-                                className="text-orange-600 hover:text-orange-900"
-                                title="Transferir activo"
-                              >
-                                🔄 Transferir
-                              </button>
-                              <button
-                                onClick={() => handleReturnAsset(asset.id)}
-                                className="text-gray-600 hover:text-gray-900"
-                                title="Devolver activo"
-                              >
-                                ↩️ Devolver
-                              </button>
+                              {!asset.assignedToId ? (
+                                // Botón Asignar - Solo si está AVAILABLE y sin responsable
+                                asset.status === 'AVAILABLE' && (
+                                  <button
+                                    onClick={() => handleOpenAssignModal(asset)}
+                                    className="text-purple-600 hover:text-purple-900"
+                                    title="Asignar activo a un responsable"
+                                  >
+                                    📌 Asignar
+                                  </button>
+                                )
+                              ) : (
+                                // Botones de Transferir y Devolver - Solo si está asignado
+                                <>
+                                  <button
+                                    onClick={() => handleOpenTransferModal(asset)}
+                                    className="text-orange-600 hover:text-orange-900"
+                                    title="Transferir activo a otro responsable"
+                                  >
+                                    🔄 Transferir
+                                  </button>
+                                  <button
+                                    onClick={() => handleReturnAsset(asset.id)}
+                                    className="text-gray-600 hover:text-gray-900"
+                                    title="Devolver activo (cambiar a disponible)"
+                                  >
+                                    ↩️ Devolver
+                                  </button>
+                                </>
+                              )}
                             </>
+                          )}
+                          
+                          {/* Mensaje informativo si está dado de baja */}
+                          {asset.status === 'DECOMMISSIONED' && (
+                            <span className="text-xs text-gray-500 italic">
+                              (Dado de baja)
+                            </span>
+                          )}
+                          
+                          {/* Mensaje informativo si está en reparación */}
+                          {asset.status === 'IN_REPAIR' && (
+                            <span className="text-xs text-orange-600 italic">
+                              (En reparación)
+                            </span>
                           )}
                         </>
                       )}
@@ -731,6 +820,18 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         currentAssignee={assetToAssign?.assignedToId ? 'Usuario asignado' : undefined}
         users={users}
         isLoading={loadingUsers}
+      />
+
+      {/* Modal para dar de baja activo */}
+      <DecommissionAssetModal
+        isOpen={showDecommissionModal}
+        onClose={() => {
+          setShowDecommissionModal(false)
+          setAssetToDecommission(null)
+        }}
+        onSubmit={handleDecommissionAsset}
+        assetCode={assetToDecommission?.code || ''}
+        assetName={assetToDecommission?.name || ''}
       />
     </div>
   )

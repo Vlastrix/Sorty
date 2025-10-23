@@ -14,6 +14,7 @@ import AssignmentHistory from './pages/AssignmentHistory'
 import MovementsPage from './pages/MovementsPage'
 import MaintenancePage from './pages/MaintenancePage'
 import IncidentsPage from './pages/IncidentsPage'
+import Reports from './pages/Reports'
 
 function AppContent() {
   // Fallback adicional para navegadores problemáticos
@@ -133,6 +134,18 @@ function AppContent() {
           <ProtectedRoute requireAuth={true}>
             <Layout>
               <IncidentsPage />
+            </Layout>
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Reports (admin and inventory managers) */}
+      <Route 
+        path="/reports" 
+        element={
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
+            <Layout>
+              <Reports />
             </Layout>
           </ProtectedRoute>
         } 

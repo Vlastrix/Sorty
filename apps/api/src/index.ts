@@ -8,6 +8,7 @@ import { assignmentRoutes } from './routes/assignments.routes.js'
 import { movementRoutes } from './routes/movements.routes.js'
 import { maintenanceRoutes } from './routes/maintenance.routes.js'
 import { incidentRoutes } from './routes/incidents.routes.js'
+import { reportsRoutes } from './routes/reports.routes.js'
 
 const app = Fastify({
   logger: false // Deshabilitamos el logger automático
@@ -30,6 +31,7 @@ await app.register(assignmentRoutes, { prefix: '/assignments' })
 await app.register(movementRoutes, { prefix: '/movements' })
 await app.register(maintenanceRoutes, { prefix: '/maintenance' })
 await app.register(incidentRoutes, { prefix: '/incidents' })
+await app.register(reportsRoutes, { prefix: '/reports' })
 
 const port = Number(process.env.PORT || 4000)
 app.listen({ port, host: '0.0.0.0' }).then(() => {
@@ -43,4 +45,5 @@ app.listen({ port, host: '0.0.0.0' }).then(() => {
   console.log(`   Movimientos: /movements (entradas/salidas)`)
   console.log(`   Mantenimientos: /maintenance (preventivo/correctivo)`)
   console.log(`   Incidencias: /incidents (daños, pérdidas, robos)`)
+  console.log(`   Reportes: /reports (consultas y análisis)`)
 })

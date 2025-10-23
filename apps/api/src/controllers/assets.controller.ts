@@ -5,7 +5,8 @@ import {
   createAssetSchema, 
   updateAssetSchema, 
   assetFiltersSchema,
-  changeStatusSchema 
+  changeStatusSchema,
+  decommissionAssetSchema
 } from '../assets/schemas.js'
 
 export class AssetsController {
@@ -105,6 +106,31 @@ export class AssetsController {
       return reply.send({ success: true, data: stats })
     } catch (error: any) {
       return reply.status(500).send({ success: false, error: error.message })
+    }
+  }
+
+  // Dar de baja un activo (requiere motivo y documento)
+  static async decommission(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string }
+      const validatedData = decommissionAssetSchema.parse(request.body)
+      const userId = (request as any).user.userId
+      
+      const result = await AssetService.decommissionAsset(
+        id,
+        validatedData.reason,
+        validatedData.documentReference,
+        validatedData.notes,
+        userId
+      )
+      
+      return reply.send({ 
+        success: true, 
+        message: result.message,
+        data: result.asset 
+      })
+    } catch (error: any) {
+      return reply.status(400).send({ success: false, error: error.message })
     }
   }
 

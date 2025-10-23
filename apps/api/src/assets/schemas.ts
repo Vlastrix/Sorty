@@ -28,9 +28,9 @@ export const createAssetSchema = z.object({
   usefulLife: z.number().int().positive('La vida útil debe ser positiva').max(100, 'La vida útil es muy alta'),
   residualValue: z.number().min(0, 'El valor residual no puede ser negativo').default(0),
   
-  // Ubicación
-  building: z.string().max(100, 'El edificio es muy largo').optional(),
-  office: z.string().max(100, 'La oficina es muy larga').optional(),
+  // Ubicación (obligatorios)
+  building: z.string().min(1, 'El edificio es requerido').max(100, 'El edificio es muy largo'),
+  office: z.string().min(1, 'La oficina es requerida').max(100, 'La oficina es muy larga'),
   laboratory: z.string().max(100, 'El laboratorio es muy largo').optional(),
   location: z.string().max(200, 'La ubicación es muy larga').optional(),
   
@@ -88,6 +88,13 @@ export const changeStatusSchema = z.object({
   status: AssetStatus
 })
 
+// Schema para dar de baja un activo (requiere motivo y documento)
+export const decommissionAssetSchema = z.object({
+  reason: z.string().min(10, 'El motivo debe tener al menos 10 caracteres').max(500, 'El motivo es muy largo'),
+  documentReference: z.string().min(1, 'El documento de respaldo es requerido').max(100, 'La referencia del documento es muy larga'),
+  notes: z.string().max(1000, 'Las notas son muy largas').optional()
+})
+
 // Tipos TypeScript
 export type CreateCategoryInput = z.infer<typeof createCategorySchema>
 export type CreateAssetInput = z.infer<typeof createAssetSchema>
@@ -96,3 +103,4 @@ export type UpdateCategoryInput = z.infer<typeof updateCategorySchema>
 export type AssetFilters = z.infer<typeof assetFiltersSchema>
 export type AssetStatusType = z.infer<typeof AssetStatus>
 export type ChangeStatusInput = z.infer<typeof changeStatusSchema>
+export type DecommissionAssetInput = z.infer<typeof decommissionAssetSchema>

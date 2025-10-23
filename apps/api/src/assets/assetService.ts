@@ -6,6 +6,21 @@ export class AssetService {
   // Crear activo
   static async createAsset(data: any, createdById: string) {
     try {
+      // VALIDACIÓN 1: Verificar que el código sea único
+      const existingAsset = await prisma.asset.findUnique({
+        where: { code: data.code }
+      })
+
+      if (existingAsset) {
+        throw new Error(`Ya existe un activo con el código "${data.code}"`)
+      }
+
+      // VALIDACIÓN 2: Verificar que tenga ubicación (building y office son requeridos en el schema)
+      // Ya validado por Zod, pero agregamos verificación adicional
+      if (!data.building || !data.office) {
+        throw new Error('El activo debe tener una ubicación válida (edificio y oficina)')
+      }
+
       const asset = await prisma.asset.create({
         data: {
           ...data,
@@ -214,6 +229,26 @@ export class AssetService {
   // Cambiar estado del activo
   static async changeAssetStatus(id: string, status: string) {
     try {
+      // VALIDACIÓN 3: No permitir cambiar a DECOMMISSIONED directamente
+      // Debe usar el método decommissionAsset
+      if (status === 'DECOMMISSIONED') {
+        throw new Error('Para dar de baja un activo, debe usar el endpoint específico con motivo y documento de respaldo')
+      }
+
+      // Obtener el activo actual para validaciones
+      const currentAsset = await prisma.asset.findUnique({
+        where: { id }
+      })
+
+      if (!currentAsset) {
+        throw new Error('Activo no encontrado')
+      }
+
+      // VALIDACIÓN 4: Si va a estar EN USO, debe tener responsable asignado
+      if (status === 'IN_USE' && !(currentAsset as any).assignedToId) {
+        throw new Error('No se puede cambiar el estado a "En uso" sin asignar un responsable. Por favor, asigne el activo a un usuario primero.')
+      }
+
       const asset = await prisma.asset.update({
         where: { id },
         data: { status: status as any },
@@ -223,6 +258,69 @@ export class AssetService {
       })
 
       return asset
+    } catch (error: any) {
+      if (error.code === 'P2025') {
+        throw new Error('Activo no encontrado')
+      }
+      throw error
+    }
+  }
+
+  // Dar de baja un activo (requiere motivo y documento)
+  static async decommissionAsset(
+    id: string, 
+    reason: string, 
+    documentReference: string, 
+    notes: string | undefined,
+    userId: string
+  ) {
+    try {
+      // Verificar que el activo existe
+      const asset = await prisma.asset.findUnique({
+        where: { id },
+        include: { category: true }
+      })
+
+      if (!asset) {
+        throw new Error('Activo no encontrado')
+      }
+
+      // Verificar que no esté ya dado de baja
+      if (asset.status === 'DECOMMISSIONED') {
+        throw new Error('El activo ya está dado de baja')
+      }
+
+      // Crear movimiento de BAJA con el motivo y documento
+      await prisma.assetMovement.create({
+        data: {
+          assetId: id,
+          type: 'SALIDA',
+          movementType: 'BAJA',
+          description: reason,
+          quantity: 1,
+          userId: userId,
+          date: new Date(),
+          notes: `Documento de respaldo: ${documentReference}${notes ? `\n\nNotas adicionales: ${notes}` : ''}`
+        }
+      })
+
+      // Cambiar estado a DECOMMISSIONED
+      const updatedAsset = await prisma.asset.update({
+        where: { id },
+        data: { 
+          status: 'DECOMMISSIONED',
+          assignedToId: null, // Desasignar al dar de baja
+          assignedAt: null
+        },
+        include: {
+          category: true
+        }
+      })
+
+      return {
+        asset: updatedAsset,
+        message: 'Activo dado de baja correctamente'
+      }
     } catch (error: any) {
       if (error.code === 'P2025') {
         throw new Error('Activo no encontrado')

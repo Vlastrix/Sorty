@@ -97,6 +97,20 @@ export function canViewAllAssets(role: UserRole): boolean {
 
 // ==================== Enums de Estado ====================
 
+export enum AssetStatus {
+  AVAILABLE = 'AVAILABLE',
+  IN_USE = 'IN_USE',
+  IN_REPAIR = 'IN_REPAIR',
+  DECOMMISSIONED = 'DECOMMISSIONED'
+}
+
+export const AssetStatusLabels: Record<AssetStatus, string> = {
+  [AssetStatus.AVAILABLE]: 'Disponible',
+  [AssetStatus.IN_USE]: 'En uso',
+  [AssetStatus.IN_REPAIR]: 'En reparación',
+  [AssetStatus.DECOMMISSIONED]: 'Dado de baja'
+}
+
 export enum AssignmentStatus {
   ACTIVE = 'ACTIVE',
   RETURNED = 'RETURNED',
@@ -351,4 +365,126 @@ export interface Incident {
     email: string
     name?: string
   }
+}
+
+// ==================== Reportes ====================
+
+export enum ReportType {
+  BY_CATEGORY = 'BY_CATEGORY',
+  BY_LOCATION = 'BY_LOCATION',
+  BY_STATUS = 'BY_STATUS',
+  BY_RESPONSIBLE = 'BY_RESPONSIBLE',
+  USEFUL_LIFE_EXPIRING = 'USEFUL_LIFE_EXPIRING',
+  MAINTENANCE_PENDING = 'MAINTENANCE_PENDING',
+  IN_REPAIR = 'IN_REPAIR'
+}
+
+export const ReportTypeLabels: Record<ReportType, string> = {
+  [ReportType.BY_CATEGORY]: 'Por Categoría',
+  [ReportType.BY_LOCATION]: 'Por Ubicación',
+  [ReportType.BY_STATUS]: 'Por Estado',
+  [ReportType.BY_RESPONSIBLE]: 'Por Responsable',
+  [ReportType.USEFUL_LIFE_EXPIRING]: 'Vida Útil Próxima a Vencer',
+  [ReportType.MAINTENANCE_PENDING]: 'Mantenimiento Pendiente',
+  [ReportType.IN_REPAIR]: 'En Reparación'
+}
+
+export const ReportTypeDescriptions: Record<ReportType, string> = {
+  [ReportType.BY_CATEGORY]: 'Listado de activos agrupados por categoría',
+  [ReportType.BY_LOCATION]: 'Listado de activos según su ubicación física',
+  [ReportType.BY_STATUS]: 'Listado de activos por estado (Disponible, En uso, etc.)',
+  [ReportType.BY_RESPONSIBLE]: 'Activos asignados a cada responsable',
+  [ReportType.USEFUL_LIFE_EXPIRING]: 'Activos próximos a completar su vida útil',
+  [ReportType.MAINTENANCE_PENDING]: 'Activos con mantenimientos programados o pendientes',
+  [ReportType.IN_REPAIR]: 'Activos actualmente en reparación'
+}
+
+// Schemas de validación para reportes
+export const ReportFiltersSchema = z.object({
+  reportType: z.nativeEnum(ReportType),
+  categoryId: z.string().optional(),
+  location: z.string().optional(),
+  status: z.enum(['AVAILABLE', 'IN_USE', 'IN_REPAIR', 'DECOMMISSIONED']).optional(),
+  responsibleId: z.string().optional(),
+  monthsToExpire: z.number().min(1).max(36).optional(), // Para vida útil
+  dateFrom: z.string().optional(),
+  dateTo: z.string().optional(),
+  includeSubcategories: z.boolean().optional()
+})
+
+export type ReportFilters = z.infer<typeof ReportFiltersSchema>
+
+export interface ReportAsset {
+  id: string
+  code: string
+  name: string
+  description?: string
+  brand?: string
+  model?: string
+  serialNumber?: string
+  acquisitionCost?: number
+  purchaseDate?: string
+  supplier?: string
+  usefulLife?: number
+  residualValue?: number
+  building?: string
+  office?: string
+  currentLocation?: string
+  status: string
+  categoryId?: string
+  assignedToId?: string
+  category?: {
+    id: string
+    name: string
+    parentId?: string
+    parent?: {
+      id: string
+      name: string
+    }
+  }
+  assignedTo?: {
+    id: string
+    email: string
+    name?: string
+    role: UserRole
+  }
+  createdAt: string
+  updatedAt: string
+  // Campos calculados
+  remainingLife?: number // Meses restantes de vida útil
+  depreciationPercent?: number // Porcentaje de depreciación
+  daysInUse?: number // Días desde la compra
+}
+
+export interface ReportResult {
+  reportType: ReportType
+  filters: ReportFilters
+  generatedAt: string
+  generatedBy: {
+    id: string
+    email: string
+    name?: string
+  }
+  summary: {
+    totalAssets: number
+    totalValue: number
+    averageAge: number // En días
+    byStatus?: Record<string, number>
+    byCategory?: Record<string, number>
+    byLocation?: Record<string, number>
+  }
+  assets: ReportAsset[]
+  groupedData?: {
+    label: string
+    count: number
+    totalValue: number
+    assets: ReportAsset[]
+  }[]
+}
+
+export interface ExportOptions {
+  format: 'PDF' | 'EXCEL'
+  includeCharts?: boolean
+  includeDetails?: boolean
+  orientation?: 'portrait' | 'landscape'
 }

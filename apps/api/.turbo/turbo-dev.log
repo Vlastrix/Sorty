@@ -1,5 +1,5 @@
 
-> @sorty/api@0.1.0 dev C:\Users\herma\Desktop\Sorty\apps\api
+> @sorty/api@0.1.0 dev C:\Vladi\Taller V Projects\sorty\apps\api
 > tsx watch src/index.ts
 
 🚀 API corriendo en http://localhost:4000
@@ -12,34 +12,11 @@
    Movimientos: /movements (entradas/salidas)
    Mantenimientos: /maintenance (preventivo/correctivo)
    Incidencias: /incidents (daños, pérdidas, robos)
+   Reportes: /reports (consultas y análisis)
 🔐 Auth middleware - Path: /auth/me
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
 🔐 Auth middleware - Path: /auth/me
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /auth/me
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /auth/me
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
-🔐 Auth middleware - Headers: Token presente
-✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
 🔐 Auth middleware - Path: /categories
@@ -54,40 +31,40 @@
 🔐 Auth middleware - Path: /assets?page=1&limit=100
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Path: /users
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Path: /assignments
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
+🔐 Auth middleware - Path: /assignments
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
+🔐 Auth middleware - Path: /categories
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /incidents?
+🔐 Auth middleware - Path: /assets?page=1&limit=100
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /incidents?
+🔐 Auth middleware - Path: /assignments?
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Path: /assignments?
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Path: /categories
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /movements?
+🔐 Auth middleware - Path: /categories
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /movements?
+🔐 Auth middleware - Path: /assets?page=1&limit=100
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
+🔐 Auth middleware - Path: /assets?page=1&limit=100
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
-🔐 Auth middleware - Path: /assets
+🔐 Auth middleware - Path: /users
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
 🔐 Auth middleware - Path: /assignments?
@@ -108,7 +85,105 @@
 🔐 Auth middleware - Path: /maintenance?
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /reports/types
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /users
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
 🔐 Auth middleware - Path: /incidents?
 🔐 Auth middleware - Headers: Token presente
 ✅ Auth middleware - Usuario autenticado: vladi@gmail.com
 🔐 Auth middleware - Path: /incidents?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /maintenance?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /movements?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /movements?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /assignments?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /assignments?
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /categories
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /assets?page=1&limit=100
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com
+🔐 Auth middleware - Path: /assets?page=1&limit=100
+🔐 Auth middleware - Headers: Token presente
+✅ Auth middleware - Usuario autenticado: vladi@gmail.com

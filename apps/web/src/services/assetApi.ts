@@ -177,6 +177,18 @@ export const assetApi = {
     return response.data!
   },
 
+  // Dar de baja un activo (requiere motivo y documento)
+  async decommission(id: string, data: { reason: string; documentReference: string; notes?: string }): Promise<Asset> {
+    const response: ApiResponse<Asset> = await authenticatedFetch(`/assets/${id}/decommission`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    })
+    if (!response.success) {
+      throw new Error(response.error || 'Error al dar de baja el activo')
+    }
+    return response.data!
+  },
+
   // Eliminar activo
   async delete(id: string): Promise<void> {
     const response: ApiResponse<{ message: string }> = await authenticatedFetch(`/assets/${id}`, {

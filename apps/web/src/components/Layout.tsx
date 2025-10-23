@@ -65,6 +65,15 @@ export default function Layout({ children }: LayoutProps) {
               >
                 ⚠️ Incidencias
               </Link>
+
+              {canManageAssets() && (
+                <Link 
+                  to="/reports"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  📊 Reportes
+                </Link>
+              )}
               
               {canManageUsers() && (
                 <Link 

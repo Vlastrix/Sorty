@@ -18,6 +18,9 @@ export async function assetsRoutes(app: FastifyInstance) {
   app.patch('/assets/:id/status', { preHandler: requireInventoryAccess }, AssetsController.changeStatus)
   app.delete('/assets/:id', { preHandler: requireInventoryAccess }, AssetsController.delete)
   
+  // Ruta para dar de baja (requiere motivo y documento)
+  app.post('/assets/:id/decommission', { preHandler: requireInventoryAccess }, AssetsController.decommission)
+  
   // Rutas de asignación (requieren admin o inventory manager)
   app.post('/assets/:id/assign', { preHandler: requireInventoryAccess }, AssetsController.assignAsset)
   app.post('/assets/:id/unassign', { preHandler: requireInventoryAccess }, AssetsController.unassignAsset)
