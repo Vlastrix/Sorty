@@ -11,9 +11,12 @@ import { maintenanceApi } from '../services/maintenanceApi';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/forms/Button';
 import CreateMaintenanceModal from '../components/CreateMaintenanceModal';
+import { ConfirmModal } from '../components/ConfirmModal';
+import { useNotification } from '../hooks/useNotification';
 
 export default function MaintenancePage() {
   const { user } = useAuth();
+  const { showNotification, NotificationContainer } = useNotification();
   const [maintenances, setMaintenances] = useState<Maintenance[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -22,6 +25,19 @@ export default function MaintenancePage() {
   // Filtros
   const [filterType, setFilterType] = useState<MaintenanceType | ''>('');
   const [filterStatus, setFilterStatus] = useState<MaintenanceStatus | ''>('');
+
+  // Estados para modales de confirmación
+  const [confirmAction, setConfirmAction] = useState<{
+    show: boolean;
+    type: 'start' | 'complete' | 'cancel';
+    maintenanceId: string;
+    maintenanceName: string;
+  }>({
+    show: false,
+    type: 'start',
+    maintenanceId: '',
+    maintenanceName: '',
+  });
 
   const canManage = user ? canManageAssets(user.role) : false;
 
@@ -39,43 +55,69 @@ export default function MaintenancePage() {
       setMaintenances(data);
       setError('');
     } catch (err: any) {
-      setError(err.message || 'Error al cargar mantenimientos');
+      const errorMsg = err.message || 'Error al cargar mantenimientos';
+      setError(errorMsg);
+      showNotification(errorMsg, 'error');
     } finally {
       setLoading(false);
     }
   };
 
   const handleStart = async (id: string) => {
-    if (!confirm('¿Iniciar este mantenimiento?')) return;
-    
     try {
       await maintenanceApi.startMaintenance(id);
       await loadMaintenances();
+      showNotification('Mantenimiento iniciado exitosamente', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al iniciar mantenimiento');
+      showNotification(err.message || 'Error al iniciar mantenimiento', 'error');
     }
   };
 
   const handleComplete = async (id: string) => {
-    if (!confirm('¿Marcar este mantenimiento como completado?')) return;
-    
     try {
       await maintenanceApi.completeMaintenance(id, {});
       await loadMaintenances();
+      showNotification('Mantenimiento completado exitosamente', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al completar mantenimiento');
+      showNotification(err.message || 'Error al completar mantenimiento', 'error');
     }
   };
 
   const handleCancel = async (id: string) => {
-    if (!confirm('¿Cancelar este mantenimiento?')) return;
-    
     try {
       await maintenanceApi.cancelMaintenance(id);
       await loadMaintenances();
+      showNotification('Mantenimiento cancelado exitosamente', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al cancelar mantenimiento');
+      showNotification(err.message || 'Error al cancelar mantenimiento', 'error');
     }
+  };
+
+  const openConfirmModal = (type: 'start' | 'complete' | 'cancel', maintenance: Maintenance) => {
+    setConfirmAction({
+      show: true,
+      type,
+      maintenanceId: maintenance.id,
+      maintenanceName: maintenance.asset?.name || maintenance.description,
+    });
+  };
+
+  const handleConfirmAction = async () => {
+    const { type, maintenanceId } = confirmAction;
+    
+    switch (type) {
+      case 'start':
+        await handleStart(maintenanceId);
+        break;
+      case 'complete':
+        await handleComplete(maintenanceId);
+        break;
+      case 'cancel':
+        await handleCancel(maintenanceId);
+        break;
+    }
+    
+    setConfirmAction({ show: false, type: 'start', maintenanceId: '', maintenanceName: '' });
   };
 
   const formatDate = (dateString: string) => {
@@ -114,6 +156,8 @@ export default function MaintenancePage() {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
+      <NotificationContainer />
+      
       <div className="mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">🔧 Mantenimientos</h1>
@@ -304,13 +348,13 @@ export default function MaintenancePage() {
                           {maintenance.status === MaintenanceStatus.SCHEDULED && (
                             <>
                               <Button
-                                onClick={() => handleStart(maintenance.id)}
+                                onClick={() => openConfirmModal('start', maintenance)}
                                 className="text-xs"
                               >
                                 ▶️ Iniciar
                               </Button>
                               <Button
-                                onClick={() => handleCancel(maintenance.id)}
+                                onClick={() => openConfirmModal('cancel', maintenance)}
                                 className="text-xs"
                               >
                                 ❌
@@ -319,7 +363,7 @@ export default function MaintenancePage() {
                           )}
                           {maintenance.status === MaintenanceStatus.IN_PROGRESS && (
                             <Button
-                              onClick={() => handleComplete(maintenance.id)}
+                              onClick={() => openConfirmModal('complete', maintenance)}
                               className="text-xs"
                             >
                               ✅ Completar
@@ -343,9 +387,46 @@ export default function MaintenancePage() {
           onSuccess={() => {
             setShowCreateModal(false);
             loadMaintenances();
+            showNotification('Mantenimiento programado exitosamente', 'success');
           }}
         />
       )}
+
+      {/* Modal de confirmación */}
+      <ConfirmModal
+        isOpen={confirmAction.show}
+        onClose={() => setConfirmAction({ show: false, type: 'start', maintenanceId: '', maintenanceName: '' })}
+        onConfirm={handleConfirmAction}
+        title={
+          confirmAction.type === 'start'
+            ? '▶️ Iniciar Mantenimiento'
+            : confirmAction.type === 'complete'
+            ? '✅ Completar Mantenimiento'
+            : '❌ Cancelar Mantenimiento'
+        }
+        message={
+          confirmAction.type === 'start'
+            ? `¿Estás seguro de que deseas iniciar el mantenimiento de "${confirmAction.maintenanceName}"?`
+            : confirmAction.type === 'complete'
+            ? `¿Estás seguro de que deseas marcar como completado el mantenimiento de "${confirmAction.maintenanceName}"?`
+            : `¿Estás seguro de que deseas cancelar el mantenimiento de "${confirmAction.maintenanceName}"?`
+        }
+        confirmText={
+          confirmAction.type === 'start'
+            ? 'Sí, iniciar'
+            : confirmAction.type === 'complete'
+            ? 'Sí, completar'
+            : 'Sí, cancelar'
+        }
+        cancelText="No, volver"
+        type={
+          confirmAction.type === 'start'
+            ? 'info'
+            : confirmAction.type === 'complete'
+            ? 'success'
+            : 'warning'
+        }
+      />
     </div>
   );
 }

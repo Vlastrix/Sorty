@@ -13,7 +13,7 @@ export default function ProtectedRoute({
   children, 
   requireAuth = true,
   allowedRoles,
-  fallbackPath = '/assets'
+  fallbackPath
 }: ProtectedRouteProps) {
   const { user, loading } = useAuth()
   const location = useLocation()
@@ -26,6 +26,15 @@ export default function ProtectedRoute({
     )
   }
 
+  // Determinar la ruta de fallback según el rol del usuario
+  const getDefaultFallback = () => {
+    if (!user) return '/login'
+    if (user.role === UserRole.ASSET_RESPONSIBLE) return '/my-assets'
+    return '/assets'
+  }
+
+  const redirectPath = fallbackPath || getDefaultFallback()
+
   // Si requiere autenticación y no hay usuario, redirigir a login
   if (requireAuth && !user) {
     return <Navigate to="/login" state={{ from: location }} replace />
@@ -33,7 +42,7 @@ export default function ProtectedRoute({
 
   // Si no requiere autenticación y hay usuario, redirigir a la página principal
   if (!requireAuth && user) {
-    return <Navigate to={fallbackPath} replace />
+    return <Navigate to={redirectPath} replace />
   }
 
   // Si se especifican roles permitidos, verificar que el usuario tenga uno de ellos
@@ -41,7 +50,7 @@ export default function ProtectedRoute({
     // Usuario no tiene permiso, redirigir con mensaje
     return (
       <Navigate 
-        to={fallbackPath} 
+        to={redirectPath} 
         state={{ 
           from: location, 
           error: 'No tienes permisos para acceder a esta página' 

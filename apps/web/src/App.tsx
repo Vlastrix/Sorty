@@ -15,6 +15,7 @@ import MovementsPage from './pages/MovementsPage'
 import MaintenancePage from './pages/MaintenancePage'
 import IncidentsPage from './pages/IncidentsPage'
 import Reports from './pages/Reports'
+import MyAssets from './pages/MyAssets'
 
 function AppContent() {
   // Fallback adicional para navegadores problemáticos
@@ -58,9 +59,21 @@ function AppContent() {
       <Route 
         path="/assets" 
         element={
-          <ProtectedRoute requireAuth={true}>
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
             <Layout>
               <AssetsDashboard />
+            </Layout>
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* My Assets - for Asset Responsible users */}
+      <Route 
+        path="/my-assets" 
+        element={
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ASSET_RESPONSIBLE]}>
+            <Layout>
+              <MyAssets />
             </Layout>
           </ProtectedRoute>
         } 
@@ -103,11 +116,11 @@ function AppContent() {
         } 
       />
 
-      {/* Movements (all authenticated users can view) */}
+      {/* Movements (only admin and inventory managers) */}
       <Route 
         path="/movements" 
         element={
-          <ProtectedRoute requireAuth={true}>
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
             <Layout>
               <MovementsPage />
             </Layout>
@@ -115,11 +128,11 @@ function AppContent() {
         } 
       />
 
-      {/* Maintenance (all authenticated users can view) */}
+      {/* Maintenance (only admin and inventory managers) */}
       <Route 
         path="/maintenance" 
         element={
-          <ProtectedRoute requireAuth={true}>
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
             <Layout>
               <MaintenancePage />
             </Layout>
@@ -127,11 +140,11 @@ function AppContent() {
         } 
       />
 
-      {/* Incidents (all authenticated users can view and report) */}
+      {/* Incidents (only admin and inventory managers) */}
       <Route 
         path="/incidents" 
         element={
-          <ProtectedRoute requireAuth={true}>
+          <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
             <Layout>
               <IncidentsPage />
             </Layout>

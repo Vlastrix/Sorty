@@ -48,6 +48,7 @@ export const maintenanceApi = {
     const response = await fetch(`${API_BASE_URL}/maintenance/${id}/start`, {
       method: 'POST',
       headers: getAuthHeaders(),
+      body: JSON.stringify({}),
     });
 
     if (!response.ok) {
@@ -79,6 +80,7 @@ export const maintenanceApi = {
     const response = await fetch(`${API_BASE_URL}/maintenance/${id}/cancel`, {
       method: 'POST',
       headers: getAuthHeaders(),
+      body: JSON.stringify({}),
     });
 
     if (!response.ok) {

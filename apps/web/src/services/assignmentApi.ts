@@ -20,7 +20,8 @@ export interface AssignAssetData {
 
 export interface TransferAssetData {
   newAssignedToId: string
-  location?: string
+  building?: string
+  office?: string
   reason?: string
   notes?: string
 }
@@ -39,7 +40,13 @@ export const assignmentApi = {
       headers: getAuthHeaders(),
       body: JSON.stringify(data)
     })
+    
     const result = await response.json()
+    
+    if (!response.ok) {
+      throw new Error(result.error || 'Error al asignar activo')
+    }
+    
     return result.data
   },
 
@@ -52,7 +59,13 @@ export const assignmentApi = {
       headers: getAuthHeaders(),
       body: JSON.stringify(data || {})
     })
+    
     const result = await response.json()
+    
+    if (!response.ok) {
+      throw new Error(result.error || 'Error al devolver activo')
+    }
+    
     return result.data
   },
 
@@ -65,7 +78,13 @@ export const assignmentApi = {
       headers: getAuthHeaders(),
       body: JSON.stringify(data)
     })
+    
     const result = await response.json()
+    
+    if (!response.ok) {
+      throw new Error(result.error || 'Error al transferir activo')
+    }
+    
     return result.data
   },
 

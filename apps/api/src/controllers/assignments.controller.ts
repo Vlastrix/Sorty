@@ -26,7 +26,7 @@ export class AssignmentController {
       const assignment = await AssignmentService.assignAsset({
         assetId,
         assignedToId,
-        assignedById: request.user!.id,
+        assignedById: request.user!.userId,
         location,
         reason,
         notes
@@ -55,7 +55,7 @@ export class AssignmentController {
 
       const assignment = await AssignmentService.returnAsset({
         assetId,
-        userId: request.user!.id,
+        userId: request.user!.userId,
         notes
       })
 
@@ -78,9 +78,10 @@ export class AssignmentController {
   static async transferAsset(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { assetId } = request.params as { assetId: string }
-      const { newAssignedToId, location, reason, notes } = request.body as {
+      const { newAssignedToId, building, office, reason, notes } = request.body as {
         newAssignedToId: string
-        location?: string
+        building?: string
+        office?: string
         reason?: string
         notes?: string
       }
@@ -95,8 +96,9 @@ export class AssignmentController {
       const assignment = await AssignmentService.transferAsset({
         assetId,
         newAssignedToId,
-        assignedById: request.user!.id,
-        location,
+        assignedById: request.user!.userId,
+        building,
+        office,
         reason,
         notes
       })

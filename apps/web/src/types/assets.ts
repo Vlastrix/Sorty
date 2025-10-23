@@ -53,6 +53,12 @@ export interface Asset {
   assignedToId?: string | null
   assignedAt?: string | null
   currentLocation?: string | null
+  assignedTo?: {
+    id: string
+    email: string
+    name?: string
+    role: string
+  } | null
   
   // Auditoría
   createdAt: string

@@ -7,6 +7,7 @@ export default function AssignmentHistory() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState<AssignmentStatus | ''>('')
+  const [selectedAssignment, setSelectedAssignment] = useState<AssetAssignment | null>(null)
 
   useEffect(() => {
     loadAssignments()
@@ -119,12 +120,15 @@ export default function AssignmentHistory() {
                 <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Estado
                 </th>
+                <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Acciones
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {assignments.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
                     No hay asignaciones registradas
                   </td>
                 </tr>
@@ -201,6 +205,14 @@ export default function AssignmentHistory() {
                         {AssignmentStatusLabels[assignment.status]}
                       </span>
                     </td>
+                    <td className="px-4 py-4">
+                      <button
+                        onClick={() => setSelectedAssignment(assignment)}
+                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                      >
+                        Ver
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}
@@ -208,6 +220,135 @@ export default function AssignmentHistory() {
           </table>
         </div>
       </div>
+
+      {/* Modal de detalles de asignación */}
+      {selectedAssignment && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-fade-in-scale">
+            <div className="p-6">
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    📋 Detalles de Asignación
+                  </h2>
+                  <span className={`mt-2 inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusBadgeColor(selectedAssignment.status)}`}>
+                    {AssignmentStatusLabels[selectedAssignment.status]}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSelectedAssignment(null)}
+                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                {/* Información del Activo */}
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                  <h3 className="text-lg font-semibold text-blue-900 mb-3">📦 Activo</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="font-medium text-blue-700">Código:</span>
+                      <p className="text-blue-900">{selectedAssignment.asset?.code}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-blue-700">Nombre:</span>
+                      <p className="text-blue-900">{selectedAssignment.asset?.name}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-blue-700">Categoría:</span>
+                      <p className="text-blue-900">{selectedAssignment.asset?.category?.name || 'N/A'}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-blue-700">ID del Activo:</span>
+                      <p className="text-blue-900 text-xs font-mono">{selectedAssignment.assetId}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Información del Responsable */}
+                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                  <h3 className="text-lg font-semibold text-green-900 mb-3">👤 Responsable</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="font-medium text-green-700">Nombre:</span>
+                      <p className="text-green-900">{selectedAssignment.assignedTo?.name || 'Sin nombre'}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-green-700">Email:</span>
+                      <p className="text-green-900">{selectedAssignment.assignedTo?.email}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-green-700">Rol:</span>
+                      <p className="text-green-900">{selectedAssignment.assignedTo?.role || 'N/A'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Información de Ubicación */}
+                <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3">📍 Ubicación</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div className="md:col-span-2">
+                      <span className="font-medium text-purple-700">Ubicación completa:</span>
+                      <p className="text-purple-900">{selectedAssignment.location || 'Sin ubicación especificada'}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Información de Fechas */}
+                <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
+                  <h3 className="text-lg font-semibold text-orange-900 mb-3">📅 Fechas</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <span className="font-medium text-orange-700">Fecha de asignación:</span>
+                      <p className="text-orange-900">{formatDate(selectedAssignment.assignedAt)}</p>
+                    </div>
+                    {selectedAssignment.returnedAt && (
+                      <div>
+                        <span className="font-medium text-orange-700">Fecha de devolución:</span>
+                        <p className="text-orange-900">{formatDate(selectedAssignment.returnedAt)}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Motivo y Notas */}
+                {(selectedAssignment.reason || selectedAssignment.notes) && (
+                  <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">📝 Información Adicional</h3>
+                    {selectedAssignment.reason && (
+                      <div className="mb-3">
+                        <span className="font-medium text-gray-700">Motivo:</span>
+                        <p className="text-gray-900 mt-1">{selectedAssignment.reason}</p>
+                      </div>
+                    )}
+                    {selectedAssignment.notes && (
+                      <div>
+                        <span className="font-medium text-gray-700">Notas:</span>
+                        <p className="text-gray-900 mt-1">{selectedAssignment.notes}</p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Botón Cerrar */}
+              <div className="mt-6 flex justify-end">
+                <button
+                  onClick={() => setSelectedAssignment(null)}
+                  className="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors font-medium"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

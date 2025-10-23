@@ -8,7 +8,8 @@ interface TransferAssetModalProps {
   onClose: () => void
   onSubmit: (data: {
     newAssignedToId: string
-    location?: string
+    building?: string
+    office?: string
     reason?: string
     notes?: string
   }) => Promise<void>
@@ -30,7 +31,8 @@ export default function TransferAssetModal({
   isLoading = false
 }: TransferAssetModalProps) {
   const [newAssignedToId, setNewAssignedToId] = useState('')
-  const [location, setLocation] = useState('')
+  const [building, setBuilding] = useState('')
+  const [office, setOffice] = useState('')
   const [reason, setReason] = useState('')
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -38,7 +40,8 @@ export default function TransferAssetModal({
   useEffect(() => {
     if (!isOpen) {
       setNewAssignedToId('')
-      setLocation('')
+      setBuilding('')
+      setOffice('')
       setReason('')
       setNotes('')
       setSubmitting(false)
@@ -59,7 +62,8 @@ export default function TransferAssetModal({
     try {
       await onSubmit({
         newAssignedToId,
-        location: location || undefined,
+        building: building || undefined,
+        office: office || undefined,
         reason: reason || undefined,
         notes: notes || undefined
       })
@@ -73,7 +77,7 @@ export default function TransferAssetModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-fade-in-scale">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
@@ -120,16 +124,29 @@ export default function TransferAssetModal({
               </select>
             </div>
 
-            <div>
-              <Input
-                id="location"
-                label="Nueva Ubicación"
-                type="text"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                placeholder="Ej: Edificio B, Oficina 305"
-                disabled={submitting}
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Input
+                  id="building"
+                  label="Edificio"
+                  type="text"
+                  value={building}
+                  onChange={(e) => setBuilding(e.target.value)}
+                  placeholder="Ej: Edificio Principal"
+                  disabled={submitting}
+                />
+              </div>
+              <div>
+                <Input
+                  id="office"
+                  label="Oficina"
+                  type="text"
+                  value={office}
+                  onChange={(e) => setOffice(e.target.value)}
+                  placeholder="Ej: Oficina 305"
+                  disabled={submitting}
+                />
+              </div>
             </div>
 
             <div>

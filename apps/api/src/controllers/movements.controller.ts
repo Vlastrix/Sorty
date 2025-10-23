@@ -26,7 +26,7 @@ export async function registerAssetEntry(
   reply: FastifyReply
 ) {
   try {
-    const userId = (request.user as any).id;
+    const userId = (request.user as any).userId;
     const { assetId, movementType, description, cost, quantity, date, notes } = request.body;
 
     // Validar que el subtipo sea de entrada
@@ -78,7 +78,7 @@ export async function registerAssetExit(
   reply: FastifyReply
 ) {
   try {
-    const userId = (request.user as any).id;
+    const userId = (request.user as any).userId;
     const { assetId, movementType, description, cost, quantity, date, notes } = request.body;
 
     // Validar que el subtipo sea de salida

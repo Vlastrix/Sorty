@@ -218,12 +218,14 @@ enum MovementSubtype {
   COMPRA        // Compra de activo
   DONACION_IN   // Donación recibida
   TRANSFERENCIA_IN // Transferencia recibida
+  DEVOLUCION    // Devolución de activo
   
   // Salidas
   BAJA          // Baja de activo
   VENTA         // Venta de activo
   DONACION_OUT  // Donación entregada
   TRANSFERENCIA_OUT // Transferencia enviada
+  ASIGNACION    // Asignación de activo
 }
 
 model Maintenance {

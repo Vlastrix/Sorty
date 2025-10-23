@@ -27,7 +27,7 @@ export async function reportAssetIncident(
   reply: FastifyReply
 ) {
   try {
-    const reportedById = (request.user as any).id;
+    const reportedById = (request.user as any).userId;
     const { assetId, type, description, cost, notes } = request.body;
 
     const incident = await reportIncident({

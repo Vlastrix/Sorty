@@ -7,8 +7,10 @@ import { CreateAssetModal } from '../components/CreateAssetModal'
 import AssignAssetModal from '../components/AssignAssetModal'
 import TransferAssetModal from '../components/TransferAssetModal'
 import DecommissionAssetModal from '../components/DecommissionAssetModal'
+import { ConfirmModal } from '../components/ConfirmModal'
 import { useAuth } from '../contexts/AuthContext'
 import { User } from '@sorty/validators'
+import { useNotification } from '../hooks/useNotification'
 
 interface AssetsDashboardProps {}
 
@@ -16,6 +18,9 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   // Auth y permisos
   const { canManageAssets } = useAuth()
   const canEdit = canManageAssets()
+  
+  // Sistema de notificaciones
+  const { showNotification, NotificationContainer } = useNotification()
 
   // Estados principales
   const [allAssets, setAllAssets] = useState<Asset[]>([])
@@ -41,8 +46,10 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   const [showAssignModal, setShowAssignModal] = useState(false)
   const [showTransferModal, setShowTransferModal] = useState(false)
   const [showDecommissionModal, setShowDecommissionModal] = useState(false)
+  const [showConfirmReturnModal, setShowConfirmReturnModal] = useState(false)
   const [assetToAssign, setAssetToAssign] = useState<Asset | null>(null)
   const [assetToDecommission, setAssetToDecommission] = useState<Asset | null>(null)
+  const [assetToReturn, setAssetToReturn] = useState<Asset | null>(null)
   const [users, setUsers] = useState<User[]>([])
   const [loadingUsers, setLoadingUsers] = useState(false)
 
@@ -282,16 +289,21 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
     if (!assetToAssign) return
 
     try {
-      await assignmentApi.assignAsset({
+      console.log('Asignando activo:', { assetId: assetToAssign.id, ...data })
+      
+      const result = await assignmentApi.assignAsset({
         assetId: assetToAssign.id,
         ...data
       })
       
+      console.log('Asignación exitosa:', result)
+      
       // Recargar activos
       await loadInitialData()
-      alert('Activo asignado correctamente')
+      showNotification('Activo asignado correctamente', 'success')
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Error al asignar activo')
+      console.error('Error al asignar activo:', err)
+      showNotification(err.message || 'Error al asignar activo', 'error')
     }
   }
 
@@ -309,26 +321,34 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       
       // Recargar activos
       await loadInitialData()
-      alert('Activo transferido correctamente')
+      showNotification('Activo transferido correctamente', 'success')
     } catch (err: any) {
-      alert(err.response?.data?.error || 'Error al transferir activo')
+      showNotification(err.message || 'Error al transferir activo', 'error')
     }
   }
 
-  // Devolver activo
-  const handleReturnAsset = async (assetId: string) => {
-    if (confirm('¿Confirmar devolución de este activo?')) {
-      try {
-        await assignmentApi.returnAsset(assetId, {
-          notes: 'Devolución desde dashboard'
-        })
-        
-        // Recargar activos
-        await loadInitialData()
-        alert('Activo devuelto correctamente')
-      } catch (err: any) {
-        alert(err.response?.data?.error || 'Error al devolver activo')
-      }
+  // Mostrar modal de confirmación para devolver
+  const handleReturnClick = (asset: Asset) => {
+    setAssetToReturn(asset)
+    setShowConfirmReturnModal(true)
+  }
+
+  // Devolver activo (confirmado)
+  const handleConfirmReturn = async () => {
+    if (!assetToReturn) return
+
+    try {
+      await assignmentApi.returnAsset(assetToReturn.id, {
+        notes: 'Devolución desde dashboard'
+      })
+      
+      // Recargar activos
+      await loadInitialData()
+      showNotification('Activo devuelto correctamente', 'success')
+    } catch (err: any) {
+      showNotification(err.message || 'Error al devolver activo', 'error')
+    } finally {
+      setAssetToReturn(null)
     }
   }
 
@@ -354,9 +374,10 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       setShowDecommissionModal(false)
       setAssetToDecommission(null)
       
-      alert('Activo dado de baja correctamente')
+      showNotification('Activo dado de baja correctamente', 'success')
     } catch (err: any) {
-      throw new Error(err.message || 'Error al dar de baja el activo')
+      showNotification(err.message || 'Error al dar de baja el activo', 'error')
+      throw err
     }
   }
 
@@ -636,7 +657,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                                     🔄 Transferir
                                   </button>
                                   <button
-                                    onClick={() => handleReturnAsset(asset.id)}
+                                    onClick={() => handleReturnClick(asset)}
                                     className="text-gray-600 hover:text-gray-900"
                                     title="Devolver activo (cambiar a disponible)"
                                   >
@@ -743,7 +764,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       {/* Modal de detalles del activo */}
       {selectedAsset && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto animate-fade-in-scale">
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <h2 className="text-xl font-bold text-gray-900">
@@ -817,7 +838,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         onSubmit={handleTransferAsset}
         assetCode={assetToAssign?.code || ''}
         assetName={assetToAssign?.name || ''}
-        currentAssignee={assetToAssign?.assignedToId ? 'Usuario asignado' : undefined}
+        currentAssignee={assetToAssign?.assignedTo ? (assetToAssign.assignedTo.name || assetToAssign.assignedTo.email) : undefined}
         users={users}
         isLoading={loadingUsers}
       />
@@ -833,6 +854,24 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         assetCode={assetToDecommission?.code || ''}
         assetName={assetToDecommission?.name || ''}
       />
+
+      {/* Modal de confirmación de devolución */}
+      <ConfirmModal
+        isOpen={showConfirmReturnModal}
+        onClose={() => {
+          setShowConfirmReturnModal(false)
+          setAssetToReturn(null)
+        }}
+        onConfirm={handleConfirmReturn}
+        title="¿Confirmar devolución?"
+        message={`¿Está seguro que desea devolver el activo ${assetToReturn?.code} - ${assetToReturn?.name}? El activo cambiará a estado disponible.`}
+        confirmText="Devolver"
+        cancelText="Cancelar"
+        type="warning"
+      />
+
+      {/* Contenedor de notificaciones */}
+      <NotificationContainer />
     </div>
   )
 }

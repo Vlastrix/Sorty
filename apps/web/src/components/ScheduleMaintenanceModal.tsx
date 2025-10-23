@@ -72,7 +72,7 @@ export default function ScheduleMaintenanceModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
         <h2 className="text-2xl font-bold mb-4">🔧 Programar Mantenimiento</h2>
         
         <div className="mb-4 p-3 bg-gray-100 rounded">

@@ -6,7 +6,7 @@ async function seedAssets() {
   console.log('🏭 Creando activos de ejemplo...')
 
   try {
-    // Primero necesitamos obtener las categorías y un usuario
+    // Primero necesitamos obtener las categorías y usuarios
     const categories = await prisma.category.findMany()
     const users = await prisma.user.findMany()
 
@@ -20,7 +20,11 @@ async function seedAssets() {
       return
     }
 
-    const user = users[0] // Usar el primer usuario encontrado
+    const user = users[0] // Usar el primer usuario encontrado (creador)
+    
+    // Obtener diferentes usuarios para asignar activos
+    // Si hay múltiples usuarios, los distribuimos, sino todos al primero
+    const assignableUsers = users.slice(0, Math.min(users.length, 5))
 
     // Limpiar activos existentes (opcional)
     await prisma.asset.deleteMany()
@@ -54,6 +58,7 @@ async function seedAssets() {
         building: 'Edificio Principal',
         office: 'Oficina de Contabilidad',
         status: 'IN_USE',
+        assignedToId: assignableUsers[0]?.id, // Asignado a usuario
         categoryId: laptopsCategory?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -110,6 +115,7 @@ async function seedAssets() {
         building: 'Edificio Principal',
         office: 'Dirección Ejecutiva',
         status: 'IN_USE',
+        assignedToId: assignableUsers[1]?.id || assignableUsers[0]?.id, // Asignado a usuario
         categoryId: escritoriosCategory?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -148,6 +154,7 @@ async function seedAssets() {
         building: 'Edificio Principal',
         office: 'Secretaría General',
         status: 'IN_USE',
+        assignedToId: assignableUsers[2]?.id || assignableUsers[0]?.id, // Asignado a usuario
         categoryId: impressorasCategory?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -186,6 +193,7 @@ async function seedAssets() {
         building: 'Parqueadero Principal',
         office: 'Espacio A-15',
         status: 'IN_USE',
+        assignedToId: assignableUsers[3]?.id || assignableUsers[0]?.id, // Asignado a usuario
         categoryId: automovilesCategory?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -224,6 +232,7 @@ async function seedAssets() {
         building: 'Edificio Principal',
         office: 'Cocina Piso 2',
         status: 'IN_USE',
+        assignedToId: assignableUsers[4]?.id || assignableUsers[0]?.id, // Asignado a usuario
         categoryId: refrigeradoresCategory?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -244,6 +253,7 @@ async function seedAssets() {
         building: 'Edificio Principal',
         office: 'Departamento de Sistemas',
         status: 'IN_USE',
+        assignedToId: assignableUsers[0]?.id, // Asignado a usuario
         categoryId: categories.find(c => c.name === 'Periféricos')?.id || defaultCategory.id,
         createdById: user.id
       },
@@ -288,12 +298,34 @@ async function seedAssets() {
     // Crear los activos
     console.log('📦 Creando activos...')
     
+    const createdAssets = []
     for (const assetData of assetsToCreate) {
-      await prisma.asset.create({
+      const createdAsset = await prisma.asset.create({
         data: assetData
       })
+      createdAssets.push(createdAsset)
       console.log(`  ✅ Creado: ${assetData.code} - ${assetData.name}`)
     }
+
+    // Crear asignaciones para activos IN_USE
+    console.log('\n📋 Creando asignaciones para activos en uso...')
+    const assetsInUse = createdAssets.filter(a => a.status === 'IN_USE' && a.assignedToId)
+    
+    for (const asset of assetsInUse) {
+      await prisma.assetAssignment.create({
+        data: {
+          assetId: asset.id,
+          assignedToId: asset.assignedToId,
+          assignedById: user.id, // El usuario administrador que crea el seed
+          assignedAt: asset.assignedAt || new Date(),
+          location: `${asset.building} - ${asset.office}`,
+          reason: 'Asignación inicial de seed',
+          status: 'ACTIVE'
+        }
+      })
+      console.log(`  ✅ Asignación creada: ${asset.code}`)
+    }
+
 
     // Mostrar estadísticas finales
     const totalAssets = await prisma.asset.count()

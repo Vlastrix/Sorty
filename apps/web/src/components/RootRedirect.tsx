@@ -1,15 +1,32 @@
 import { useEffect } from 'react'
+import { UserRole } from '@sorty/validators'
 
 export default function RootRedirect() {
   useEffect(() => {
     // Detectar token directamente del localStorage
     const token = localStorage.getItem('auth_token')
-    const targetPath = token ? '/assets' : '/login'
     
-    console.log('RootRedirect: token exists?', !!token, 'redirecting to:', targetPath)
-    
-    // Usar window.location directamente para máxima compatibilidad
-    window.location.replace(targetPath)
+    if (!token) {
+      console.log('RootRedirect: No token, redirecting to login')
+      window.location.replace('/login')
+      return
+    }
+
+    // Intentar obtener el rol del usuario del token
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      const userRole = payload.role as UserRole
+      
+      // Redirigir según el rol
+      const targetPath = userRole === UserRole.ASSET_RESPONSIBLE ? '/my-assets' : '/assets'
+      
+      console.log('RootRedirect: User role:', userRole, 'redirecting to:', targetPath)
+      window.location.replace(targetPath)
+    } catch (error) {
+      console.error('Error parsing token:', error)
+      // Si hay error, redirigir a assets por defecto
+      window.location.replace('/assets')
+    }
   }, [])
 
   // Renderizar inmediatamente un loading simple

@@ -11,9 +11,12 @@ import { incidentApi } from '../services/incidentApi';
 import { useAuth } from '../contexts/AuthContext';
 import { Button } from '../components/forms/Button';
 import CreateIncidentModal from '../components/CreateIncidentModal';
+import { ConfirmModal } from '../components/ConfirmModal';
+import { useNotification } from '../hooks/useNotification';
 
 export default function IncidentsPage() {
   const { user } = useAuth();
+  const { showNotification, NotificationContainer } = useNotification();
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -25,6 +28,19 @@ export default function IncidentsPage() {
   // Filtros
   const [filterType, setFilterType] = useState<IncidentType | ''>('');
   const [filterStatus, setFilterStatus] = useState<IncidentStatus | ''>('');
+
+  // Estados para modales de confirmación
+  const [confirmAction, setConfirmAction] = useState<{
+    show: boolean;
+    type: 'investigate' | 'close';
+    incidentId: string;
+    incidentName: string;
+  }>({
+    show: false,
+    type: 'investigate',
+    incidentId: '',
+    incidentName: '',
+  });
 
   const canManage = user ? canManageAssets(user.role) : false;
 
@@ -42,25 +58,29 @@ export default function IncidentsPage() {
       setIncidents(data);
       setError('');
     } catch (err: any) {
-      setError(err.message || 'Error al cargar incidencias');
+      const errorMsg = err.message || 'Error al cargar incidencias';
+      setError(errorMsg);
+      showNotification(errorMsg, 'error');
     } finally {
       setLoading(false);
     }
   };
 
   const handleInvestigate = async (id: string) => {
-    if (!confirm('¿Marcar esta incidencia como en investigación?')) return;
-    
     try {
       await incidentApi.investigateIncident(id);
       await loadIncidents();
+      showNotification('Incidencia marcada como en investigación', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al investigar incidencia');
+      showNotification(err.message || 'Error al investigar incidencia', 'error');
     }
   };
 
   const handleResolve = async () => {
-    if (!selectedIncident || !resolution.trim()) return;
+    if (!selectedIncident || !resolution.trim()) {
+      showNotification('Por favor ingresa una resolución', 'warning');
+      return;
+    }
 
     try {
       await incidentApi.resolveIncident(selectedIncident.id, {
@@ -70,20 +90,44 @@ export default function IncidentsPage() {
       setResolution('');
       setSelectedIncident(null);
       await loadIncidents();
+      showNotification('Incidencia resuelta exitosamente', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al resolver incidencia');
+      showNotification(err.message || 'Error al resolver incidencia', 'error');
     }
   };
 
   const handleClose = async (id: string) => {
-    if (!confirm('¿Cerrar esta incidencia?')) return;
-    
     try {
       await incidentApi.closeIncident(id);
       await loadIncidents();
+      showNotification('Incidencia cerrada exitosamente', 'success');
     } catch (err: any) {
-      alert(err.message || 'Error al cerrar incidencia');
+      showNotification(err.message || 'Error al cerrar incidencia', 'error');
     }
+  };
+
+  const openConfirmModal = (type: 'investigate' | 'close', incident: Incident) => {
+    setConfirmAction({
+      show: true,
+      type,
+      incidentId: incident.id,
+      incidentName: incident.asset?.name || incident.description,
+    });
+  };
+
+  const handleConfirmAction = async () => {
+    const { type, incidentId } = confirmAction;
+    
+    switch (type) {
+      case 'investigate':
+        await handleInvestigate(incidentId);
+        break;
+      case 'close':
+        await handleClose(incidentId);
+        break;
+    }
+    
+    setConfirmAction({ show: false, type: 'investigate', incidentId: '', incidentName: '' });
   };
 
   const formatDate = (dateString: string) => {
@@ -135,6 +179,8 @@ export default function IncidentsPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
+      <NotificationContainer />
+      
       <div className="mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">⚠️ Incidencias</h1>
@@ -328,7 +374,7 @@ export default function IncidentsPage() {
                         <div className="flex gap-2">
                           {incident.status === IncidentStatus.REPORTED && (
                             <Button
-                              onClick={() => handleInvestigate(incident.id)}
+                              onClick={() => openConfirmModal('investigate', incident)}
                               className="text-xs"
                             >
                               🔍 Investigar
@@ -347,7 +393,7 @@ export default function IncidentsPage() {
                           )}
                           {incident.status === IncidentStatus.RESOLVED && (
                             <Button
-                              onClick={() => handleClose(incident.id)}
+                              onClick={() => openConfirmModal('close', incident)}
                               className="text-xs"
                             >
                               🔒 Cerrar
@@ -366,33 +412,43 @@ export default function IncidentsPage() {
 
       {/* Modal para resolver incidencia */}
       {showResolveModal && selectedIncident && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-md">
-            <h3 className="text-xl font-bold mb-4">Resolver Incidencia</h3>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
+            <h3 className="text-xl font-bold mb-4 text-gray-900">✅ Resolver Incidencia</h3>
             <p className="text-sm text-gray-600 mb-4">
               Activo: <strong>{selectedIncident.asset?.name}</strong>
             </p>
-            <textarea
-              value={resolution}
-              onChange={(e) => setResolution(e.target.value)}
-              rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
-              placeholder="Describe cómo se resolvió la incidencia..."
-              required
-            />
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Resolución <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                value={resolution}
+                onChange={(e) => setResolution(e.target.value)}
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                placeholder="Describe cómo se resolvió la incidencia..."
+                required
+              />
+            </div>
             <div className="flex gap-3">
-              <Button
+              <button
                 onClick={() => {
                   setShowResolveModal(false);
                   setResolution('');
                   setSelectedIncident(null);
                 }}
+                className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors font-medium"
               >
                 Cancelar
-              </Button>
-              <Button onClick={handleResolve} disabled={!resolution.trim()}>
+              </button>
+              <button
+                onClick={handleResolve}
+                disabled={!resolution.trim()}
+                className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 Resolver
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -405,9 +461,38 @@ export default function IncidentsPage() {
           onSuccess={() => {
             setShowCreateModal(false);
             loadIncidents();
+            showNotification('Incidencia reportada exitosamente', 'success');
           }}
         />
       )}
+
+      {/* Modal de confirmación */}
+      <ConfirmModal
+        isOpen={confirmAction.show}
+        onClose={() => setConfirmAction({ show: false, type: 'investigate', incidentId: '', incidentName: '' })}
+        onConfirm={handleConfirmAction}
+        title={
+          confirmAction.type === 'investigate'
+            ? '🔍 Investigar Incidencia'
+            : '🔒 Cerrar Incidencia'
+        }
+        message={
+          confirmAction.type === 'investigate'
+            ? `¿Estás seguro de que deseas marcar como "En Investigación" la incidencia de "${confirmAction.incidentName}"?`
+            : `¿Estás seguro de que deseas cerrar la incidencia de "${confirmAction.incidentName}"?`
+        }
+        confirmText={
+          confirmAction.type === 'investigate'
+            ? 'Sí, investigar'
+            : 'Sí, cerrar'
+        }
+        cancelText="No, volver"
+        type={
+          confirmAction.type === 'investigate'
+            ? 'info'
+            : 'success'
+        }
+      />
     </div>
   );
 }

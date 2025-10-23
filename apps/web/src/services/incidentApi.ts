@@ -46,6 +46,7 @@ export const incidentApi = {
     const response = await fetch(`${API_BASE_URL}/incidents/${id}/investigate`, {
       method: 'POST',
       headers: getAuthHeaders(),
+      body: JSON.stringify({}),
     });
 
     if (!response.ok) {
@@ -77,6 +78,7 @@ export const incidentApi = {
     const response = await fetch(`${API_BASE_URL}/incidents/${id}/close`, {
       method: 'POST',
       headers: getAuthHeaders(),
+      body: JSON.stringify({}),
     });
 
     if (!response.ok) {

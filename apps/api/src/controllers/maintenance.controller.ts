@@ -29,7 +29,7 @@ export async function scheduleAssetMaintenance(
   reply: FastifyReply
 ) {
   try {
-    const userId = (request.user as any).id;
+    const userId = (request.user as any).userId;
     const { assetId, type, scheduledDate, description, performedBy, cost, notes } = request.body;
 
     const maintenance = await scheduleMaintenance({

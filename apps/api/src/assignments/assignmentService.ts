@@ -1,4 +1,4 @@
-import { PrismaClient, AssignmentStatus, AssetStatus } from '@prisma/client'
+import { PrismaClient, AssignmentStatus, AssetStatus, MovementType, MovementSubtype } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -14,7 +14,7 @@ export class AssignmentService {
     reason?: string
     notes?: string
   }) {
-    // Verificar que el activo existe y está disponible
+    // Verificar que el activo existe
     const asset = await prisma.asset.findUnique({
       where: { id: data.assetId },
       include: { assignedTo: true }
@@ -24,8 +24,16 @@ export class AssignmentService {
       throw new Error('Activo no encontrado')
     }
 
-    if (asset.assignedToId) {
-      throw new Error('El activo ya está asignado a otro usuario')
+    // Verificar si existe una asignación activa (no verificar solo assignedToId del activo)
+    const activeAssignment = await prisma.assetAssignment.findFirst({
+      where: {
+        assetId: data.assetId,
+        status: AssignmentStatus.ACTIVE
+      }
+    })
+
+    if (activeAssignment) {
+      throw new Error('El activo ya tiene una asignación activa. Usa transferir o devolver primero.')
     }
 
     // Verificar que el usuario receptor existe y está activo
@@ -41,8 +49,8 @@ export class AssignmentService {
       throw new Error('El usuario está inactivo y no puede recibir asignaciones')
     }
 
-    // Crear la asignación y actualizar el activo en una transacción
-    const [assignment, updatedAsset] = await prisma.$transaction([
+    // Crear la asignación, actualizar el activo y registrar movimiento en una transacción
+    const [assignment, updatedAsset, movement] = await prisma.$transaction([
       // Crear registro de asignación
       prisma.assetAssignment.create({
         data: {
@@ -87,6 +95,18 @@ export class AssignmentService {
           currentLocation: data.location,
           status: AssetStatus.IN_USE
         }
+      }),
+      // Registrar movimiento de inventario
+      prisma.assetMovement.create({
+        data: {
+          assetId: data.assetId,
+          type: MovementType.SALIDA,
+          movementType: MovementSubtype.ASIGNACION,
+          description: `Asignado a ${user.name || user.email}${data.reason ? ` - ${data.reason}` : ''}`,
+          userId: data.assignedById,
+          notes: data.notes,
+          quantity: 1
+        }
       })
     ])
 
@@ -117,8 +137,8 @@ export class AssignmentService {
       throw new Error('No hay una asignación activa para este activo')
     }
 
-    // Actualizar la asignación y el activo en una transacción
-    const [updatedAssignment, updatedAsset] = await prisma.$transaction([
+    // Actualizar la asignación, el activo y registrar movimiento en una transacción
+    const [updatedAssignment, updatedAsset, movement] = await prisma.$transaction([
       // Marcar asignación como devuelta
       prisma.assetAssignment.update({
         where: { id: activeAssignment.id },
@@ -151,13 +171,28 @@ export class AssignmentService {
           }
         }
       }),
-      // Liberar el activo
+      // Liberar el activo y devolverlo al almacén
       prisma.asset.update({
         where: { id: data.assetId },
         data: {
           assignedToId: null,
           assignedAt: null,
+          currentLocation: null,
+          building: 'Almacén',
+          office: 'Depósito General',
           status: AssetStatus.AVAILABLE
+        }
+      }),
+      // Registrar movimiento de inventario
+      prisma.assetMovement.create({
+        data: {
+          assetId: data.assetId,
+          type: MovementType.ENTRADA,
+          movementType: MovementSubtype.DEVOLUCION,
+          description: `Devuelto por ${activeAssignment.assignedTo.name || activeAssignment.assignedTo.email} al Almacén - Depósito General`,
+          userId: data.userId,
+          notes: data.notes,
+          quantity: 1
         }
       })
     ])
@@ -172,7 +207,8 @@ export class AssignmentService {
     assetId: string
     newAssignedToId: string
     assignedById: string
-    location?: string
+    building?: string
+    office?: string
     reason?: string
     notes?: string
   }) {
@@ -209,8 +245,8 @@ export class AssignmentService {
       throw new Error('El activo ya está asignado a este usuario')
     }
 
-    // Marcar asignación actual como transferida y crear nueva asignación
-    const [oldAssignment, newAssignment, updatedAsset] = await prisma.$transaction([
+    // Marcar asignación actual como transferida, crear nueva asignación y registrar movimiento
+    const [oldAssignment, newAssignment, updatedAsset, movement] = await prisma.$transaction([
       // Marcar asignación anterior como transferida
       prisma.assetAssignment.update({
         where: { id: activeAssignment.id },
@@ -226,7 +262,7 @@ export class AssignmentService {
           assetId: data.assetId,
           assignedToId: data.newAssignedToId,
           assignedById: data.assignedById,
-          location: data.location || activeAssignment.location,
+          location: data.building && data.office ? `${data.building} - ${data.office}` : activeAssignment.location,
           reason: data.reason || 'Transferencia',
           notes: data.notes,
           status: AssignmentStatus.ACTIVE
@@ -255,13 +291,27 @@ export class AssignmentService {
           }
         }
       }),
-      // Actualizar el activo
+      // Actualizar el activo con el nuevo responsable y ubicación
       prisma.asset.update({
         where: { id: data.assetId },
         data: {
           assignedToId: data.newAssignedToId,
           assignedAt: new Date(),
-          currentLocation: data.location || activeAssignment.location
+          currentLocation: data.building && data.office ? `${data.building} - ${data.office}` : activeAssignment.location,
+          building: data.building || activeAssignment.asset.building,
+          office: data.office || activeAssignment.asset.office
+        }
+      }),
+      // Registrar movimiento de inventario
+      prisma.assetMovement.create({
+        data: {
+          assetId: data.assetId,
+          type: MovementType.SALIDA,
+          movementType: MovementSubtype.TRANSFERENCIA_OUT,
+          description: `Transferido de ${activeAssignment.assignedTo.name || activeAssignment.assignedTo.email} a ${newUser.name || newUser.email}${data.reason ? ` - ${data.reason}` : ''}`,
+          userId: data.assignedById,
+          notes: data.notes,
+          quantity: 1
         }
       })
     ])

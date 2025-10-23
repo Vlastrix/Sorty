@@ -25,8 +25,8 @@ export async function maintenanceRoutes(app: FastifyInstance) {
   // GET - Obtener un mantenimiento específico
   app.get('/:id', { preHandler: authenticateUser }, getMaintenance);
 
-  // POST - Programar mantenimiento (solo ADMIN e INVENTORY_MANAGER)
-  app.post('/', { preHandler: [authenticateUser, requireInventoryAccess] }, scheduleAssetMaintenance);
+  // POST - Programar mantenimiento (todos los usuarios autenticados pueden solicitar)
+  app.post('/', { preHandler: authenticateUser }, scheduleAssetMaintenance);
 
   // POST - Iniciar mantenimiento (solo ADMIN e INVENTORY_MANAGER)
   app.post('/:id/start', { preHandler: [authenticateUser, requireInventoryAccess] }, startAssetMaintenance);

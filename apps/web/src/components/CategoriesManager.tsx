@@ -77,7 +77,7 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
   if (loading) {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-        <div className="bg-white rounded-lg p-6">
+        <div className="bg-white rounded-lg p-6 animate-fade-in-scale">
           <div className="flex items-center">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mr-3"></div>
             Cargando categorías...
@@ -89,7 +89,7 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden">
+      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden animate-fade-in-scale">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-900">

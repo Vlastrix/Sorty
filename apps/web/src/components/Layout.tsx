@@ -29,12 +29,21 @@ export default function Layout({ children }: LayoutProps) {
             </Link>
             
             <nav className="flex items-center space-x-4 ml-8">
-              <Link 
-                to="/assets"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                📦 Activos
-              </Link>
+              {canManageAssets() ? (
+                <Link 
+                  to="/assets"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  📦 Activos
+                </Link>
+              ) : (
+                <Link 
+                  to="/my-assets"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  📦 Mis Activos
+                </Link>
+              )}
 
               {canManageAssets() && (
                 <Link 
@@ -45,26 +54,32 @@ export default function Layout({ children }: LayoutProps) {
                 </Link>
               )}
 
-              <Link 
-                to="/movements"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                📥📤 Movimientos
-              </Link>
+              {canManageAssets() && (
+                <Link 
+                  to="/movements"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  📥📤 Movimientos
+                </Link>
+              )}
 
-              <Link 
-                to="/maintenance"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                🔧 Mantenimiento
-              </Link>
+              {canManageAssets() && (
+                <Link 
+                  to="/maintenance"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  🔧 Mantenimiento
+                </Link>
+              )}
 
-              <Link 
-                to="/incidents"
-                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
-              >
-                ⚠️ Incidencias
-              </Link>
+              {canManageAssets() && (
+                <Link 
+                  to="/incidents"
+                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+                >
+                  ⚠️ Incidencias
+                </Link>
+              )}
 
               {canManageAssets() && (
                 <Link 

@@ -201,11 +201,13 @@ export enum MovementSubtype {
   COMPRA = 'COMPRA',
   DONACION_IN = 'DONACION_IN',
   TRANSFERENCIA_IN = 'TRANSFERENCIA_IN',
+  DEVOLUCION = 'DEVOLUCION',
   // Salidas
   BAJA = 'BAJA',
   VENTA = 'VENTA',
   DONACION_OUT = 'DONACION_OUT',
-  TRANSFERENCIA_OUT = 'TRANSFERENCIA_OUT'
+  TRANSFERENCIA_OUT = 'TRANSFERENCIA_OUT',
+  ASIGNACION = 'ASIGNACION'
 }
 
 export const MovementTypeLabels: Record<MovementType, string> = {
@@ -217,10 +219,12 @@ export const MovementSubtypeLabels: Record<MovementSubtype, string> = {
   [MovementSubtype.COMPRA]: 'Compra',
   [MovementSubtype.DONACION_IN]: 'Donación Recibida',
   [MovementSubtype.TRANSFERENCIA_IN]: 'Transferencia Recibida',
+  [MovementSubtype.DEVOLUCION]: 'Devolución',
   [MovementSubtype.BAJA]: 'Baja',
   [MovementSubtype.VENTA]: 'Venta',
   [MovementSubtype.DONACION_OUT]: 'Donación Entregada',
-  [MovementSubtype.TRANSFERENCIA_OUT]: 'Transferencia Enviada'
+  [MovementSubtype.TRANSFERENCIA_OUT]: 'Transferencia Enviada',
+  [MovementSubtype.ASIGNACION]: 'Asignación'
 }
 
 export interface AssetMovement {
