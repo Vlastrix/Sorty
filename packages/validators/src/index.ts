@@ -174,3 +174,181 @@ export interface AssetAssignment {
     role: UserRole
   }
 }
+
+// ==================== Movimientos de Inventario ====================
+
+export enum MovementType {
+  ENTRADA = 'ENTRADA',
+  SALIDA = 'SALIDA'
+}
+
+export enum MovementSubtype {
+  // Entradas
+  COMPRA = 'COMPRA',
+  DONACION_IN = 'DONACION_IN',
+  TRANSFERENCIA_IN = 'TRANSFERENCIA_IN',
+  // Salidas
+  BAJA = 'BAJA',
+  VENTA = 'VENTA',
+  DONACION_OUT = 'DONACION_OUT',
+  TRANSFERENCIA_OUT = 'TRANSFERENCIA_OUT'
+}
+
+export const MovementTypeLabels: Record<MovementType, string> = {
+  [MovementType.ENTRADA]: 'Entrada',
+  [MovementType.SALIDA]: 'Salida'
+}
+
+export const MovementSubtypeLabels: Record<MovementSubtype, string> = {
+  [MovementSubtype.COMPRA]: 'Compra',
+  [MovementSubtype.DONACION_IN]: 'Donación Recibida',
+  [MovementSubtype.TRANSFERENCIA_IN]: 'Transferencia Recibida',
+  [MovementSubtype.BAJA]: 'Baja',
+  [MovementSubtype.VENTA]: 'Venta',
+  [MovementSubtype.DONACION_OUT]: 'Donación Entregada',
+  [MovementSubtype.TRANSFERENCIA_OUT]: 'Transferencia Enviada'
+}
+
+export interface AssetMovement {
+  id: string
+  assetId: string
+  type: MovementType
+  movementType: MovementSubtype
+  description: string
+  cost?: number
+  quantity: number
+  userId: string
+  date: string
+  notes?: string
+  createdAt: string
+  asset?: {
+    id: string
+    code: string
+    name: string
+    category?: {
+      id: string
+      name: string
+    }
+  }
+  user?: {
+    id: string
+    email: string
+    name?: string
+  }
+}
+
+// ==================== Mantenimientos ====================
+
+export enum MaintenanceType {
+  PREVENTIVO = 'PREVENTIVO',
+  CORRECTIVO = 'CORRECTIVO'
+}
+
+export enum MaintenanceStatus {
+  SCHEDULED = 'SCHEDULED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED'
+}
+
+export const MaintenanceTypeLabels: Record<MaintenanceType, string> = {
+  [MaintenanceType.PREVENTIVO]: 'Preventivo',
+  [MaintenanceType.CORRECTIVO]: 'Correctivo'
+}
+
+export const MaintenanceStatusLabels: Record<MaintenanceStatus, string> = {
+  [MaintenanceStatus.SCHEDULED]: 'Programado',
+  [MaintenanceStatus.IN_PROGRESS]: 'En Progreso',
+  [MaintenanceStatus.COMPLETED]: 'Completado',
+  [MaintenanceStatus.CANCELLED]: 'Cancelado'
+}
+
+export interface Maintenance {
+  id: string
+  assetId: string
+  type: MaintenanceType
+  scheduledDate: string
+  completedDate?: string
+  cost?: number
+  description: string
+  performedBy?: string
+  status: MaintenanceStatus
+  notes?: string
+  userId: string
+  createdAt: string
+  updatedAt: string
+  asset?: {
+    id: string
+    code: string
+    name: string
+    category?: {
+      id: string
+      name: string
+    }
+  }
+  user?: {
+    id: string
+    email: string
+    name?: string
+  }
+}
+
+// ==================== Incidencias ====================
+
+export enum IncidentType {
+  DANO = 'DANO',
+  PERDIDA = 'PERDIDA',
+  ROBO = 'ROBO',
+  MAL_FUNCIONAMIENTO = 'MAL_FUNCIONAMIENTO'
+}
+
+export enum IncidentStatus {
+  REPORTED = 'REPORTED',
+  INVESTIGATING = 'INVESTIGATING',
+  RESOLVED = 'RESOLVED',
+  CLOSED = 'CLOSED'
+}
+
+export const IncidentTypeLabels: Record<IncidentType, string> = {
+  [IncidentType.DANO]: 'Daño',
+  [IncidentType.PERDIDA]: 'Pérdida',
+  [IncidentType.ROBO]: 'Robo',
+  [IncidentType.MAL_FUNCIONAMIENTO]: 'Mal Funcionamiento'
+}
+
+export const IncidentStatusLabels: Record<IncidentStatus, string> = {
+  [IncidentStatus.REPORTED]: 'Reportado',
+  [IncidentStatus.INVESTIGATING]: 'En Investigación',
+  [IncidentStatus.RESOLVED]: 'Resuelto',
+  [IncidentStatus.CLOSED]: 'Cerrado'
+}
+
+export interface Incident {
+  id: string
+  assetId: string
+  type: IncidentType
+  reportedDate: string
+  resolvedDate?: string
+  description: string
+  reportedById: string
+  status: IncidentStatus
+  resolution?: string
+  cost?: number
+  notes?: string
+  createdAt: string
+  updatedAt: string
+  asset?: {
+    id: string
+    code: string
+    name: string
+    category?: {
+      id: string
+      name: string
+    }
+  }
+  reportedBy?: {
+    id: string
+    email: string
+    name?: string
+  }
+}

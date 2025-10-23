@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
               </span>
             </Link>
             
-            <nav className="flex items-center space-x-4">
+            <nav className="flex items-center space-x-4 ml-8">
               <Link 
                 to="/assets"
                 className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
@@ -44,6 +44,27 @@ export default function Layout({ children }: LayoutProps) {
                   📋 Asignaciones
                 </Link>
               )}
+
+              <Link 
+                to="/movements"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                📥📤 Movimientos
+              </Link>
+
+              <Link 
+                to="/maintenance"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                🔧 Mantenimiento
+              </Link>
+
+              <Link 
+                to="/incidents"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                ⚠️ Incidencias
+              </Link>
               
               {canManageUsers() && (
                 <Link 

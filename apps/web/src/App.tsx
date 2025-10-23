@@ -11,6 +11,9 @@ import AssetsList from './pages/AssetsList'
 import { AssetsDashboard } from './pages/AssetsDashboard'
 import UsersManagement from './pages/UsersManagement'
 import AssignmentHistory from './pages/AssignmentHistory'
+import MovementsPage from './pages/MovementsPage'
+import MaintenancePage from './pages/MaintenancePage'
+import IncidentsPage from './pages/IncidentsPage'
 
 function AppContent() {
   // Fallback adicional para navegadores problemáticos
@@ -94,6 +97,42 @@ function AppContent() {
           <ProtectedRoute requireAuth={true} allowedRoles={[UserRole.ADMIN, UserRole.INVENTORY_MANAGER]}>
             <Layout>
               <AssignmentHistory />
+            </Layout>
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Movements (all authenticated users can view) */}
+      <Route 
+        path="/movements" 
+        element={
+          <ProtectedRoute requireAuth={true}>
+            <Layout>
+              <MovementsPage />
+            </Layout>
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Maintenance (all authenticated users can view) */}
+      <Route 
+        path="/maintenance" 
+        element={
+          <ProtectedRoute requireAuth={true}>
+            <Layout>
+              <MaintenancePage />
+            </Layout>
+          </ProtectedRoute>
+        } 
+      />
+
+      {/* Incidents (all authenticated users can view and report) */}
+      <Route 
+        path="/incidents" 
+        element={
+          <ProtectedRoute requireAuth={true}>
+            <Layout>
+              <IncidentsPage />
             </Layout>
           </ProtectedRoute>
         } 

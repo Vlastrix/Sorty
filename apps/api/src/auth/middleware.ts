@@ -15,9 +15,13 @@ declare module 'fastify' {
  */
 export async function authenticateUser(request: FastifyRequest, reply: FastifyReply) {
   try {
+    console.log('🔐 Auth middleware - Path:', request.url)
+    console.log('🔐 Auth middleware - Headers:', request.headers.authorization ? 'Token presente' : 'Sin token')
+    
     const token = extractTokenFromHeader(request.headers.authorization)
     
     if (!token) {
+      console.log('❌ Auth middleware - Token no encontrado')
       return reply.status(401).send({ 
         error: 'Token de acceso requerido',
         code: 'MISSING_TOKEN' 
@@ -26,8 +30,10 @@ export async function authenticateUser(request: FastifyRequest, reply: FastifyRe
 
     const payload = verifyToken(token)
     request.user = payload
+    console.log('✅ Auth middleware - Usuario autenticado:', payload.email)
     
   } catch (error) {
+    console.log('❌ Auth middleware - Error:', error)
     return reply.status(401).send({ 
       error: 'Token inválido o expirado',
       code: 'INVALID_TOKEN' 
