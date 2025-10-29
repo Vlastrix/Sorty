@@ -21,8 +21,8 @@ export async function userRoutes(app: FastifyInstance) {
 
   // CRUD de usuarios (solo admin)
   app.get('/', { preHandler: requireAdmin }, UserController.getAll)
-  app.get('/:id', { preHandler: requireAdmin }, UserController.getById)
+  app.get('/:id', { preHandler: requireAdmin }, UserController.getById as any)
   app.post('/', { preHandler: requireAdmin }, UserController.create)
-  app.put('/:id', { preHandler: requireAdmin }, UserController.update)
-  app.delete('/:id', { preHandler: requireAdmin }, UserController.delete)
+  app.put('/:id', { preHandler: requireAdmin }, UserController.update as any)
+  app.delete('/:id', { preHandler: requireAdmin }, UserController.delete as any)
 }

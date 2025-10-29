@@ -108,8 +108,8 @@ export const reportsRoutes: FastifyPluginAsync = async (app) => {
           totalAssets: byStatus.summary.totalAssets,
           totalValue: byStatus.summary.totalValue,
           averageAge: byStatus.summary.averageAge,
-          byStatus: byStatus.summary.byStatus,
-          byCategory: byCategory.summary.byCategory,
+          byStatus: (byStatus.summary as any).byStatus,
+          byCategory: (byCategory.summary as any).byCategory,
           maintenancePending: maintenancePending.summary.totalAssets,
           inRepair: inRepair.summary.totalAssets
         },
