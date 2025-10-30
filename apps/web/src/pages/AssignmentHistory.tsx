@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { assignmentApi } from '../services/assignmentApi'
 import { AssetAssignment, AssignmentStatus, AssignmentStatusLabels } from '@sorty/validators'
+import Icon from '../components/Icon';
 
 export default function AssignmentHistory() {
   const [assignments, setAssignments] = useState<AssetAssignment[]>([])
@@ -208,9 +209,13 @@ export default function AssignmentHistory() {
                     <td className="px-4 py-4">
                       <button
                         onClick={() => setSelectedAssignment(assignment)}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+                        className="relative group p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-md transition-colors"
+                        title="Ver detalles"
                       >
-                        Ver
+                        <Icon name="eye" />
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                          Ver detalles
+                        </span>
                       </button>
                     </td>
                   </tr>
@@ -229,7 +234,7 @@ export default function AssignmentHistory() {
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
-                    📋 Detalles de Asignación
+                    <Icon name="clipboard" /> Detalles de Asignación
                   </h2>
                   <span className={`mt-2 inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusBadgeColor(selectedAssignment.status)}`}>
                     {AssignmentStatusLabels[selectedAssignment.status]}
@@ -248,7 +253,7 @@ export default function AssignmentHistory() {
               <div className="space-y-6">
                 {/* Información del Activo */}
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                  <h3 className="text-lg font-semibold text-blue-900 mb-3">📦 Activo</h3>
+                  <h3 className="text-lg font-semibold text-blue-900 mb-3"><Icon name="box" /> Activo</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="font-medium text-blue-700">Código:</span>
@@ -271,7 +276,7 @@ export default function AssignmentHistory() {
 
                 {/* Información del Responsable */}
                 <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <h3 className="text-lg font-semibold text-green-900 mb-3">👤 Responsable</h3>
+                  <h3 className="text-lg font-semibold text-green-900 mb-3"><Icon name="user" /> Responsable</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="font-medium text-green-700">Nombre:</span>
@@ -290,7 +295,7 @@ export default function AssignmentHistory() {
 
                 {/* Información de Ubicación */}
                 <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
-                  <h3 className="text-lg font-semibold text-purple-900 mb-3">📍 Ubicación</h3>
+                  <h3 className="text-lg font-semibold text-purple-900 mb-3"><Icon name="map-marker" /> Ubicación</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div className="md:col-span-2">
                       <span className="font-medium text-purple-700">Ubicación completa:</span>
@@ -301,7 +306,7 @@ export default function AssignmentHistory() {
 
                 {/* Información de Fechas */}
                 <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-                  <h3 className="text-lg font-semibold text-orange-900 mb-3">📅 Fechas</h3>
+                  <h3 className="text-lg font-semibold text-orange-900 mb-3"><Icon name="calendar" /> Fechas</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="font-medium text-orange-700">Fecha de asignación:</span>
@@ -319,7 +324,7 @@ export default function AssignmentHistory() {
                 {/* Motivo y Notas */}
                 {(selectedAssignment.reason || selectedAssignment.notes) && (
                   <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">📝 Información Adicional</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3"><Icon name="file-alt" /> Información Adicional</h3>
                     {selectedAssignment.reason && (
                       <div className="mb-3">
                         <span className="font-medium text-gray-700">Motivo:</span>

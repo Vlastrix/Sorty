@@ -3,6 +3,7 @@ import { MovementType, MovementSubtype, MovementSubtypeLabels } from '@sorty/val
 import { movementApi } from '../services/movementApi';
 import { Button } from './forms/Button';
 import { Input } from './forms/Input';
+import Icon from '../components/Icon';
 
 interface RegisterMovementModalProps {
   isOpen: boolean;
@@ -97,7 +98,7 @@ export default function RegisterMovementModal({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
         <h2 className="text-2xl font-bold mb-4">
-          {movementType === MovementType.ENTRADA ? '📥 Registrar Entrada' : '📤 Registrar Salida'}
+          {movementType === MovementType.ENTRADA ? '📦 Registrar Entrada' : '📤 Registrar Salida'}
         </h2>
         
         <div className="mb-4 p-3 bg-gray-100 rounded">

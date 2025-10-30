@@ -5,6 +5,7 @@ import { maintenanceApi } from '../services/maintenanceApi';
 import { useAuth } from '../contexts/AuthContext';
 import ScheduleMaintenanceModal from '../components/ScheduleMaintenanceModal';
 import { useNotification } from '../hooks/useNotification';
+import Icon from '../components/Icon';
 
 export default function MyAssets() {
   const { user } = useAuth();
@@ -105,7 +106,9 @@ export default function MyAssets() {
       <NotificationContainer />
 
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">📦 Mis Activos Asignados</h1>
+        <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-2">
+          <Icon name="box" /> Mis Activos Asignados
+        </h1>
         <p className="text-gray-600 mt-2">
           Activos bajo tu responsabilidad. Puedes solicitar mantenimiento cuando lo necesites.
         </p>
@@ -114,7 +117,9 @@ export default function MyAssets() {
       {/* Resumen */}
       {assets.length > 0 && (
         <div className="mb-6 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-3">📊 Resumen</h3>
+          <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
+            <Icon name="chart-bar" /> Resumen
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-blue-50 rounded">
               <p className="text-3xl font-bold text-blue-600">{assets.length}</p>
@@ -239,7 +244,7 @@ export default function MyAssets() {
                               : 'Solicitar mantenimiento'
                           }
                         >
-                          🔧 {assetsPendingMaintenance.has(asset.id) ? 'Mantenimiento Pendiente' : 'Solicitar Mantenimiento'}
+                          <Icon name="wrench" /> {assetsPendingMaintenance.has(asset.id) ? 'Mantenimiento Pendiente' : 'Solicitar Mantenimiento'}
                         </button>
                       </div>
                     </td>
@@ -277,7 +282,7 @@ export default function MyAssets() {
               <div className="flex justify-between items-start mb-6">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">
-                    📦 {viewDetailsAsset.name}
+                    <Icon name="box" /> {viewDetailsAsset.name}
                   </h2>
                   <span
                     className={`mt-2 inline-flex px-3 py-1 text-sm font-semibold rounded-full ${getStatusColor(
@@ -311,7 +316,7 @@ export default function MyAssets() {
                 {/* Información básica */}
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
                   <h3 className="text-lg font-semibold text-blue-900 mb-3">
-                    📋 Información Básica
+                    <Icon name="clipboard" /> Información Básica
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
@@ -343,7 +348,7 @@ export default function MyAssets() {
                 {viewDetailsAsset.description && (
                   <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                      📝 Descripción
+                      <Icon name="file-alt" /> Descripción
                     </h3>
                     <p className="text-gray-700">{viewDetailsAsset.description}</p>
                   </div>
@@ -352,7 +357,7 @@ export default function MyAssets() {
                 {/* Ubicación */}
                 <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
                   <h3 className="text-lg font-semibold text-purple-900 mb-3">
-                    📍 Ubicación
+                    <Icon name="map-marker" /> Ubicación
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
@@ -382,7 +387,7 @@ export default function MyAssets() {
 
                 {/* Fechas */}
                 <div className="bg-orange-50 rounded-lg p-4 border border-orange-200">
-                  <h3 className="text-lg font-semibold text-orange-900 mb-3">📅 Fechas</h3>
+                  <h3 className="text-lg font-semibold text-orange-900 mb-3"><Icon name="calendar" /> Fechas</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="font-medium text-orange-700">Fecha de compra:</span>
@@ -426,7 +431,7 @@ export default function MyAssets() {
                   }
                 >
                   {assetsPendingMaintenance.has(viewDetailsAsset.id)
-                    ? '⏳ Mantenimiento Pendiente'
+                    ? '⏰ Mantenimiento Pendiente'
                     : '🔧 Solicitar Mantenimiento'}
                 </button>
               </div>

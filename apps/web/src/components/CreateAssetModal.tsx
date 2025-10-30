@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Asset, Category, AssetStatus, AssetStatusLabels, CreateAssetInput } from '../types/assets'
+import Icon from '../components/Icon';
 
 interface CreateAssetModalProps {
   isOpen: boolean
@@ -66,6 +67,9 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
       })
     } else {
       // Resetear formulario cuando no hay activo a editar
+      // Obtener fecha de hoy en formato YYYY-MM-DD
+      const today = new Date().toISOString().split('T')[0]
+      
       setFormData({
         code: '',
         name: '',
@@ -75,7 +79,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         model: '',
         serialNumber: '',
         acquisitionCost: 0,
-        purchaseDate: '',
+        purchaseDate: today,
         supplier: '',
         usefulLife: 1,
         residualValue: 0,
@@ -101,7 +105,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    console.log('📝 Enviando formulario:', { isEditMode, formData })
+    console.log('<Icon name="file-alt" /> Enviando formulario:', { isEditMode, formData })
     
     // Validaciones básicas
     if (!formData.code.trim()) {
@@ -152,11 +156,13 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         delete (submitData as any).code
       }
       
-      console.log('📤 Datos a enviar:', submitData)
+      console.log('<Icon name="boxes" /> Datos a enviar:', submitData)
       await onSubmit(submitData)
-      console.log('✅ Formulario enviado exitosamente')
+      console.log('<Icon name="check" /> Formulario enviado exitosamente')
       
-      // Resetear formulario
+      // Resetear formulario con fecha de hoy
+      const today = new Date().toISOString().split('T')[0]
+      
       setFormData({
         code: '',
         name: '',
@@ -166,7 +172,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         model: '',
         serialNumber: '',
         acquisitionCost: 0,
-        purchaseDate: '',
+        purchaseDate: today,
         supplier: '',
         usefulLife: 1,
         residualValue: 0,
@@ -179,7 +185,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
       
       onClose()
     } catch (err) {
-      console.error('❌ Error en el formulario:', err)
+      console.error('<Icon name="times" /> Error en el formulario:', err)
       const errorMessage = err instanceof Error ? err.message : 'Error desconocido'
       setError(isEditMode ? `Error al actualizar activo: ${errorMessage}` : `Error al crear activo: ${errorMessage}`)
     } finally {
@@ -196,15 +202,15 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
           {/* Header */}
           <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
             <h2 className="text-xl font-bold text-gray-900">
-              {isEditMode ? '✏️ Editar Activo' : '➕ Nuevo Activo'}
+              {isEditMode ? 'Editar Activo' : 'Nuevo Activo'}
             </h2>
             <button
               type="button"
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-600"
+              className="text-gray-400 hover:text-gray-600 text-xl"
               disabled={loading}
             >
-              ✖️
+              <Icon name="times" />
             </button>
           </div>
 
@@ -212,7 +218,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
             {/* Información Básica */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                📋 Información Básica
+                <Icon name="clipboard" /> Información Básica
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -299,7 +305,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
             {/* Información Técnica */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                🔧 Información Técnica
+                <Icon name="wrench" /> Información Técnica
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
@@ -345,8 +351,8 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
 
             {/* Datos Contables */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                💰 Datos Contables
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Icon name="dollar-sign" /> Datos Contables
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div>
@@ -432,7 +438,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
             {/* Ubicación Física */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-                📍 Ubicación Física
+                <Icon name="map-marker" /> Ubicación Física
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -494,7 +500,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
               <div className="bg-red-50 border border-red-200 rounded-md p-4">
                 <div className="flex">
                   <div className="flex-shrink-0">
-                    <span className="text-red-400">⚠️</span>
+                    <span className="text-red-400"><Icon name="warning" /></span>
                   </div>
                   <div className="ml-3">
                     <p className="text-sm font-medium text-red-800">{error}</p>
@@ -526,7 +532,15 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                 </>
               ) : (
                 <>
-                  {isEditMode ? '💾 Guardar Cambios' : '✅ Crear Activo'}
+                  {isEditMode ? (
+                    <>
+                      <Icon name="save" /> Guardar Cambios
+                    </>
+                  ) : (
+                    <>
+                      <Icon name="check" /> Crear Activo
+                    </>
+                  )}
                 </>
               )}
             </button>

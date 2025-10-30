@@ -4,6 +4,7 @@ import { apiClient } from '../lib/api'
 import * as XLSX from 'xlsx'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
+import Icon from '../components/Icon';
 
 interface ReportTypeInfo {
   type: string
@@ -260,7 +261,7 @@ export default function Reports() {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">📊 Reportes y Consultas</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="chart-bar" /> Reportes y Consultas</h1>
           <p className="mt-2 text-gray-600">
             Genera reportes detallados sobre tus activos fijos
           </p>
@@ -412,9 +413,13 @@ export default function Reports() {
               <button
                 onClick={handleGenerateReport}
                 disabled={!selectedType || loading}
-                className="w-full mt-6 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                className="w-full mt-6 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
               >
-                {loading ? 'Generando...' : '🔍 Generar Reporte'}
+                {loading ? 'Generando...' : (
+                  <>
+                    <Icon name="search" /> Generar Reporte
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -556,7 +561,7 @@ export default function Reports() {
               </div>
             ) : (
               <div className="bg-white rounded-lg shadow p-12 text-center">
-                <div className="text-6xl mb-4">📊</div>
+                <div className="text-6xl mb-4"><Icon name="chart-bar" /></div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">
                   Selecciona un tipo de reporte
                 </h3>

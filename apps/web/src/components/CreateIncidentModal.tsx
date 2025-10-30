@@ -4,6 +4,7 @@ import { incidentApi } from '../services/incidentApi';
 import { assetApi } from '../services/assetApi';
 import { Button } from './forms/Button';
 import { Input } from './forms/Input';
+import Icon from '../components/Icon';
 
 interface CreateIncidentModalProps {
   onClose: () => void;
@@ -142,7 +143,7 @@ export default function CreateIncidentModal({
             {/* Advertencia para robos y pérdidas */}
             {isDecommissioningIncident && (
               <div className="p-3 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-md text-sm">
-                ⚠️ Esta incidencia marcará el activo como dado de baja automáticamente.
+                <Icon name="warning" /> Esta incidencia marcará el activo como dado de baja automáticamente.
               </div>
             )}
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Button } from './forms/Button'
+import Icon from '../components/Icon';
 
 interface DecommissionAssetModalProps {
   isOpen: boolean
@@ -85,7 +86,7 @@ export default function DecommissionAssetModal({
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h2 className="text-2xl font-bold text-red-600">⚠️ Dar de Baja Activo</h2>
+              <h2 className="text-2xl font-bold text-red-600"><Icon name="warning" /> Dar de Baja Activo</h2>
               <p className="text-sm text-gray-600 mt-1">
                 {assetCode} - {assetName}
               </p>

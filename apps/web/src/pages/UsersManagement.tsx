@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { UserRole, RoleLabels, RoleDescriptions } from '@sorty/validators'
 import { Button } from '../components/forms/Button'
+import Icon from '../components/Icon'
+import { ConfirmModal } from '../components/ConfirmModal'
 
 interface User {
   id: string
@@ -23,6 +25,8 @@ export default function UsersManagement() {
   const [error, setError] = useState<string | null>(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   const [editingUser, setEditingUser] = useState<User | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [userToDelete, setUserToDelete] = useState<User | null>(null)
 
   // Cargar usuarios
   useEffect(() => {
@@ -54,8 +58,6 @@ export default function UsersManagement() {
   }
 
   const handleDeleteUser = async (userId: string) => {
-    if (!confirm('¿Estás seguro de eliminar este usuario?')) return
-
     try {
       const token = localStorage.getItem('auth_token')
       const response = await fetch(`http://localhost:4000/users/${userId}`, {
@@ -67,7 +69,8 @@ export default function UsersManagement() {
 
       const data = await response.json()
       if (data.success) {
-        alert(data.message || 'Usuario eliminado correctamente')
+        setShowDeleteModal(false)
+        setUserToDelete(null)
         fetchUsers()
       } else {
         alert(data.error || 'Error al eliminar usuario')
@@ -76,6 +79,11 @@ export default function UsersManagement() {
       alert('Error de conexión')
       console.error(err)
     }
+  }
+
+  const confirmDeleteUser = (user: User) => {
+    setUserToDelete(user)
+    setShowDeleteModal(true)
   }
 
   const getRoleBadgeColor = (role: UserRole) => {
@@ -186,20 +194,28 @@ export default function UsersManagement() {
                     {new Date(user.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button
-                      onClick={() => setEditingUser(user)}
-                      className="text-blue-600 hover:text-blue-900 mr-4"
-                    >
-                      Editar
-                    </button>
-                    {user.id !== currentUser?.id && (
+                    <div className="flex gap-2 justify-end">
                       <button
-                        onClick={() => handleDeleteUser(user.id)}
-                        className="text-red-600 hover:text-red-900"
+                        onClick={() => setEditingUser(user)}
+                        className="relative group p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-md transition-colors"
                       >
-                        Eliminar
+                        <Icon name="edit" />
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                          Editar
+                        </span>
                       </button>
-                    )}
+                      {user.id !== currentUser?.id && (
+                        <button
+                          onClick={() => confirmDeleteUser(user)}
+                          className="relative group p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
+                        >
+                          <Icon name="trash" />
+                          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            Eliminar
+                          </span>
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -228,6 +244,21 @@ export default function UsersManagement() {
             }}
           />
         )}
+
+        {/* Delete Confirmation Modal */}
+        <ConfirmModal
+          isOpen={showDeleteModal}
+          type="danger"
+          title="Eliminar Usuario"
+          message={userToDelete ? `¿Estás seguro de que deseas eliminar al usuario "${userToDelete.name || userToDelete.email}"? Esta acción no se puede deshacer.` : ''}
+          confirmText="Eliminar"
+          cancelText="Cancelar"
+          onConfirm={() => userToDelete && handleDeleteUser(userToDelete.id)}
+          onClose={() => {
+            setShowDeleteModal(false)
+            setUserToDelete(null)
+          }}
+        />
       </div>
     </div>
   )
@@ -298,7 +329,7 @@ function UserFormModal({ user, onClose, onSuccess }: UserFormModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 animate-fade-in-scale">
         <h2 className="text-2xl font-bold mb-4">
           {user ? 'Editar Usuario' : 'Crear Usuario'}
         </h2>

@@ -11,6 +11,7 @@ import { ConfirmModal } from '../components/ConfirmModal'
 import { useAuth } from '../contexts/AuthContext'
 import { User } from '@sorty/validators'
 import { useNotification } from '../hooks/useNotification'
+import Icon from '../components/Icon';
 
 interface AssetsDashboardProps {}
 
@@ -36,7 +37,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
 
   // Estados de paginación
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 10
+  const [itemsPerPage, setItemsPerPage] = useState(10)
 
   // Estados de modales
   const [showCreateModal, setShowCreateModal] = useState(false)
@@ -140,10 +141,10 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
     currentPage * itemsPerPage
   )
 
-  // Resetear página cuando cambien los filtros
+  // Resetear página cuando cambien los filtros o items por página
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchTerm, selectedCategory, selectedStatus, buildingTerm])
+  }, [searchTerm, selectedCategory, selectedStatus, buildingTerm, itemsPerPage])
 
   // Funciones de manejo (INSTANTÁNEAS)
   const handleSearch = (value: string) => {
@@ -213,7 +214,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
     
     try {
       const updatedAsset = await assetApi.update(editingAsset.id, assetData)
-      console.log('✅ Activo actualizado:', updatedAsset)
+      console.log('<Icon name="check" /> Activo actualizado:', updatedAsset)
       
       setAllAssets(prev => prev.map(asset => 
         asset.id === editingAsset.id ? updatedAsset : asset
@@ -221,7 +222,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       setError(null)
       setEditingAsset(null)
     } catch (err) {
-      console.error('❌ Error al actualizar activo:', err)
+      console.error('<Icon name="times" /> Error al actualizar activo:', err)
       throw err // Re-lanzar para que el modal lo maneje
     }
   }
@@ -404,7 +405,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📦 Catálogo de Activos</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="box" /> Catálogo de Activos</h1>
           <p className="text-gray-600 mt-1">
             {filteredAssets.length} de {allAssets.length} activos
             {searchTerm && <span className="text-blue-600"> • Buscando: "{searchTerm}"</span>}
@@ -414,15 +415,15 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
           <div className="flex gap-3">
             <button
               onClick={() => setShowCategoriesManager(true)}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+              className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
             >
-              🏷️ Gestionar Categorías
+              <Icon name="tags" /> Gestionar Categorías
             </button>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2"
             >
-              ➕ Nuevo Activo
+              <Icon name="plus" /> Nuevo Activo
             </button>
           </div>
         )}
@@ -434,7 +435,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
           {/* Búsqueda instantánea */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              🔍 Buscar
+              <Icon name="search" /> Buscar
             </label>
             <input
               type="text"
@@ -447,8 +448,8 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
 
           {/* Filtro de categoría */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              📁 Categoría
+            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <Icon name="folder" /> Categoría
             </label>
             <select
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -466,8 +467,8 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
 
           {/* Filtro de estado */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              🏷️ Estado
+            <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center gap-2">
+              <Icon name="tag" /> Estado
             </label>
             <select
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -486,7 +487,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
           {/* Filtro de ubicación */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              🏢 Ubicación
+              <Icon name="building" /> Ubicación
             </label>
             <input
               type="text"
@@ -508,9 +509,9 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                 setSelectedStatus('')
                 setBuildingTerm('')
               }}
-              className="text-sm text-gray-600 hover:text-gray-800 underline"
+              className="text-sm text-gray-600 hover:text-gray-800 underline flex items-center gap-1"
             >
-              ✖️ Limpiar filtros
+              <Icon name="times" /> Limpiar filtros
             </button>
           </div>
         )}
@@ -584,14 +585,17 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                     )}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium">
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex gap-2 items-center">
                       {/* Botón Ver - Siempre visible */}
                       <button
                         onClick={() => setSelectedAsset(asset)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="relative group p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-md transition-colors"
                         title="Ver detalles"
                       >
-                        👁️ Ver
+                        <Icon name="eye" />
+                        <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                          Ver detalles
+                        </span>
                       </button>
                       
                       {canEdit && (
@@ -600,10 +604,13 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                           {asset.status !== 'DECOMMISSIONED' && (
                             <button
                               onClick={() => setEditingAsset(asset)}
-                              className="text-green-600 hover:text-green-900"
+                              className="relative group p-2 text-green-600 hover:text-green-900 hover:bg-green-50 rounded-md transition-colors"
                               title="Editar activo"
                             >
-                              ✏️ Editar
+                              <Icon name="edit" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                Editar
+                              </span>
                             </button>
                           )}
                           
@@ -614,10 +621,13 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                                 setAssetToDecommission(asset)
                                 setShowDecommissionModal(true)
                               }}
-                              className="text-red-700 hover:text-red-900 font-semibold"
-                              title="Dar de baja activo (requiere motivo y documento)"
+                              className="relative group p-2 text-red-700 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
+                              title="Dar de baja activo"
                             >
-                              ⛔ Dar de Baja
+                              <Icon name="ban" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                Dar de Baja
+                              </span>
                             </button>
                           )}
                           
@@ -625,10 +635,13 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                           {asset.status === 'DECOMMISSIONED' && (
                             <button
                               onClick={() => handleDeleteAsset(asset.id)}
-                              className="text-red-600 hover:text-red-900"
+                              className="relative group p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
                               title="Eliminar activo permanentemente"
                             >
-                              🗑️ Eliminar
+                              <Icon name="trash" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                Eliminar
+                              </span>
                             </button>
                           )}
                           
@@ -640,10 +653,13 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                                 asset.status === 'AVAILABLE' && (
                                   <button
                                     onClick={() => handleOpenAssignModal(asset)}
-                                    className="text-purple-600 hover:text-purple-900"
-                                    title="Asignar activo a un responsable"
+                                    className="relative group p-2 text-purple-600 hover:text-purple-900 hover:bg-purple-50 rounded-md transition-colors"
+                                    title="Asignar activo"
                                   >
-                                    📌 Asignar
+                                    <Icon name="thumbtack" />
+                                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                      Asignar
+                                    </span>
                                   </button>
                                 )
                               ) : (
@@ -651,35 +667,27 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
                                 <>
                                   <button
                                     onClick={() => handleOpenTransferModal(asset)}
-                                    className="text-orange-600 hover:text-orange-900"
-                                    title="Transferir activo a otro responsable"
+                                    className="relative group p-2 text-orange-600 hover:text-orange-900 hover:bg-orange-50 rounded-md transition-colors"
+                                    title="Transferir activo"
                                   >
-                                    🔄 Transferir
+                                    <Icon name="exchange" />
+                                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                      Transferir
+                                    </span>
                                   </button>
                                   <button
                                     onClick={() => handleReturnClick(asset)}
-                                    className="text-gray-600 hover:text-gray-900"
-                                    title="Devolver activo (cambiar a disponible)"
+                                    className="relative group p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                                    title="Devolver activo"
                                   >
-                                    ↩️ Devolver
+                                    <Icon name="arrow-left" />
+                                    <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                      Devolver
+                                    </span>
                                   </button>
                                 </>
                               )}
                             </>
-                          )}
-                          
-                          {/* Mensaje informativo si está dado de baja */}
-                          {asset.status === 'DECOMMISSIONED' && (
-                            <span className="text-xs text-gray-500 italic">
-                              (Dado de baja)
-                            </span>
-                          )}
-                          
-                          {/* Mensaje informativo si está en reparación */}
-                          {asset.status === 'IN_REPAIR' && (
-                            <span className="text-xs text-orange-600 italic">
-                              (En reparación)
-                            </span>
                           )}
                         </>
                       )}
@@ -695,7 +703,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         {filteredAssets.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              {allAssets.length === 0 ? '📭 No hay activos registrados' : '🔍 No se encontraron activos con esos filtros'}
+              {allAssets.length === 0 ? '📦 No hay activos registrados' : '🔍 No se encontraron activos con esos filtros'}
             </p>
           </div>
         )}
@@ -703,8 +711,23 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         {/* Paginación */}
         {totalPages > 1 && (
           <div className="bg-gray-50 px-6 py-3 flex items-center justify-between border-t border-gray-200">
-            <div className="text-sm text-gray-700">
-              Mostrando {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, filteredAssets.length)} de {filteredAssets.length} resultados
+            <div className="flex items-center gap-4">
+              <div className="text-sm text-gray-700">
+                Mostrando {(currentPage - 1) * itemsPerPage + 1} - {Math.min(currentPage * itemsPerPage, filteredAssets.length)} de {filteredAssets.length} resultados
+              </div>
+              <div className="flex items-center gap-2">
+                <label className="text-sm text-gray-700">Por página:</label>
+                <select
+                  value={itemsPerPage}
+                  onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                  className="px-2 py-1 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value={10}>10</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={100}>100</option>
+                </select>
+              </div>
             </div>
             <div className="flex gap-2">
               <button
@@ -734,7 +757,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         <div className="mt-4 bg-red-50 border border-red-200 rounded-md p-4">
           <div className="flex">
             <div className="flex-shrink-0">
-              <span className="text-red-400">⚠️</span>
+              <span className="text-red-400"><Icon name="warning" /></span>
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-red-800">{error}</p>
@@ -768,13 +791,13 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
             <div className="p-6">
               <div className="flex justify-between items-start mb-4">
                 <h2 className="text-xl font-bold text-gray-900">
-                  📦 {selectedAsset.name}
+                  <Icon name="box" /> {selectedAsset.name}
                 </h2>
                 <button
                   onClick={() => setSelectedAsset(null)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-gray-400 hover:text-gray-600 text-xl"
                 >
-                  ✖️
+                  <Icon name="times" />
                 </button>
               </div>
               

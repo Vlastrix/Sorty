@@ -14,7 +14,7 @@ interface AuthContextType {
   loading: boolean
   error: string | null
   login: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string, role?: UserRole) => Promise<void>
+  register: (email: string, password: string, role?: UserRole, name?: string) => Promise<void>
   logout: () => void
   clearError: () => void
   // Funciones de permisos
@@ -42,10 +42,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
   useEffect(() => {
     const checkAuth = async () => {
       const token = apiClient.getToken()
-      console.log('🔍 AuthContext: Checking authentication. Token exists:', !!token)
+      console.log('<Icon name="search" /> AuthContext: Checking authentication. Token exists:', !!token)
       
       if (!token) {
-        console.log('❌ AuthContext: No token found')
+        console.log('<Icon name="times" /> AuthContext: No token found')
         setLoading(false)
         return
       }
@@ -53,16 +53,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
       try {
         console.log('🔄 AuthContext: Verifying token with /auth/me')
         const response = await apiClient.getMe()
-        console.log('📝 AuthContext: /auth/me response:', response)
+        console.log('<Icon name="file-alt" /> AuthContext: /auth/me response:', response)
         
         if (response.success && response.data?.user) {
-          console.log('✅ AuthContext: User authenticated:', response.data.user.email)
+          console.log('<Icon name="check" /> AuthContext: User authenticated:', response.data.user.email)
           setUser(response.data.user)
         } else {
-          console.log('❌ AuthContext: Invalid response from /auth/me')
+          console.log('<Icon name="times" /> AuthContext: Invalid response from /auth/me')
         }
       } catch (err) {
-        console.error('❌ AuthContext: Auth check failed:', err)
+        console.error('<Icon name="times" /> AuthContext: Auth check failed:', err)
         // Token is invalid, remove it
         apiClient.setToken(null)
       } finally {
@@ -80,11 +80,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     try {
       const response = await apiClient.login(email, password)
-      console.log('📝 AuthContext: Login response:', response)
+      console.log('<Icon name="file-alt" /> AuthContext: Login response:', response)
       
       if (response.success && response.data) {
         const { user, token } = response.data
-        console.log('✅ AuthContext: Login successful. Setting token and user:', user.email)
+        console.log('<Icon name="check" /> AuthContext: Login successful. Setting token and user:', user.email)
         apiClient.setToken(token)
         setUser(user)
         console.log('🔑 AuthContext: Token saved. Current token:', apiClient.getToken()?.substring(0, 20) + '...')
@@ -122,12 +122,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (email: string, password: string, role: UserRole = UserRole.ASSET_RESPONSIBLE) => {
+  const register = async (email: string, password: string, role: UserRole = UserRole.ASSET_RESPONSIBLE, name?: string) => {
     setLoading(true)
     setError(null)
 
     try {
-      const response = await apiClient.register(email, password, role)
+      const response = await apiClient.register(email, password, role, name)
       
       if (response.success && response.data) {
         const { user, token } = response.data

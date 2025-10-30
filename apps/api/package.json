@@ -13,7 +13,9 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "prisma:gen": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "db:reset": "node src/scripts/resetDatabase.js",
+    "db:seed": "node src/scripts/seedUsers.js && node src/scripts/seedCategories.js && node src/scripts/seedAssets.js && node src/scripts/seedAssignments.js && node src/scripts/seedIncidents.js && node src/scripts/seedMaintenance.js && node src/scripts/seedMovements.js"
   },
   "dependencies": {
     "@fastify/cors": "^10.1.0",

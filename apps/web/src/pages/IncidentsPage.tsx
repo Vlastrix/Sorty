@@ -13,6 +13,7 @@ import { Button } from '../components/forms/Button';
 import CreateIncidentModal from '../components/CreateIncidentModal';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { useNotification } from '../hooks/useNotification';
+import Icon from '../components/Icon';
 
 export default function IncidentsPage() {
   const { user } = useAuth();
@@ -183,7 +184,7 @@ export default function IncidentsPage() {
       
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">⚠️ Incidencias</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="warning" /> Incidencias</h1>
           <p className="text-gray-600 mt-2">
             Gestión de daños, pérdidas, robos y mal funcionamiento
           </p>
@@ -192,7 +193,7 @@ export default function IncidentsPage() {
           onClick={() => setShowCreateModal(true)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
         >
-          <span>➕</span>
+          <span><Icon name="plus" /></span>
           Reportar Incidencia
         </button>
       </div>
@@ -255,7 +256,7 @@ export default function IncidentsPage() {
       {/* Resumen */}
       {incidents.length > 0 && (
         <div className="mb-6 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-3">📊 Resumen</h3>
+          <h3 className="text-lg font-semibold mb-3"><Icon name="chart-bar" /> Resumen</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-yellow-50 rounded">
               <p className="text-2xl font-bold text-yellow-600">
@@ -371,33 +372,45 @@ export default function IncidentsPage() {
                     </td>
                     {canManage && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm">
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 items-center">
                           {incident.status === IncidentStatus.REPORTED && (
-                            <Button
+                            <button
                               onClick={() => openConfirmModal('investigate', incident)}
-                              className="text-xs"
+                              className="relative group p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-md transition-colors"
+                              title="Investigar incidencia"
                             >
-                              🔍 Investigar
-                            </Button>
+                              <Icon name="search" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Investigar
+                              </span>
+                            </button>
                           )}
                           {incident.status === IncidentStatus.INVESTIGATING && (
-                            <Button
+                            <button
                               onClick={() => {
                                 setSelectedIncident(incident);
                                 setShowResolveModal(true);
                               }}
-                              className="text-xs"
+                              className="relative group p-2 text-green-600 hover:text-green-900 hover:bg-green-50 rounded-md transition-colors"
+                              title="Resolver incidencia"
                             >
-                              ✅ Resolver
-                            </Button>
+                              <Icon name="check" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Resolver
+                              </span>
+                            </button>
                           )}
                           {incident.status === IncidentStatus.RESOLVED && (
-                            <Button
+                            <button
                               onClick={() => openConfirmModal('close', incident)}
-                              className="text-xs"
+                              className="relative group p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+                              title="Cerrar incidencia"
                             >
-                              🔒 Cerrar
-                            </Button>
+                              <Icon name="times" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Cerrar
+                              </span>
+                            </button>
                           )}
                         </div>
                       </td>
@@ -414,7 +427,7 @@ export default function IncidentsPage() {
       {showResolveModal && selectedIncident && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
-            <h3 className="text-xl font-bold mb-4 text-gray-900">✅ Resolver Incidencia</h3>
+            <h3 className="text-xl font-bold mb-4 text-gray-900"><Icon name="check" /> Resolver Incidencia</h3>
             <p className="text-sm text-gray-600 mb-4">
               Activo: <strong>{selectedIncident.asset?.name}</strong>
             </p>
@@ -473,8 +486,8 @@ export default function IncidentsPage() {
         onConfirm={handleConfirmAction}
         title={
           confirmAction.type === 'investigate'
-            ? '🔍 Investigar Incidencia'
-            : '🔒 Cerrar Incidencia'
+            ? 'Investigar Incidencia'
+            : 'Cerrar Incidencia'
         }
         message={
           confirmAction.type === 'investigate'

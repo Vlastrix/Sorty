@@ -21,32 +21,32 @@ async function seedUsers() {
     const users = [
       {
         email: 'vladi@gmail.com',
-        name: 'Vladi - Administrador Principal',
+        name: 'Vladi',
         password: adminPassword,
         role: UserRole.ADMIN
       },
       {
         email: 'admin@sorty.com',
         name: 'Admin de Prueba',
-        password: hashedPassword,
+        password: adminPassword,
         role: UserRole.ADMIN
       },
       {
         email: 'inventario@sorty.com',
-        name: 'Juan Pérez - Encargado de Inventario',
-        password: hashedPassword,
+        name: 'Juan Pérez',
+        password: adminPassword,
         role: UserRole.INVENTORY_MANAGER
       },
       {
         email: 'responsable1@sorty.com',
-        name: 'María García - Responsable',
-        password: hashedPassword,
+        name: 'María García',
+        password: adminPassword,
         role: UserRole.ASSET_RESPONSIBLE
       },
       {
         email: 'responsable2@sorty.com',
-        name: 'Carlos López - Responsable',
-        password: hashedPassword,
+        name: 'Carlos López',
+        password: adminPassword,
         role: UserRole.ASSET_RESPONSIBLE
       }
     ]

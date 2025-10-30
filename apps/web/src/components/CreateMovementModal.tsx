@@ -4,6 +4,7 @@ import { movementApi } from '../services/movementApi';
 import { assetApi } from '../services/assetApi';
 import { Button } from './forms/Button';
 import { Input } from './forms/Input';
+import Icon from '../components/Icon';
 
 interface CreateMovementModalProps {
   onClose: () => void;
@@ -158,8 +159,8 @@ export default function CreateMovementModal({
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               >
-                <option value={MovementType.ENTRADA}>📥 Entrada</option>
-                <option value={MovementType.SALIDA}>📤 Salida</option>
+                <option value={MovementType.ENTRADA}><Icon name="boxes" /> Entrada</option>
+                <option value={MovementType.SALIDA}><Icon name="boxes" /> Salida</option>
               </select>
             </div>
 
@@ -186,7 +187,7 @@ export default function CreateMovementModal({
             {(formData.movementSubtype === MovementSubtype.BAJA ||
               formData.movementSubtype === MovementSubtype.DONACION_OUT) && (
               <div className="p-3 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-md text-sm">
-                ⚠️ Este movimiento marcará el activo como dado de baja.
+                <Icon name="warning" /> Este movimiento marcará el activo como dado de baja.
               </div>
             )}
 

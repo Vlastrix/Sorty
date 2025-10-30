@@ -8,6 +8,7 @@ import {
 } from '@sorty/validators';
 import { movementApi } from '../services/movementApi';
 import CreateMovementModal from '../components/CreateMovementModal';
+import Icon from '../components/Icon';
 
 export default function MovementsPage() {
   const [movements, setMovements] = useState<AssetMovement[]>([]);
@@ -60,14 +61,14 @@ export default function MovementsPage() {
     <div className="max-w-7xl mx-auto p-6">
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">📦 Movimientos de Inventario</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="box" /> Movimientos de Inventario</h1>
           <p className="text-gray-600 mt-2">Historial de entradas y salidas de activos</p>
         </div>
         <button
           onClick={() => setShowModal(true)}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
         >
-          <span>➕</span>
+          <span><Icon name="plus" /></span>
           Registrar Movimiento
         </button>
       </div>
@@ -88,8 +89,8 @@ export default function MovementsPage() {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Todos</option>
-              <option value={MovementType.ENTRADA}>📥 {MovementTypeLabels[MovementType.ENTRADA]}</option>
-              <option value={MovementType.SALIDA}>📤 {MovementTypeLabels[MovementType.SALIDA]}</option>
+              <option value={MovementType.ENTRADA}>{MovementTypeLabels[MovementType.ENTRADA]}</option>
+              <option value={MovementType.SALIDA}>{MovementTypeLabels[MovementType.SALIDA]}</option>
             </select>
           </div>
 
@@ -141,7 +142,7 @@ export default function MovementsPage() {
       {/* Resumen */}
       {movements.length > 0 && (
         <div className="mb-6 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-3">📊 Resumen</h3>
+          <h3 className="text-lg font-semibold mb-3"><Icon name="chart-bar" /> Resumen</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-gray-50 rounded">
               <p className="text-2xl font-bold text-gray-900">{movements.length}</p>
@@ -209,13 +210,12 @@ export default function MovementsPage() {
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       <span
-                        className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                        className={`px-2 py-1 text-xs font-semibold rounded-full inline-flex items-center gap-1 ${
                           movement.type === MovementType.ENTRADA
                             ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}
                       >
-                        {movement.type === MovementType.ENTRADA ? '📥' : '📤'}{' '}
                         {MovementSubtypeLabels[movement.movementType]}
                       </span>
                     </td>

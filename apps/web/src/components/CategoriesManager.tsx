@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Category, CreateCategoryInput } from '../types/assets'
 import { categoryApi } from '../services/assetApi'
+import { ConfirmModal } from './ConfirmModal'
+import Icon from '../components/Icon';
 
 interface CategoriesManagerProps {
   onClose: () => void
@@ -19,6 +21,10 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
     description: '',
     parentId: null
   })
+  
+  // Estados para el modal de confirmación de eliminación
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [categoryToDelete, setCategoryToDelete] = useState<{ id: string; name: string } | null>(null)
 
   useEffect(() => {
     loadCategories()
@@ -51,13 +57,23 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
   }
 
   const handleDeleteCategory = async (id: string, name: string) => {
-    if (confirm(`¿Estás seguro de eliminar la categoría "${name}"?`)) {
-      try {
-        await categoryApi.delete(id)
-        await loadCategories()
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error al eliminar categoría')
-      }
+    setCategoryToDelete({ id, name })
+    setShowDeleteModal(true)
+  }
+  
+  const confirmDeleteCategory = async () => {
+    if (!categoryToDelete) return
+    
+    try {
+      await categoryApi.delete(categoryToDelete.id)
+      await loadCategories()
+      onSuccess()
+      setError(null)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Error al eliminar categoría')
+    } finally {
+      setShowDeleteModal(false)
+      setCategoryToDelete(null)
     }
   }
 
@@ -92,21 +108,21 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
       <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden animate-fade-in-scale">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-900">
-            🏷️ Gestión de Categorías y Subcategorías
+          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <Icon name="tags" /> Gestión de Categorías y Subcategorías
           </h2>
           <button
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 text-2xl"
           >
-            ✕
+            <Icon name="times" />
           </button>
         </div>
 
         {/* Error Alert */}
         {error && (
           <div className="m-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-800">❌ {error}</p>
+            <p className="text-red-800"><Icon name="times" /> {error}</p>
           </div>
         )}
 
@@ -118,23 +134,31 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
               onClick={() => setShowCreateForm(true)}
               className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium"
             >
-              ➕ Nueva Categoría Principal
+              <Icon name="plus" /> Nueva Categoría Principal
             </button>
           </div>
 
           {/* Create Category Form */}
           {showCreateForm && (
             <div className={`mb-6 p-4 rounded-lg ${newCategory.parentId ? 'bg-green-50 border border-green-200' : 'bg-gray-50'}`}>
-              <h3 className="text-lg font-semibold mb-4">
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
                 {newCategory.parentId 
-                  ? `➕ Crear Subcategoría para "${categories.find(c => c.id === newCategory.parentId)?.name}"`
-                  : '➕ Crear Nueva Categoría Principal'
+                  ? (
+                    <>
+                      <Icon name="plus" /> Crear Subcategoría para "{categories.find(c => c.id === newCategory.parentId)?.name}"
+                    </>
+                  )
+                  : (
+                    <>
+                      <Icon name="plus" /> Crear Nueva Categoría Principal
+                    </>
+                  )
                 }
               </h3>
               {newCategory.parentId && (
                 <div className="mb-4 p-3 bg-green-100 rounded-md">
-                  <p className="text-sm text-green-800">
-                    🌳 Esta será una subcategoría de <strong>"{categories.find(c => c.id === newCategory.parentId)?.name}"</strong>
+                  <p className="text-sm text-green-800 flex items-center gap-2">
+                    <Icon name="sitemap" /> Esta será una subcategoría de <strong>"{categories.find(c => c.id === newCategory.parentId)?.name}"</strong>
                   </p>
                 </div>
               )}
@@ -250,15 +274,23 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
                             })
                             setShowCreateForm(true)
                           }}
-                          className="text-green-600 hover:text-green-800 text-sm font-medium"
+                          className="relative group p-2 text-green-600 hover:text-green-900 hover:bg-green-50 rounded-md transition-colors"
+                          title="Agregar subcategoría"
                         >
-                          ➕ Subcategoría
+                          <Icon name="plus" />
+                          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            Agregar Subcategoría
+                          </span>
                         </button>
                         <button
                           onClick={() => handleDeleteCategory(mainCategory.id, mainCategory.name)}
-                          className="text-red-600 hover:text-red-800 text-sm font-medium"
+                          className="relative group p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
+                          title="Eliminar categoría"
                         >
-                          Eliminar
+                          <Icon name="trash" />
+                          <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            Eliminar
+                          </span>
                         </button>
                       </div>
                     </div>
@@ -284,9 +316,13 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
                             </div>
                             <button
                               onClick={() => handleDeleteCategory(subcategory.id, subcategory.name)}
-                              className="text-red-600 hover:text-red-800 text-sm font-medium"
+                              className="relative group p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
+                              title="Eliminar subcategoría"
                             >
-                              Eliminar
+                              <Icon name="trash" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Eliminar
+                              </span>
                             </button>
                           </div>
                         ))}
@@ -309,6 +345,21 @@ export const CategoriesManager: React.FC<CategoriesManagerProps> = ({ onClose, o
           </button>
         </div>
       </div>
+      
+      {/* Modal de confirmación de eliminación */}
+      <ConfirmModal
+        isOpen={showDeleteModal}
+        onClose={() => {
+          setShowDeleteModal(false)
+          setCategoryToDelete(null)
+        }}
+        onConfirm={confirmDeleteCategory}
+        title="¿Eliminar categoría?"
+        message={`¿Estás seguro de que deseas eliminar la categoría "${categoryToDelete?.name}"? Esta acción no se puede deshacer.`}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        type="danger"
+      />
     </div>
   )
 }

@@ -3,6 +3,7 @@ import { IncidentType, IncidentTypeLabels } from '@sorty/validators';
 import { incidentApi } from '../services/incidentApi';
 import { Button } from './forms/Button';
 import { Input } from './forms/Input';
+import Icon from '../components/Icon';
 
 interface ReportIncidentModalProps {
   isOpen: boolean;
@@ -67,7 +68,7 @@ export default function ReportIncidentModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
-        <h2 className="text-2xl font-bold mb-4">⚠️ Reportar Incidencia</h2>
+        <h2 className="text-2xl font-bold mb-4"><Icon name="warning" /> Reportar Incidencia</h2>
         
         <div className="mb-4 p-3 bg-gray-100 rounded">
           <p className="text-sm text-gray-600">Activo:</p>
@@ -145,7 +146,7 @@ export default function ReportIncidentModal({
           {/* Advertencia para robo/pérdida */}
           {(formData.type === IncidentType.ROBO || formData.type === IncidentType.PERDIDA) && (
             <div className="p-3 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded text-sm">
-              ⚠️ <strong>Importante:</strong> Al reportar {formData.type === IncidentType.ROBO ? 'un robo' : 'una pérdida'}, 
+              <Icon name="warning" /> <strong>Importante:</strong> Al reportar {formData.type === IncidentType.ROBO ? 'un robo' : 'una pérdida'}, 
               el activo será automáticamente dado de baja del inventario.
             </div>
           )}

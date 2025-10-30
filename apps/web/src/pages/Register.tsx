@@ -10,6 +10,7 @@ const isValidEmail = (email: string): boolean => {
 }
 
 export default function Register() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -33,8 +34,13 @@ export default function Register() {
     setLocalError(null)
     setEmailError(null)
     
-    if (!email || !password || !confirmPassword) {
+    if (!name || !email || !password || !confirmPassword) {
       setLocalError('Todos los campos son requeridos')
+      return
+    }
+
+    if (name.trim().length < 2) {
+      setLocalError('El nombre debe tener al menos 2 caracteres')
       return
     }
 
@@ -57,7 +63,7 @@ export default function Register() {
     setIsSubmitting(true)
     
     try {
-      await register(email, password, UserRole.ASSET_RESPONSIBLE)
+      await register(email, password, UserRole.ASSET_RESPONSIBLE, name.trim())
       // Navigation will happen automatically due to useEffect above
     } catch (err) {
       // Error is handled by the context
@@ -110,6 +116,30 @@ export default function Register() {
 
         <form className="space-y-6 animate-slide-in-left" style={{animationDelay: '0.5s', opacity: 0}} onSubmit={onSubmit}>
           <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Nombre Completo
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                required
+                className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                placeholder="Tu nombre completo"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value)
+                  if (error || localError) {
+                    clearError()
+                    setLocalError(null)
+                  }
+                }}
+                disabled={isSubmitting}
+              />
+            </div>
+
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 Email
@@ -222,7 +252,7 @@ export default function Register() {
           <div>
             <button
               type="submit"
-              disabled={isSubmitting || !email || !password || !confirmPassword}
+              disabled={isSubmitting || !name || !email || !password || !confirmPassword}
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-xl text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transform transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             >
               {isSubmitting ? 'Creando cuenta...' : 'Crear Cuenta'}

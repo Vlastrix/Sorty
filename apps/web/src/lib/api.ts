@@ -57,7 +57,7 @@ class ApiClient {
       headers.Authorization = `Bearer ${this.token}`
       console.log('🔑 ApiClient: Sending request with token:', this.token.substring(0, 20) + '...')
     } else {
-      console.log('❌ ApiClient: No token available for request to:', endpoint)
+      console.log('<Icon name="times" className="inline" /> ApiClient: No token available for request to:', endpoint)
     }
 
     try {
@@ -89,10 +89,15 @@ class ApiClient {
   }
 
   // Auth endpoints
-  async register(email: string, password: string, role: string = 'user'): Promise<ApiResponse<AuthResponse>> {
+  async register(email: string, password: string, role: string = 'user', name?: string): Promise<ApiResponse<AuthResponse>> {
+    const body: any = { email, password, role }
+    if (name) {
+      body.name = name
+    }
+    
     return this.request<AuthResponse>('/auth/register', {
       method: 'POST',
-      body: JSON.stringify({ email, password, role }),
+      body: JSON.stringify(body),
     })
   }
 

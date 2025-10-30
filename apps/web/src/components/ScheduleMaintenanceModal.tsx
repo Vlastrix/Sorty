@@ -3,6 +3,7 @@ import { MaintenanceType, MaintenanceTypeLabels } from '@sorty/validators';
 import { maintenanceApi } from '../services/maintenanceApi';
 import { Button } from './forms/Button';
 import { Input } from './forms/Input';
+import Icon from '../components/Icon';
 
 interface ScheduleMaintenanceModalProps {
   isOpen: boolean;
@@ -73,7 +74,7 @@ export default function ScheduleMaintenanceModal({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-6 w-full max-w-md animate-fade-in-scale">
-        <h2 className="text-2xl font-bold mb-4">🔧 Programar Mantenimiento</h2>
+        <h2 className="text-2xl font-bold mb-4"><Icon name="wrench" /> Programar Mantenimiento</h2>
         
         <div className="mb-4 p-3 bg-gray-100 rounded">
           <p className="text-sm text-gray-600">Activo:</p>

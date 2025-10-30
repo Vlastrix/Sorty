@@ -13,6 +13,7 @@ import { Button } from '../components/forms/Button';
 import CreateMaintenanceModal from '../components/CreateMaintenanceModal';
 import { ConfirmModal } from '../components/ConfirmModal';
 import { useNotification } from '../hooks/useNotification';
+import Icon from '../components/Icon';
 
 export default function MaintenancePage() {
   const { user } = useAuth();
@@ -160,7 +161,7 @@ export default function MaintenancePage() {
       
       <div className="mb-6 flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">🔧 Mantenimientos</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="wrench" /> Mantenimientos</h1>
           <p className="text-gray-600 mt-2">
             Gestión de mantenimientos preventivos y correctivos
           </p>
@@ -170,7 +171,7 @@ export default function MaintenancePage() {
             onClick={() => setShowCreateModal(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
           >
-            <span>➕</span>
+            <span><Icon name="plus" /></span>
             Programar Mantenimiento
           </button>
         )}
@@ -228,7 +229,7 @@ export default function MaintenancePage() {
       {/* Resumen */}
       {maintenances.length > 0 && (
         <div className="mb-6 bg-white rounded-lg shadow p-4">
-          <h3 className="text-lg font-semibold mb-3">📊 Resumen</h3>
+          <h3 className="text-lg font-semibold mb-3"><Icon name="chart-bar" /> Resumen</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center p-4 bg-blue-50 rounded">
               <p className="text-2xl font-bold text-blue-600">
@@ -344,30 +345,42 @@ export default function MaintenancePage() {
                     </td>
                     {canManage && (
                       <td className="px-4 py-3 whitespace-nowrap text-sm">
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 items-center">
                           {maintenance.status === MaintenanceStatus.SCHEDULED && (
                             <>
-                              <Button
+                              <button
                                 onClick={() => openConfirmModal('start', maintenance)}
-                                className="text-xs"
+                                className="relative group p-2 text-green-600 hover:text-green-900 hover:bg-green-50 rounded-md transition-colors"
+                                title="Iniciar mantenimiento"
                               >
-                                ▶️ Iniciar
-                              </Button>
-                              <Button
+                                <Icon name="play" />
+                                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                  Iniciar
+                                </span>
+                              </button>
+                              <button
                                 onClick={() => openConfirmModal('cancel', maintenance)}
-                                className="text-xs"
+                                className="relative group p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-md transition-colors"
+                                title="Cancelar mantenimiento"
                               >
-                                ❌
-                              </Button>
+                                <Icon name="times" />
+                                <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                  Cancelar
+                                </span>
+                              </button>
                             </>
                           )}
                           {maintenance.status === MaintenanceStatus.IN_PROGRESS && (
-                            <Button
+                            <button
                               onClick={() => openConfirmModal('complete', maintenance)}
-                              className="text-xs"
+                              className="relative group p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-md transition-colors"
+                              title="Completar mantenimiento"
                             >
-                              ✅ Completar
-                            </Button>
+                              <Icon name="check" />
+                              <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-900 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                                Completar
+                              </span>
+                            </button>
                           )}
                         </div>
                       </td>
@@ -399,10 +412,10 @@ export default function MaintenancePage() {
         onConfirm={handleConfirmAction}
         title={
           confirmAction.type === 'start'
-            ? '▶️ Iniciar Mantenimiento'
+            ? 'Iniciar Mantenimiento'
             : confirmAction.type === 'complete'
-            ? '✅ Completar Mantenimiento'
-            : '❌ Cancelar Mantenimiento'
+            ? 'Completar Mantenimiento'
+            : 'Cancelar Mantenimiento'
         }
         message={
           confirmAction.type === 'start'
