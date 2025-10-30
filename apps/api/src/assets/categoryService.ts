@@ -67,7 +67,8 @@ export class CategoryService {
             name: true
           },
           orderBy: { name: 'asc' }
-        }
+        },
+        parent: true // Incluir padre para heredar valores
       }
     })
 
@@ -76,6 +77,29 @@ export class CategoryService {
     }
 
     return category
+  }
+
+  // Obtener valores por defecto de una categoría (hereda del padre si es subcategoría)
+  static async getCategoryDefaults(id: string) {
+    const category = await prisma.category.findUnique({
+      where: { id },
+      include: {
+        parent: true
+      }
+    }) as any
+
+    if (!category) {
+      throw new Error('Categoría no encontrada')
+    }
+
+    // Si es subcategoría y no tiene valores propios, heredar del padre
+    const defaults = {
+      defaultAcquisitionCost: category.defaultAcquisitionCost ?? category.parent?.defaultAcquisitionCost ?? null,
+      defaultUsefulLife: category.defaultUsefulLife ?? category.parent?.defaultUsefulLife ?? null,
+      defaultResidualValue: category.defaultResidualValue ?? category.parent?.defaultResidualValue ?? null
+    }
+
+    return defaults
   }
 
   // Actualizar categoría

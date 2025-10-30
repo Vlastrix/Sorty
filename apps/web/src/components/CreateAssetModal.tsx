@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Asset, Category, AssetStatus, AssetStatusLabels, CreateAssetInput } from '../types/assets'
 import Icon from '../components/Icon';
+import { Combobox } from './Combobox';
 
 interface CreateAssetModalProps {
   isOpen: boolean
@@ -19,6 +20,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
 }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [availableBrands, setAvailableBrands] = useState<string[]>([])
 
   const isEditMode = !!editingAsset
 
@@ -42,6 +44,69 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
     location: '',
     status: 'AVAILABLE'
   })
+
+  // Cargar marcas disponibles
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const token = localStorage.getItem('auth_token')
+        const response = await fetch('http://localhost:4000/assets-brands', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const result = await response.json()
+        if (result.success) {
+          setAvailableBrands(result.data)
+        }
+      } catch (err) {
+        console.error('Error al cargar marcas:', err)
+      }
+    }
+
+    if (isOpen) {
+      fetchBrands()
+    }
+  }, [isOpen])
+
+  // Auto-completar valores por defecto cuando se selecciona una categoría
+  useEffect(() => {
+    const fetchCategoryDefaults = async () => {
+      if (!formData.categoryId || isEditMode) return
+      
+      try {
+        const token = localStorage.getItem('auth_token')
+        const response = await fetch(`http://localhost:4000/categories/${formData.categoryId}/defaults`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        const result = await response.json()
+        
+        if (result.success && result.data) {
+          const defaults = result.data
+          
+          // Siempre actualizar con los valores por defecto de la categoría seleccionada
+          setFormData(prev => ({
+            ...prev,
+            acquisitionCost: defaults.defaultAcquisitionCost 
+              ? Number(defaults.defaultAcquisitionCost) 
+              : 0,
+            usefulLife: defaults.defaultUsefulLife 
+              ? defaults.defaultUsefulLife 
+              : 1,
+            residualValue: defaults.defaultResidualValue 
+              ? Number(defaults.defaultResidualValue) 
+              : 0
+          }))
+        }
+      } catch (err) {
+        console.error('Error al cargar valores por defecto:', err)
+      }
+    }
+
+    fetchCategoryDefaults()
+  }, [formData.categoryId, isEditMode])
 
   // Cargar datos del activo cuando se abre en modo edición
   useEffect(() => {
@@ -312,12 +377,12 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Marca
                   </label>
-                  <input
-                    type="text"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    placeholder="Dell, HP, Lenovo..."
-                    value={formData.brand}
-                    onChange={(e) => handleInputChange('brand', e.target.value)}
+                  <Combobox
+                    value={formData.brand || ''}
+                    onChange={(value) => handleInputChange('brand', value)}
+                    options={availableBrands}
+                    placeholder="Seleccionar o crear marca..."
+                    allowCustom={true}
                   />
                 </div>
 

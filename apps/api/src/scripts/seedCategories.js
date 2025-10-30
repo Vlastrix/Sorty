@@ -14,35 +14,50 @@ async function seedCategories() {
     const mobiliario = await prisma.category.create({
       data: {
         name: 'Mobiliario',
-        description: 'Muebles y elementos de oficina'
+        description: 'Muebles y elementos de oficina',
+        defaultAcquisitionCost: 250.00,
+        defaultUsefulLife: 10,
+        defaultResidualValue: 25.00
       }
     })
 
     const equiposComputo = await prisma.category.create({
       data: {
         name: 'Equipos de Cómputo',
-        description: 'Computadoras, laptops y dispositivos tecnológicos'
+        description: 'Computadoras, laptops y dispositivos tecnológicos',
+        defaultAcquisitionCost: 800.00,
+        defaultUsefulLife: 4,
+        defaultResidualValue: 100.00
       }
     })
 
     const vehiculos = await prisma.category.create({
       data: {
         name: 'Vehículos',
-        description: 'Automóviles, camiones y vehículos de transporte'
+        description: 'Automóviles, camiones y vehículos de transporte',
+        defaultAcquisitionCost: 15000.00,
+        defaultUsefulLife: 8,
+        defaultResidualValue: 3000.00
       }
     })
 
     const herramientas = await prisma.category.create({
       data: {
         name: 'Herramientas',
-        description: 'Herramientas y equipos de trabajo'
+        description: 'Herramientas y equipos de trabajo',
+        defaultAcquisitionCost: 150.00,
+        defaultUsefulLife: 5,
+        defaultResidualValue: 20.00
       }
     })
 
     const electrodomesticos = await prisma.category.create({
       data: {
         name: 'Electrodomésticos',
-        description: 'Aparatos eléctricos para oficina'
+        description: 'Aparatos eléctricos para oficina',
+        defaultAcquisitionCost: 400.00,
+        defaultUsefulLife: 10,
+        defaultResidualValue: 50.00
       }
     })
 

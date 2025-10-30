@@ -109,6 +109,15 @@ export class AssetsController {
     }
   }
 
+  static async getBrands(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const brands = await AssetService.getUniqueBrands()
+      return reply.send({ success: true, data: brands })
+    } catch (error: any) {
+      return reply.status(500).send({ success: false, error: error.message })
+    }
+  }
+
   // Dar de baja un activo (requiere motivo y documento)
   static async decommission(request: FastifyRequest, reply: FastifyReply) {
     try {

@@ -11,6 +11,7 @@ export async function assetsRoutes(app: FastifyInstance) {
   app.get('/assets/code/:code', AssetsController.getByCode)
   app.get('/assets/:id', AssetsController.getById)
   app.get('/assets-stats', AssetsController.getStats)
+  app.get('/assets-brands', AssetsController.getBrands)
   
   // Rutas de escritura (requieren admin o inventory manager)
   app.post('/assets', { preHandler: requireInventoryAccess }, AssetsController.create)

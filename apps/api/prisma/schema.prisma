@@ -52,6 +52,11 @@ model Category {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
+  // Valores por defecto para activos de esta categoría
+  defaultAcquisitionCost Decimal?  // Costo de adquisición por defecto
+  defaultUsefulLife      Int?      // Vida útil por defecto (años)
+  defaultResidualValue   Decimal?  // Valor residual por defecto
+  
   // Relación jerárquica para subcategorías
   parentId    String?
   parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])

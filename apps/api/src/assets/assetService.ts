@@ -358,6 +358,29 @@ export class AssetService {
     }
   }
 
+  // Obtener marcas únicas de activos
+  static async getUniqueBrands() {
+    const assets = await prisma.asset.findMany({
+      where: {
+        brand: {
+          not: null
+        }
+      },
+      select: {
+        brand: true
+      },
+      distinct: ['brand']
+    })
+
+    // Filtrar nulls y ordenar alfabéticamente
+    const brands = assets
+      .map(asset => asset.brand)
+      .filter((brand): brand is string => brand !== null && brand.trim() !== '')
+      .sort((a, b) => a.localeCompare(b))
+
+    return brands
+  }
+
   // Asignar activo a un responsable
   static async assignAsset(assetId: string, userId: string) {
     try {

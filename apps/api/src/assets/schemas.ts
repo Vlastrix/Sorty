@@ -7,7 +7,10 @@ export const AssetStatus = z.enum(['AVAILABLE', 'IN_USE', 'IN_REPAIR', 'DECOMMIS
 export const createCategorySchema = z.object({
   name: z.string().min(1, 'El nombre es requerido').max(100, 'El nombre es muy largo'),
   description: z.string().optional(),
-  parentId: z.string().cuid('ID de categoría padre inválido').optional().nullable()
+  parentId: z.string().cuid('ID de categoría padre inválido').optional().nullable(),
+  defaultAcquisitionCost: z.number().positive('El costo debe ser positivo').optional().nullable(),
+  defaultUsefulLife: z.number().int().positive('La vida útil debe ser un número entero positivo').optional().nullable(),
+  defaultResidualValue: z.number().nonnegative('El valor residual no puede ser negativo').optional().nullable()
 })
 
 // Schema para crear activo

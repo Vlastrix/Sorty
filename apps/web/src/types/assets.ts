@@ -7,6 +7,11 @@ export interface Category {
   createdAt: string
   updatedAt: string
   
+  // Valores por defecto para activos
+  defaultAcquisitionCost?: number | null
+  defaultUsefulLife?: number | null
+  defaultResidualValue?: number | null
+  
   // Jerarquía de categorías
   parentId?: string | null
   parent?: Category | null
@@ -86,6 +91,9 @@ export interface CreateCategoryInput {
   name: string
   description?: string
   parentId?: string | null // Para crear subcategorías
+  defaultAcquisitionCost?: number
+  defaultUsefulLife?: number
+  defaultResidualValue?: number
 }
 
 export interface CreateAssetInput {

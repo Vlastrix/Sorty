@@ -59,4 +59,14 @@ export class CategoriesController {
       return reply.status(400).send({ success: false, error: error.message })
     }
   }
+
+  static async getDefaults(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string }
+      const defaults = await CategoryService.getCategoryDefaults(id)
+      return reply.send({ success: true, data: defaults })
+    } catch (error: any) {
+      return reply.status(404).send({ success: false, error: error.message })
+    }
+  }
 }
