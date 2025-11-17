@@ -31,9 +31,9 @@ export const createAssetSchema = z.object({
   usefulLife: z.number().int().positive('La vida útil debe ser positiva').max(100, 'La vida útil es muy alta'),
   residualValue: z.number().min(0, 'El valor residual no puede ser negativo').default(0),
   
-  // Ubicación (obligatorios)
-  building: z.string().min(1, 'El edificio es requerido').max(100, 'El edificio es muy largo'),
-  office: z.string().min(1, 'La oficina es requerida').max(100, 'La oficina es muy larga'),
+  // Ubicación (opcionales)
+  building: z.string().max(100, 'El edificio es muy largo').optional(),
+  office: z.string().max(100, 'La oficina es muy larga').optional(),
   laboratory: z.string().max(100, 'El laboratorio es muy largo').optional(),
   location: z.string().max(200, 'La ubicación es muy larga').optional(),
   

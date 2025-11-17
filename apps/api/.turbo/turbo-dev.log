@@ -12,3 +12,140 @@
    Movimientos: /movements (entradas/salidas)
    Mantenimientos: /maintenance (preventivo/correctivo)
    Incidencias: /incidents (daños, pérdidas, robos)
+   Reportes: /reports (consultas y análisis)
+10:06:51 p.m. [tsx] change in ./src\assets\assetService.ts Restarting...
+c🚀 API corriendo en http://localhost:4000
+📦 Sistema de Gestión de Activos:
+   Auth: /auth/login, /auth/register
+   Usuarios: /users (CRUD, roles)
+   Categorías: /categories
+   Activos: /assets
+   Asignaciones: /assignments (historial y control)
+   Movimientos: /movements (entradas/salidas)
+   Mantenimientos: /maintenance (preventivo/correctivo)
+   Incidencias: /incidents (daños, pérdidas, robos)
+   Reportes: /reports (consultas y análisis)
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2i95zw00056hgdv2ta10cj',
+  data: {
+    name: 'Modificado 1763345229893',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763345229893
+10:08:13 p.m. [tsx] change in ./src\assets\assetService.ts Restarting...
+c🚀 API corriendo en http://localhost:4000
+📦 Sistema de Gestión de Activos:
+   Auth: /auth/login, /auth/register
+   Usuarios: /users (CRUD, roles)
+   Categorías: /categories
+   Activos: /assets
+   Asignaciones: /assignments (historial y control)
+   Movimientos: /movements (entradas/salidas)
+   Mantenimientos: /maintenance (preventivo/correctivo)
+   Incidencias: /incidents (daños, pérdidas, robos)
+   Reportes: /reports (consultas y análisis)
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2idiel000512o69c13vd05',
+  data: {
+    name: 'Modificado 1763345434887',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763345434887
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2ixcrj001b12o6uq8qj0xg',
+  data: {
+    name: 'Modificado 1763346352407',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763346352407
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2j6ojx001h12o6xdrymzfd',
+  data: {
+    name: 'Modificado 1763346787882',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763346787882
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2jcbsc001n12o6qcgvewj4',
+  data: {
+    name: 'Modificado 1763347052274',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763347052274
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2jha9e001x12o630bxsgga',
+  data: {
+    name: 'Modificado 1763347283097',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763347283097
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2k7x39002712o6r39pwviv',
+  data: {
+    name: 'Modificado 1763348525276',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763348525276
+🔄 PUT /assets/:id - Actualizando activo: {
+  id: 'cmi2kef0i002h12o6fcmfco4o',
+  data: {
+    name: 'Modificado 1763348828276',
+    acquisitionCost: 2000,
+    purchaseDate: 2025-11-17T00:00:00.000Z,
+    usefulLife: 10,
+    residualValue: 50,
+    office: 'Oficina 1',
+    status: 'AVAILABLE',
+    categoryId: 'cmhe1muo6001cxuzmh86460v6'
+  }
+}
+✅ Activo actualizado correctamente: EDIT-1763348828276

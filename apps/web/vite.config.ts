@@ -7,5 +7,8 @@ export default defineConfig({
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') }
   },
-  server: { port: 5173 }
+  server: { 
+    port: 5173,
+    host: true // Exponer en todas las interfaces (0.0.0.0)
+  }
 })

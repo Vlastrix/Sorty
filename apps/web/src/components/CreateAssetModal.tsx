@@ -210,6 +210,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
         model: formData.model?.trim() || undefined,
         serialNumber: formData.serialNumber?.trim() || undefined,
         supplier: formData.supplier?.trim() || undefined,
+        // Campos de ubicación: enviar undefined si están vacíos
         building: formData.building?.trim() || undefined,
         office: formData.office?.trim() || undefined,
         laboratory: formData.laboratory?.trim() || undefined,

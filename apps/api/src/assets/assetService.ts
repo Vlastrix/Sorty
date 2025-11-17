@@ -15,12 +15,6 @@ export class AssetService {
         throw new Error(`Ya existe un activo con el código "${data.code}"`)
       }
 
-      // VALIDACIÓN 2: Verificar que tenga ubicación (building y office son requeridos en el schema)
-      // Ya validado por Zod, pero agregamos verificación adicional
-      if (!data.building || !data.office) {
-        throw new Error('El activo debe tener una ubicación válida (edificio y oficina)')
-      }
-
       const asset = await prisma.asset.create({
         data: {
           ...data,
