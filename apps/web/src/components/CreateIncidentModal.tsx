@@ -100,6 +100,7 @@ export default function CreateIncidentModal({
                 Activo *
               </label>
               <select
+                data-testid="incident-asset-select"
                 value={formData.assetId}
                 onChange={(e) => setFormData({ ...formData, assetId: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -120,6 +121,7 @@ export default function CreateIncidentModal({
                 Tipo de Incidencia *
               </label>
               <select
+                data-testid="incident-type-select"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value as IncidentType })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -153,6 +155,7 @@ export default function CreateIncidentModal({
                 Descripción *
               </label>
               <textarea
+                data-testid="incident-description-textarea"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={4}
@@ -170,6 +173,7 @@ export default function CreateIncidentModal({
               value={formData.cost}
               onChange={(e) => setFormData({ ...formData, cost: e.target.value })}
               placeholder="0.00"
+              data-testid="incident-cost-input"
             />
 
             {/* Notas */}
@@ -178,6 +182,7 @@ export default function CreateIncidentModal({
                 Notas
               </label>
               <textarea
+                data-testid="incident-notes-textarea"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 rows={2}
@@ -200,6 +205,7 @@ export default function CreateIncidentModal({
                 type="submit"
                 loading={loading}
                 className="flex-1"
+                data-testid="incident-submit-button"
               >
                 Reportar
               </Button>

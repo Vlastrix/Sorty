@@ -99,6 +99,7 @@ export default function CreateMaintenanceModal({
                 Activo *
               </label>
               <select
+                data-testid="maintenance-asset-select"
                 value={formData.assetId}
                 onChange={(e) => setFormData({ ...formData, assetId: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -119,6 +120,7 @@ export default function CreateMaintenanceModal({
                 Tipo *
               </label>
               <select
+                data-testid="maintenance-type-select"
                 value={formData.type}
                 onChange={(e) => setFormData({ ...formData, type: e.target.value as MaintenanceType })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -135,6 +137,7 @@ export default function CreateMaintenanceModal({
 
             {/* Fecha Programada */}
             <Input
+              data-testid="maintenance-date-input"
               label="Fecha Programada *"
               type="datetime-local"
               value={formData.scheduledDate}
@@ -148,6 +151,7 @@ export default function CreateMaintenanceModal({
                 Descripción *
               </label>
               <textarea
+                data-testid="maintenance-description-textarea"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 rows={3}
@@ -159,6 +163,7 @@ export default function CreateMaintenanceModal({
 
             {/* Realizado por */}
             <Input
+              data-testid="maintenance-performedby-input"
               label="Realizado por"
               value={formData.performedBy}
               onChange={(e) => setFormData({ ...formData, performedBy: e.target.value })}
@@ -167,6 +172,7 @@ export default function CreateMaintenanceModal({
 
             {/* Costo Estimado */}
             <Input
+              data-testid="maintenance-cost-input"
               label="Costo Estimado (USD)"
               type="number"
               step="0.01"
@@ -181,6 +187,7 @@ export default function CreateMaintenanceModal({
                 Notas
               </label>
               <textarea
+                data-testid="maintenance-notes-textarea"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 rows={2}
@@ -200,6 +207,7 @@ export default function CreateMaintenanceModal({
                 Cancelar
               </Button>
               <Button
+                data-testid="maintenance-submit-button"
                 type="submit"
                 loading={loading}
                 className="flex-1"

@@ -134,6 +134,7 @@ export default function CreateMovementModal({
                 Activo *
               </label>
               <select
+                data-testid="movement-asset-select"
                 value={formData.assetId}
                 onChange={(e) => setFormData({ ...formData, assetId: e.target.value })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -154,13 +155,14 @@ export default function CreateMovementModal({
                 Tipo de Movimiento *
               </label>
               <select
+                data-testid="movement-type-select"
                 value={formData.movementType}
                 onChange={(e) => handleTypeChange(e.target.value as MovementType)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               >
-                <option value={MovementType.ENTRADA}><Icon name="boxes" /> Entrada</option>
-                <option value={MovementType.SALIDA}><Icon name="boxes" /> Salida</option>
+                <option value={MovementType.ENTRADA}>Entrada</option>
+                <option value={MovementType.SALIDA}>Salida</option>
               </select>
             </div>
 
@@ -170,6 +172,7 @@ export default function CreateMovementModal({
                 Subtipo *
               </label>
               <select
+                data-testid="movement-subtype-select"
                 value={formData.movementSubtype}
                 onChange={(e) => setFormData({ ...formData, movementSubtype: e.target.value as MovementSubtype })}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -193,6 +196,7 @@ export default function CreateMovementModal({
 
             {/* Descripción */}
             <Input
+              data-testid="movement-description-input"
               label="Descripción *"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
@@ -202,6 +206,7 @@ export default function CreateMovementModal({
 
             {/* Cantidad */}
             <Input
+              data-testid="movement-quantity-input"
               label="Cantidad"
               type="number"
               value={formData.quantity}
@@ -211,6 +216,7 @@ export default function CreateMovementModal({
 
             {/* Costo */}
             <Input
+              data-testid="movement-cost-input"
               label="Costo (USD)"
               type="number"
               step="0.01"
@@ -225,6 +231,7 @@ export default function CreateMovementModal({
                 Notas
               </label>
               <textarea
+                data-testid="movement-notes-textarea"
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 rows={3}
@@ -244,6 +251,7 @@ export default function CreateMovementModal({
                 Cancelar
               </Button>
               <Button
+                data-testid="movement-submit-button"
                 type="submit"
                 loading={loading}
                 className="flex-1"
