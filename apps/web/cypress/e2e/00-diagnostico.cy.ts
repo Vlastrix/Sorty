@@ -3,7 +3,7 @@
 /**
  * Test de diagnóstico para verificar conectividad con el backend
  */
-describe('🔍 Diagnóstico de Conexión', () => {
+describe('Diagnóstico de Conexión', () => {
   it('Debe poder acceder al frontend', () => {
     cy.visit('/')
     cy.url().should('include', 'localhost:5173')
@@ -29,7 +29,7 @@ describe('🔍 Diagnóstico de Conexión', () => {
       expect(response.body).to.have.property('success', true)
       expect(response.body.data).to.have.property('token')
       expect(response.body.data).to.have.property('user')
-      cy.log('✅ Login directo funcionó:', response.body.data.user.email)
+      cy.log('Login directo funcionó:', response.body.data.user.email)
     })
   })
 
@@ -70,7 +70,7 @@ describe('🔍 Diagnóstico de Conexión', () => {
     cy.get('body').then(($body) => {
       if ($body.find('.bg-red-50').length > 0) {
         cy.get('.bg-red-50').then(($error) => {
-          cy.log('❌ Error visible:', $error.text())
+          cy.log('Error visible:', $error.text())
         })
       }
     })
@@ -79,15 +79,15 @@ describe('🔍 Diagnóstico de Conexión', () => {
     cy.window().then((win) => {
       const token = win.localStorage.getItem('auth_token')
       if (token) {
-        cy.log('✅ Token guardado:', token.substring(0, 50) + '...')
+        cy.log('Token guardado:', token.substring(0, 50) + '...')
       } else {
-        cy.log('❌ No hay token en localStorage')
+        cy.log('No hay token en localStorage')
       }
     })
     
     // Ver la URL actual
     cy.url().then((url) => {
-      cy.log('📍 URL actual:', url)
+      cy.log('URL actual:', url)
     })
   })
 })
