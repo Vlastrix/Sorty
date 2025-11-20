@@ -11,7 +11,7 @@ describe('AuthService', () => {
     const validUserData = {
       email: 'test@example.com',
       password: 'password123',
-      role: 'user' as const
+      role: 'ASSET_RESPONSIBLE' as const
     }
 
     it('should register a new user successfully', async () => {
@@ -122,7 +122,7 @@ describe('AuthService', () => {
         id: 'user-123',
         email: userDataWithoutRole.email,
         password: hashedPassword,
-        role: 'user', // Default role
+        role: 'ASSET_RESPONSIBLE', // Default role
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -139,8 +139,9 @@ describe('AuthService', () => {
       expect(mockPrisma.user.create).toHaveBeenCalledWith({
         data: {
           email: userDataWithoutRole.email,
+          name: undefined,
           password: hashedPassword,
-          role: 'user' // Verificar que se use 'user' por defecto
+          role: 'ASSET_RESPONSIBLE' // Verificar que se use ASSET_RESPONSIBLE por defecto
         }
       })
     })
@@ -161,6 +162,7 @@ describe('AuthService', () => {
         email: validLoginData.email,
         password: hashedPassword,
         role: 'user',
+        isActive: true,
         createdAt: new Date('2023-01-01T00:00:00Z'),
         updatedAt: new Date('2023-01-01T00:00:00Z'),
       }
@@ -215,6 +217,7 @@ describe('AuthService', () => {
         email: validLoginData.email,
         password: 'hashed-correct-password',
         role: 'user',
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -239,6 +242,7 @@ describe('AuthService', () => {
         email: validLoginData.email,
         password: 'invalid-hash-format',
         role: 'user',
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
@@ -266,7 +270,7 @@ describe('AuthService', () => {
       const userData = {
         email: 'security@test.com',
         password: 'supersecret123',
-        role: 'admin' as const
+        role: 'ADMIN' as const
       }
 
       const mockUser = {
@@ -303,7 +307,8 @@ describe('AuthService', () => {
         id: 'sec-user',
         email: loginData.email,
         password: '$argon2id$hashed$password',
-        role: 'admin',
+        role: 'ADMIN',
+        isActive: true,
         createdAt: new Date(),
         updatedAt: new Date(),
       }
