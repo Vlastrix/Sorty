@@ -51,7 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
 
       try {
-        console.log('🔄 AuthContext: Verifying token with /auth/me')
+        console.log('AuthContext: Verifying token with /auth/me')
         const response = await apiClient.getMe()
         console.log('<Icon name="file-alt" /> AuthContext: /auth/me response:', response)
         
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [])
 
   const login = async (email: string, password: string) => {
-    console.log('🔄 AuthContext: Starting login for:', email)
+    console.log('AuthContext: Starting login for:', email)
     setLoading(true)
     setError(null)
 
@@ -87,7 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         console.log('<Icon name="check" /> AuthContext: Login successful. Setting token and user:', user.email)
         apiClient.setToken(token)
         setUser(user)
-        console.log('🔑 AuthContext: Token saved. Current token:', apiClient.getToken()?.substring(0, 20) + '...')
+        console.log('AuthContext: Token saved. Current token:', apiClient.getToken()?.substring(0, 20) + '...')
         setLoading(false) // Éxito - terminar loading
       } else {
         throw new Error(response.error || 'Login failed')

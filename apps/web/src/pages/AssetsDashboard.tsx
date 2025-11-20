@@ -210,7 +210,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
       return
     }
     
-    console.log('🔄 Actualizando activo:', editingAsset.id, assetData)
+    console.log('Actualizando activo:', editingAsset.id, assetData)
     
     try {
       const updatedAsset = await assetApi.update(editingAsset.id, assetData)
@@ -703,7 +703,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
         {filteredAssets.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              {allAssets.length === 0 ? '📦 No hay activos registrados' : '🔍 No se encontraron activos con esos filtros'}
+              {allAssets.length === 0 ? 'No hay activos registrados' : 'No se encontraron activos con esos filtros'}
             </p>
           </div>
         )}

@@ -35,8 +35,8 @@ await app.register(reportsRoutes, { prefix: '/reports' })
 
 const port = Number(process.env.PORT || 4000)
 app.listen({ port, host: '0.0.0.0' }).then(() => {
-  console.log(`🚀 API corriendo en http://localhost:${port}`)
-  console.log(`📦 Sistema de Gestión de Activos:`)
+  console.log(`API corriendo en http://localhost:${port}`)
+  console.log(`Sistema de Gestión de Activos:`)
   console.log(`   Auth: /auth/login, /auth/register`)
   console.log(`   Usuarios: /users (CRUD, roles)`)
   console.log(`   Categorías: /categories`)

@@ -3,12 +3,12 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function seedCategories() {
-  console.log('🌱 Creando categorías de ejemplo...')
+  console.log('Creando categorías de ejemplo...')
 
   try {
     // Limpiar categorías existentes (opcional)
     await prisma.category.deleteMany()
-    console.log('🧹 Categorías existentes eliminadas')
+    console.log('Categorías existentes eliminadas')
 
     // Crear categorías principales
     const mobiliario = await prisma.category.create({
@@ -61,7 +61,7 @@ async function seedCategories() {
       }
     })
 
-    console.log('✅ Categorías principales creadas')
+    console.log('Categorías principales creadas')
 
     // Crear subcategorías para Equipos de Cómputo
     const subcategoriasComputo = [
@@ -155,7 +155,7 @@ async function seedCategories() {
       })
     }
 
-    console.log('✅ Subcategorías creadas')
+    console.log('Subcategorías creadas')
 
     // Mostrar resumen
     const totalCategories = await prisma.category.count()
@@ -166,15 +166,15 @@ async function seedCategories() {
       where: { parentId: { not: null } }
     })
 
-    console.log(`\n📊 Resumen:`)
+    console.log(`\nResumen:`)
     console.log(`   Total de categorías: ${totalCategories}`)
     console.log(`   Categorías principales: ${mainCategories}`)
     console.log(`   Subcategorías: ${subcategories}`)
 
-    console.log('\n✅ ¡Categorías de ejemplo creadas exitosamente!')
+    console.log('\n¡Categorías de ejemplo creadas exitosamente!')
 
   } catch (error) {
-    console.error('❌ Error al crear categorías:', error)
+    console.error('Error al crear categorías:', error)
     console.error(error.message)
   } finally {
     await prisma.$disconnect()

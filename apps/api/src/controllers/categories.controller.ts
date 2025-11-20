@@ -48,14 +48,14 @@ export class CategoriesController {
   static async delete(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { id } = request.params as { id: string }
-      console.log('🗑️ Intentando eliminar categoría con ID:', id)
+      console.log('Intentando eliminar categoría con ID:', id)
       
       const result = await CategoryService.deleteCategory(id)
-      console.log('✅ Categoría eliminada exitosamente:', result)
+      console.log('Categoría eliminada exitosamente:', result)
       
       return reply.send({ success: true, data: result })
     } catch (error: any) {
-      console.error('❌ Error al eliminar categoría:', error.message)
+      console.error('Error al eliminar categoría:', error.message)
       return reply.status(400).send({ success: false, error: error.message })
     }
   }

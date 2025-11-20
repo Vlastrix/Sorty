@@ -64,15 +64,15 @@ export class AssetsController {
       const { id } = request.params as { id: string }
       const validatedData = updateAssetSchema.parse(request.body)
       
-      console.log('🔄 PUT /assets/:id - Actualizando activo:', { id, data: validatedData })
+      console.log('PUT /assets/:id - Actualizando activo:', { id, data: validatedData })
       
       const asset = await AssetService.updateAsset(id, validatedData)
       
-      console.log('✅ Activo actualizado correctamente:', asset.code)
+      console.log('Activo actualizado correctamente:', asset.code)
       
       return reply.send({ success: true, data: asset })
     } catch (error: any) {
-      console.error('❌ Error al actualizar activo:', error.message)
+      console.error('Error al actualizar activo:', error.message)
       return reply.status(400).send({ success: false, error: error.message })
     }
   }

@@ -4,7 +4,7 @@ const API_BASE_URL = 'http://localhost:4000';
 
 function getAuthHeaders() {
   const token = localStorage.getItem('auth_token');
-  console.log('🔑 movementApi - Token from localStorage:', token ? token.substring(0, 20) + '...' : 'NO TOKEN');
+  console.log('movementApi - Token from localStorage:', token ? token.substring(0, 20) + '...' : 'NO TOKEN');
   return {
     'Content-Type': 'application/json',
     ...(token && { Authorization: `Bearer ${token}` }),

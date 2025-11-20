@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function seedMaintenance() {
-  console.log('🌱 Seeding maintenance records...');
+  console.log('Seeding maintenance records...');
 
   try {
     // Obtener usuarios y activos
@@ -18,7 +18,7 @@ async function seedMaintenance() {
     const assets = await prisma.asset.findMany({ take: 6 });
 
     if (!admin || !inventoryManager || assets.length < 4) {
-      console.log('⚠️  Necesitas tener usuarios y activos creados primero');
+      console.log('Necesitas tener usuarios y activos creados primero');
       return;
     }
 
@@ -107,12 +107,12 @@ async function seedMaintenance() {
       await prisma.maintenance.create({
         data: maintenance,
       });
-      console.log(`✅ Mantenimiento creado: ${maintenance.type} - ${maintenance.description.substring(0, 40)}... [${maintenance.status}]`);
+      console.log(`Mantenimiento creado: ${maintenance.type} - ${maintenance.description.substring(0, 40)}... [${maintenance.status}]`);
     }
 
-    console.log(`\n✨ ${maintenances.length} registros de mantenimiento creados exitosamente`);
+    console.log(`\n${maintenances.length} registros de mantenimiento creados exitosamente`);
   } catch (error) {
-    console.error('❌ Error al crear mantenimientos:', error);
+    console.error('Error al crear mantenimientos:', error);
     throw error;
   } finally {
     await prisma.$disconnect();

@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function seedMovements() {
-  console.log('🌱 Seeding movements...');
+  console.log('Seeding movements...');
 
   try {
     // Obtener usuarios y activos para relacionar
@@ -18,7 +18,7 @@ async function seedMovements() {
     const assets = await prisma.asset.findMany({ take: 8 });
 
     if (!admin || !inventoryManager || assets.length < 5) {
-      console.log('⚠️  Necesitas tener usuarios y activos creados primero');
+      console.log('Necesitas tener usuarios y activos creados primero');
       return;
     }
 
@@ -116,12 +116,12 @@ async function seedMovements() {
       await prisma.assetMovement.create({
         data: movement,
       });
-      console.log(`✅ Movimiento creado: ${movement.movementType} - ${movement.description.substring(0, 40)}...`);
+      console.log(`Movimiento creado: ${movement.movementType} - ${movement.description.substring(0, 40)}...`);
     }
 
-    console.log(`\n✨ ${movements.length} movimientos creados exitosamente`);
+    console.log(`\n${movements.length} movimientos creados exitosamente`);
   } catch (error) {
-    console.error('❌ Error al crear movimientos:', error);
+    console.error('Error al crear movimientos:', error);
     throw error;
   } finally {
     await prisma.$disconnect();

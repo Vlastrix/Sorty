@@ -431,8 +431,8 @@ export default function MyAssets() {
                   }
                 >
                   {assetsPendingMaintenance.has(viewDetailsAsset.id)
-                    ? '⏰ Mantenimiento Pendiente'
-                    : '🔧 Solicitar Mantenimiento'}
+                    ? 'Mantenimiento Pendiente'
+                    : 'Solicitar Mantenimiento'}
                 </button>
               </div>
             </div>

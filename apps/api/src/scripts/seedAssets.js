@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function seedAssets() {
-  console.log('🏭 Creando activos de ejemplo...')
+  console.log('Creando activos de ejemplo...')
 
   try {
     // Primero necesitamos obtener las categorías y usuarios
@@ -11,12 +11,12 @@ async function seedAssets() {
     const users = await prisma.user.findMany()
 
     if (categories.length === 0) {
-      console.log('❌ No hay categorías. Ejecuta primero seedCategories.js')
+      console.log('No hay categorías. Ejecuta primero seedCategories.js')
       return
     }
 
     if (users.length === 0) {
-      console.log('❌ No hay usuarios. Crea un usuario primero.')
+      console.log('No hay usuarios. Crea un usuario primero.')
       return
     }
 
@@ -28,7 +28,7 @@ async function seedAssets() {
 
     // Limpiar activos existentes (opcional)
     await prisma.asset.deleteMany()
-    console.log('🧹 Activos existentes eliminados')
+    console.log('Activos existentes eliminados')
 
     // Buscar categorías específicas para crear activos más realistas
     const laptopsCategory = categories.find(c => c.name === 'Laptops')
@@ -296,7 +296,7 @@ async function seedAssets() {
     ]
 
     // Crear los activos
-    console.log('📦 Creando activos...')
+    console.log('Creando activos...')
     
     const createdAssets = []
     for (const assetData of assetsToCreate) {
@@ -304,11 +304,11 @@ async function seedAssets() {
         data: assetData
       })
       createdAssets.push(createdAsset)
-      console.log(`  ✅ Creado: ${assetData.code} - ${assetData.name}`)
+      console.log(`  Creado: ${assetData.code} - ${assetData.name}`)
     }
 
     // Crear asignaciones para activos IN_USE
-    console.log('\n📋 Creando asignaciones para activos en uso...')
+    console.log('\nCreando asignaciones para activos en uso...')
     const assetsInUse = createdAssets.filter(a => a.status === 'IN_USE' && a.assignedToId)
     
     for (const asset of assetsInUse) {
@@ -323,7 +323,7 @@ async function seedAssets() {
           status: 'ACTIVE'
         }
       })
-      console.log(`  ✅ Asignación creada: ${asset.code}`)
+      console.log(`  Asignación creada: ${asset.code}`)
     }
 
 
@@ -343,10 +343,10 @@ async function seedAssets() {
       }
     })
 
-    console.log(`\n📊 Estadísticas de activos creados:`)
+    console.log(`\nEstadísticas de activos creados:`)
     console.log(`   Total de activos: ${totalAssets}`)
     
-    console.log(`\n📈 Por estado:`)
+    console.log(`\nPor estado:`)
     assetsByStatus.forEach(stat => {
       const statusLabels = {
         'AVAILABLE': 'Disponible',
@@ -357,7 +357,7 @@ async function seedAssets() {
       console.log(`   ${statusLabels[stat.status] || stat.status}: ${stat._count.status}`)
     })
 
-    console.log(`\n📁 Por categoría:`)
+    console.log(`\nPor categoría:`)
     for (const stat of assetsByCategory) {
       const category = await prisma.category.findUnique({
         where: { id: stat.categoryId },
@@ -366,11 +366,11 @@ async function seedAssets() {
       console.log(`   ${category?.name || 'Sin categoría'}: ${stat._count.categoryId}`)
     }
 
-    console.log('\n🎉 ¡Activos de ejemplo creados exitosamente!')
-    console.log('💡 Ahora puedes probar todas las funcionalidades del dashboard.')
+    console.log('\n¡Activos de ejemplo creados exitosamente!')
+    console.log('Ahora puedes probar todas las funcionalidades del dashboard.')
 
   } catch (error) {
-    console.error('❌ Error al crear activos:', error)
+    console.error('Error al crear activos:', error)
   } finally {
     await prisma.$disconnect()
   }

@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function seedIncidents() {
-  console.log('🌱 Seeding incident records...');
+  console.log('Seeding incident records...');
 
   try {
     // Obtener usuarios y activos
@@ -18,7 +18,7 @@ async function seedIncidents() {
     const assets = await prisma.asset.findMany({ take: 7 });
 
     if (!admin || !inventoryManager || assets.length < 7) {
-      console.log('⚠️  Necesitas tener usuarios y activos creados primero');
+      console.log('Necesitas tener usuarios y activos creados primero');
       return;
     }
 
@@ -120,12 +120,12 @@ async function seedIncidents() {
       await prisma.incident.create({
         data: incident,
       });
-      console.log(`✅ Incidente creado: ${incident.type} - ${incident.description.substring(0, 40)}... [${incident.status}]`);
+      console.log(`Incidente creado: ${incident.type} - ${incident.description.substring(0, 40)}... [${incident.status}]`);
     }
 
-    console.log(`\n✨ ${incidents.length} registros de incidentes creados exitosamente`);
+    console.log(`\n${incidents.length} registros de incidentes creados exitosamente`);
   } catch (error) {
-    console.error('❌ Error al crear incidentes:', error);
+    console.error('Error al crear incidentes:', error);
     throw error;
   } finally {
     await prisma.$disconnect();

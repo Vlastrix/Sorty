@@ -55,7 +55,7 @@ class ApiClient {
     // Add authorization header if token exists
     if (this.token) {
       headers.Authorization = `Bearer ${this.token}`
-      console.log('🔑 ApiClient: Sending request with token:', this.token.substring(0, 20) + '...')
+      console.log('ApiClient: Sending request with token:', this.token.substring(0, 20) + '...')
     } else {
       console.log('<Icon name="times" className="inline" /> ApiClient: No token available for request to:', endpoint)
     }

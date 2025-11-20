@@ -3,14 +3,14 @@
 Sistema web para gestionar activos, inventario, categorías, asignaciones y reportes.  
 Frontend en **React + Vite + TS**. Backend en **Node.js (Fastify) + Prisma**. Monorepo con **pnpm workspaces** y **Turborepo**.
 
-## 🛠 Stack Tecnológico
+## Stack Tecnológico
 
 - **Frontend**: React, Vite, TypeScript, React Router, TanStack Query, Tailwind (listo para habilitar)
 - **Backend**: Fastify 5, Prisma, PostgreSQL
 - **Monorepo**: pnpm v10, Turborepo 2.x
 - **Dev Tools**: tsx, ESLint/Prettier (config compartible), .env por app
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 sorty/
@@ -25,7 +25,7 @@ sorty/
 └── README.md
 ```
 
-## 📝 Requisitos
+## Requisitos
 
 - **Node.js 20+**
 - **pnpm 10+**
@@ -34,7 +34,7 @@ sorty/
 
 ---
 
-## 🚀 Setup (Windows / PowerShell)
+## Setup (Windows / PowerShell)
 
 ### 1) Clonar e instalar
 

@@ -3,7 +3,7 @@ import { PrismaClient, AssignmentStatus } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function seedAssignments() {
-  console.log('📋 Creando asignaciones de ejemplo...')
+  console.log('Creando asignaciones de ejemplo...')
 
   try {
     // Obtener usuarios y activos existentes
@@ -24,7 +24,7 @@ async function seedAssignments() {
     })
 
     if (!admin || !inventoryManager || !responsable1 || !responsable2) {
-      console.error('❌ Error: No se encontraron todos los usuarios necesarios')
+      console.error('Error: No se encontraron todos los usuarios necesarios')
       console.log('   Asegúrate de ejecutar seedUsers.js primero')
       return
     }
@@ -35,12 +35,12 @@ async function seedAssignments() {
     })
 
     if (assets.length < 8) {
-      console.error('❌ Error: No hay suficientes activos en la base de datos')
+      console.error('Error: No hay suficientes activos en la base de datos')
       console.log('   Asegúrate de ejecutar seedAssets.js primero')
       return
     }
 
-    console.log('📦 Creando asignaciones...')
+    console.log('Creando asignaciones...')
 
     // Asignación 1: Laptop asignada a responsable1 (ACTIVA)
     const assignment1 = await prisma.assetAssignment.create({
@@ -66,7 +66,7 @@ async function seedAssignments() {
       }
     })
 
-    console.log(`  ✅ Asignación activa: ${assets[0].code} → ${responsable1.name}`)
+    console.log(`  Asignación activa: ${assets[0].code} → ${responsable1.name}`)
 
     // Asignación 2: MacBook asignada a responsable2 (ACTIVA)
     const assignment2 = await prisma.assetAssignment.create({
@@ -91,7 +91,7 @@ async function seedAssignments() {
       }
     })
 
-    console.log(`  ✅ Asignación activa: ${assets[1].code} → ${responsable2.name}`)
+    console.log(`  Asignación activa: ${assets[1].code} → ${responsable2.name}`)
 
     // Asignación 3: Escritorio a responsable1, luego DEVUELTO
     const assignment3 = await prisma.assetAssignment.create({
@@ -108,7 +108,7 @@ async function seedAssignments() {
       }
     })
 
-    console.log(`  ✅ Asignación devuelta: ${assets[2].code} (histórico)`)
+    console.log(`  Asignación devuelta: ${assets[2].code} (histórico)`)
 
     // Asignación 4: Monitor transferido de responsable1 a responsable2
     const assignment4a = await prisma.assetAssignment.create({
@@ -147,7 +147,7 @@ async function seedAssignments() {
       }
     })
 
-    console.log(`  ✅ Asignación transferida: ${assets[3].code} (${responsable1.name} → ${responsable2.name})`)
+    console.log(`  Asignación transferida: ${assets[3].code} (${responsable1.name} → ${responsable2.name})`)
 
     // Asignación 5: Impresora asignada al admin (ACTIVA)
     const assignment5 = await prisma.assetAssignment.create({
@@ -171,7 +171,7 @@ async function seedAssignments() {
       }
     })
 
-    console.log(`  ✅ Asignación activa: ${assets[4].code} → ${admin.name}`)
+    console.log(`  Asignación activa: ${assets[4].code} → ${admin.name}`)
 
     // Resumen
     const totalAssignments = await prisma.assetAssignment.count()
@@ -185,17 +185,17 @@ async function seedAssignments() {
       where: { status: AssignmentStatus.TRANSFERRED }
     })
 
-    console.log(`\n📊 Resumen de asignaciones:`)
+    console.log(`\nResumen de asignaciones:`)
     console.log(`   Total: ${totalAssignments}`)
     console.log(`   Activas: ${activeAssignments}`)
     console.log(`   Devueltas: ${returnedAssignments}`)
     console.log(`   Transferidas: ${transferredAssignments}`)
 
-    console.log('\n✅ ¡Asignaciones de ejemplo creadas exitosamente!')
-    console.log('💡 Ahora puedes ver el historial en /assignments')
+    console.log('\n¡Asignaciones de ejemplo creadas exitosamente!')
+    console.log('Ahora puedes ver el historial en /assignments')
 
   } catch (error) {
-    console.error('❌ Error al crear asignaciones:', error)
+    console.error('Error al crear asignaciones:', error)
     console.error(error.message)
   } finally {
     await prisma.$disconnect()

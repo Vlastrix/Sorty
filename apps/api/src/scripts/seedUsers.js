@@ -4,12 +4,12 @@ import argon2 from 'argon2'
 const prisma = new PrismaClient()
 
 async function seedUsers() {
-  console.log('👥 Creando usuarios de ejemplo...')
+  console.log('Creando usuarios de ejemplo...')
 
   try {
     // Limpiar usuarios existentes
     await prisma.user.deleteMany()
-    console.log('🧹 Usuarios existentes eliminados')
+    console.log('Usuarios existentes eliminados')
 
     // Contraseña común para testing: "password123"
     const hashedPassword = await argon2.hash('password123')
@@ -51,7 +51,7 @@ async function seedUsers() {
       }
     ]
 
-    console.log('📝 Creando usuarios...')
+    console.log('Creando usuarios...')
 
     for (const userData of users) {
       const user = await prisma.user.create({
@@ -64,7 +64,7 @@ async function seedUsers() {
         }
       })
 
-      console.log(`  ✅ ${user.name} (${user.role}): ${user.email}`)
+      console.log(`  ${user.name} (${user.role}): ${user.email}`)
     }
 
     // Estadísticas
@@ -75,7 +75,7 @@ async function seedUsers() {
       }
     })
 
-    console.log(`\n📊 Resumen de usuarios:`)
+    console.log(`\nResumen de usuarios:`)
     console.log(`   Total: ${users.length}`)
 
     const roleLabels = {
@@ -88,19 +88,19 @@ async function seedUsers() {
       console.log(`   ${roleLabels[stat.role]}: ${stat._count.role}`)
     })
 
-    console.log(`\n🔐 Credenciales de acceso:`)
+    console.log(`\nCredenciales de acceso:`)
     console.log(`   vladi@gmail.com - Contraseña: "123456" (ADMIN PRINCIPAL)`)
     console.log(`   Resto de usuarios - Contraseña: "password123"`)
-    console.log(`\n👤 Usuarios creados:`)
+    console.log(`\nUsuarios creados:`)
     users.forEach(user => {
       console.log(`   - ${user.email} (${roleLabels[user.role]})`)
     })
 
-    console.log('\n✅ ¡Usuarios de ejemplo creados exitosamente!')
-    console.log('💡 Puedes usar estas cuentas para testing del sistema de roles.')
+    console.log('\n¡Usuarios de ejemplo creados exitosamente!')
+    console.log('Puedes usar estas cuentas para testing del sistema de roles.')
 
   } catch (error) {
-    console.error('❌ Error al crear usuarios:', error)
+    console.error('Error al crear usuarios:', error)
     console.error(error.message)
   } finally {
     await prisma.$disconnect()
