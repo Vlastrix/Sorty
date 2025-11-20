@@ -6,6 +6,8 @@ import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import Icon from '../components/Icon';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
 interface ReportTypeInfo {
   type: string
   label: string
@@ -54,7 +56,7 @@ export default function Reports() {
 
   const loadReportTypes = async () => {
     try {
-      const response = await fetch('http://localhost:4000/reports/types', {
+      const response = await fetch(`${API_BASE_URL}/reports/types`, {
         headers: { 'Authorization': `Bearer ${apiClient.getToken()}` }
       })
       const data = await response.json()
@@ -66,7 +68,7 @@ export default function Reports() {
 
   const loadCategories = async () => {
     try {
-      const response = await fetch('http://localhost:4000/categories', {
+      const response = await fetch(`${API_BASE_URL}/categories`, {
         headers: { 'Authorization': `Bearer ${apiClient.getToken()}` }
       })
       const result = await response.json()
@@ -87,7 +89,7 @@ export default function Reports() {
 
   const loadUsers = async () => {
     try {
-      const response = await fetch('http://localhost:4000/users', {
+      const response = await fetch(`${API_BASE_URL}/users`, {
         headers: { 'Authorization': `Bearer ${apiClient.getToken()}` }
       })
       const result = await response.json()
@@ -111,7 +113,7 @@ export default function Reports() {
 
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:4000/reports/generate', {
+      const response = await fetch(`${API_BASE_URL}/reports/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

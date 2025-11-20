@@ -5,6 +5,8 @@ import { Button } from '../components/forms/Button'
 import Icon from '../components/Icon'
 import { ConfirmModal } from '../components/ConfirmModal'
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
 interface User {
   id: string
   email: string
@@ -37,7 +39,7 @@ export default function UsersManagement() {
     try {
       setLoading(true)
       const token = localStorage.getItem('auth_token')
-      const response = await fetch('http://localhost:4000/users', {
+      const response = await fetch(`${API_BASE_URL}/users`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -60,7 +62,7 @@ export default function UsersManagement() {
   const handleDeleteUser = async (userId: string) => {
     try {
       const token = localStorage.getItem('auth_token')
-      const response = await fetch(`http://localhost:4000/users/${userId}`, {
+      const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -290,8 +292,8 @@ function UserFormModal({ user, onClose, onSuccess }: UserFormModalProps) {
     try {
       const token = localStorage.getItem('auth_token')
       const url = user 
-        ? `http://localhost:4000/users/${user.id}`
-        : 'http://localhost:4000/users'
+        ? `${API_BASE_URL}/users/${user.id}`
+        : `${API_BASE_URL}/users`
       
       const body: any = {
         email: formData.email,

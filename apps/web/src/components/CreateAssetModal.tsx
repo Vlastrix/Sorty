@@ -50,7 +50,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
     const fetchBrands = async () => {
       try {
         const token = localStorage.getItem('auth_token')
-        const response = await fetch('http://localhost:4000/assets-brands', {
+        const response = await fetch(`${API_BASE_URL}/assets-brands`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -76,7 +76,7 @@ export const CreateAssetModal: React.FC<CreateAssetModalProps> = ({
       
       try {
         const token = localStorage.getItem('auth_token')
-        const response = await fetch(`http://localhost:4000/categories/${formData.categoryId}/defaults`, {
+        const response = await fetch(`${API_BASE_URL}/categories/${formData.categoryId}/defaults`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

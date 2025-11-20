@@ -13,6 +13,8 @@ import { User } from '@sorty/validators'
 import { useNotification } from '../hooks/useNotification'
 import Icon from '../components/Icon';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000'
+
 interface AssetsDashboardProps {}
 
 export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
@@ -252,7 +254,7 @@ export const AssetsDashboard: React.FC<AssetsDashboardProps> = () => {
   const loadUsers = async () => {
     try {
       setLoadingUsers(true)
-      const response = await fetch('http://localhost:4000/users', {
+      const response = await fetch(`${API_BASE_URL}/users`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
         }
