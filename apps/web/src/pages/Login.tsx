@@ -44,27 +44,45 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 space-y-6 animate-fade-in-up">
-          {/* Logo de la NUR */}
-          <div className="text-center">
-                      <div className="mb-6 animate-fade-in-scale" style={{animationDelay: '0.2s', opacity: 0}}>
-            <img
-              src="/images/nur.png"
-              alt="Universidad NUR"
-              className="mx-auto h-24 w-auto"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-                const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement;
-                if (fallback) fallback.style.display = 'block';
-              }}
-            />
-            {/* Fallback si no hay logo */}
-            <div className="mx-auto h-24 w-24 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center hidden">
-              <span className="text-white font-bold text-2xl">NUR</span>
+    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-700 py-12 px-4 sm:px-6 lg:px-8">
+      {/* Logo de la NUR - Fuera del contenedor */}
+      <div className="mb-8 animate-fade-in-scale" style={{animationDelay: '0.1s', opacity: 0}}>
+        <img
+          src="/images/nur.png"
+          alt="Universidad NUR"
+          className="h-20 w-auto drop-shadow-2xl"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+            const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement;
+            if (fallback) fallback.style.display = 'block';
+          }}
+        />
+        {/* Fallback si no hay logo */}
+        <div className="h-20 w-20 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow-xl hidden">
+          <span className="text-blue-600 font-bold text-xl">NUR</span>
+        </div>
+      </div>
+
+      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-gray-100 p-8 animate-fade-in-up">
+          {/* Logo de Sorty */}
+          <div className="text-center -mt-10">
+            <div className="animate-fade-in-scale" style={{animationDelay: '0.3s', opacity: 0}}>
+              <img
+                src="/images/logo.png"
+                alt="Sorty"
+                className="mx-auto h-48 w-auto -mb-4"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                  const fallback = (e.target as HTMLImageElement).nextElementSibling as HTMLElement;
+                  if (fallback) fallback.style.display = 'block';
+                }}
+              />
+              {/* Fallback si no hay logo */}
+              <div className="mx-auto h-48 w-48 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg hidden">
+                <span className="text-white font-bold text-6xl">S</span>
+              </div>
             </div>
-          </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-2 animate-slide-in-left" style={{animationDelay: '0.4s', opacity: 0}}>
+            <h2 className="text-3xl font-bold text-gray-900 -mt-5 animate-slide-in-left" style={{animationDelay: '0.4s', opacity: 0}}>
               Bienvenido a Sorty
             </h2>
             <p className="text-gray-600 mb-6 animate-slide-in-left" style={{animationDelay: '0.5s', opacity: 0}}>

@@ -3,19 +3,33 @@
 > vite
 
 
-  [32m[1mVITE[22m v5.4.20[39m  [2mready in [0m[1m498[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v5.4.20[39m  [2mready in [0m[1m663[22m[2m[0m ms[22m
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://26.162.22.38:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.56.1:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.1.12:[1m5173[22m/[39m
-  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.31.224.1:[1m5173[22m/[39m
-[2m2:38:39 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:41:13 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:46:59 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:47:37 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:55:07 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:55:28 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m2:56:23 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMovementModal.tsx, /src/index.css[22m
-[2m3:08:00 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMaintenanceModal.tsx, /src/index.css[22m
-[2m3:17:41 p.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/CreateMaintenanceModal.tsx, /src/index.css[22m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.19.0.1:[1m5173[22m/[39m
+[2m3:07:11 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:08:13 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:08:47 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:09:34 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:10:16 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:10:55 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:11:20 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:12:02 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:12:46 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:04 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:25 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:31 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:36 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:40 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:53 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:13:57 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:14:00 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:14:03 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:14:06 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:14:12 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:15:05 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:15:17 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m
+[2m3:15:21 a.m.[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.tsx, /src/index.css[22m

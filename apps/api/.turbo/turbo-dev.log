@@ -12,19 +12,3 @@
    Movimientos: /movements (entradas/salidas)
    Mantenimientos: /maintenance (preventivo/correctivo)
    Incidencias: /incidents (daños, pérdidas, robos)
-   Reportes: /reports (consultas y análisis)
-🔄 PUT /assets/:id - Actualizando activo: {
-  id: 'cmi6c3xui0005ukhv4beqmagh',
-  data: {
-    name: 'Modificado 1763576770503',
-    acquisitionCost: 2000,
-    purchaseDate: 2025-11-19T00:00:00.000Z,
-    usefulLife: 10,
-    residualValue: 50,
-    office: 'Oficina 1',
-    status: 'AVAILABLE',
-    categoryId: 'cmhe1muo6001cxuzmh86460v6'
-  }
-}
-✅ Activo actualizado correctamente: EDIT-1763576770503
-🔄 PUT /assets/:id - Actualizando activo: {

@@ -130,6 +130,35 @@ export default function Layout({ children }: LayoutProps) {
       </header>
 
       <main>{children}</main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo NUR a la izquierda */}
+            <div className="flex-shrink-0">
+              <img
+                src="/images/nur.png"
+                alt="Universidad NUR"
+                className="h-10 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).style.display = 'none';
+                }}
+              />
+            </div>
+
+            {/* Copyright al centro */}
+            <div className="flex-1 text-center">
+              <p className="text-sm text-gray-600">
+                © {new Date().getFullYear()} <span className="font-semibold text-blue-600">Team Sorty</span>. Todos los derechos reservados.
+              </p>
+            </div>
+
+            {/* Espacio vacío a la derecha para balance */}
+            <div className="flex-shrink-0 w-10"></div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
