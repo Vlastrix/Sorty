@@ -2,31 +2,7 @@
 > @sorty/api@0.1.0 dev C:\Vladi\Taller V Projects\Sorty\apps\api
 > tsx watch src/index.ts
 
-🚀 API corriendo en http://localhost:4000
-📦 Sistema de Gestión de Activos:
-   Auth: /auth/login, /auth/register
-   Usuarios: /users (CRUD, roles)
-   Categorías: /categories
-   Activos: /assets
-   Asignaciones: /assignments (historial y control)
-   Movimientos: /movements (entradas/salidas)
-   Mantenimientos: /maintenance (preventivo/correctivo)
-   Incidencias: /incidents (daños, pérdidas, robos)
-   Reportes: /reports (consultas y análisis)
-1:37:52 a.m. [tsx] change in ./src\controllers\assets.controller.ts Restarting...
-cAPI corriendo en http://localhost:4000
-Sistema de Gestión de Activos:
-   Auth: /auth/login, /auth/register
-   Usuarios: /users (CRUD, roles)
-   Categorías: /categories
-   Activos: /assets
-   Asignaciones: /assignments (historial y control)
-   Movimientos: /movements (entradas/salidas)
-   Mantenimientos: /maintenance (preventivo/correctivo)
-   Incidencias: /incidents (daños, pérdidas, robos)
-   Reportes: /reports (consultas y análisis)
-1:39:08 a.m. [tsx] change in ./src\controllers\assets.controller.ts Restarting...
-cAPI corriendo en http://localhost:4000
+API corriendo en http://localhost:4000
 Sistema de Gestión de Activos:
    Auth: /auth/login, /auth/register
    Usuarios: /users (CRUD, roles)

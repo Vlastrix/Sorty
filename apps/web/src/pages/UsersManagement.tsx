@@ -112,7 +112,7 @@ export default function UsersManagement() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Gestión de Usuarios</h1>
+          <h1 className="text-3xl font-bold text-gray-900"><Icon name="user" /> Gestión de Usuarios</h1>
           <p className="mt-2 text-sm text-gray-600">
             Administra usuarios y sus roles en el sistema
           </p>
