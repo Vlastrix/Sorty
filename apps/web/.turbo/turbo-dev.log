@@ -2,10 +2,10 @@
 > @sorty/web@0.1.0 dev C:\Vladi\Taller V Projects\Sorty\apps\web
 > vite
 
-Re-optimizing dependencies because lockfile has changed
 
-  [32m[1mVITE[22m v5.4.20[39m  [2mready in [0m[1m429[22m[2m[0m ms[22m
+  [32m[1mVITE[22m v5.4.20[39m  [2mready in [0m[1m346[22m[2m[0m ms[22m
 
   [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://26.162.22.38:[1m5173[22m/[39m
   [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.56.1:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.1.12:[1m5173[22m/[39m

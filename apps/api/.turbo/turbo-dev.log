@@ -10,37 +10,16 @@
 [1m[46m RUN [49m[22m [36mv3.2.4 [39m[90mC:/Vladi/Taller V Projects/Sorty/apps/api[39m
       [2mCoverage enabled with [22m[33mv8[39m
 
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould return all categories with subcategories[32m 9[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould handle empty categories list[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould handle database errors[32m 3[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetCategoryById[2m > [22mshould return category by id[32m 5[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetCategoryById[2m > [22mshould throw error when category not found[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mcreateCategory[2m > [22mshould create a new category[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mcreateCategory[2m > [22mshould create category with parentId[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mupdateCategory[2m > [22mshould update an existing category[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mupdateCategory[2m > [22mshould handle update errors[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould delete category without subcategories[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould not delete category with subcategories[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould throw error when category not found[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mreportIncident[2m > [22mshould create a new incident[32m 6[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould return all incidents[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by status[32m 5[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by type[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by asset[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mresolveIncident[2m > [22mshould resolve incident record[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentById[2m > [22mshould return incident by id[32m 2[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentsByAsset[2m > [22mshould return incidents for specific asset[32m 1[2mms[22m[39m
- [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mcloseIncident[2m > [22mshould close a resolved incident[32m 1[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mregisterEntry[2m > [22mshould register an entry movement[32m 6[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mregisterEntry[2m > [22mshould use current date if not provided[32m 1[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mregisterExit[2m > [22mshould register an exit movement[32m 1[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementHistory[2m > [22mshould return all movements[32m 1[2mms[22m[39m
- [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementHistory[2m > [22mshould filter by movement type[32m 5[2mms[22m[39m
+ [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementHistory[2m > [22mshould filter by movement type[32m 4[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementHistory[2m > [22mshould filter by asset[32m 1[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementById[2m > [22mshould return movement by id[32m 2[2mms[22m[39m
  [32m✓[39m src/test/movements/movementService.test.ts[2m > [22mMovementService[2m > [22mgetMovementById[2m > [22mshould return null when movement not found[32m 0[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould register a new user successfully[32m 9[2mms[22m[39m
- [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould throw error when user already exists[32m 4[2mms[22m[39m
+ [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould throw error when user already exists[32m 3[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould handle argon2 hash errors[32m 1[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould handle database creation errors[32m 1[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mregisterUser[2m > [22mshould use default role "user" when not specified[32m 1[2mms[22m[39m
@@ -51,51 +30,72 @@
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mloginUser[2m > [22mshould handle database query errors[32m 1[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mSecurity Tests[2m > [22mshould not return password in register response[32m 2[2mms[22m[39m
  [32m✓[39m src/test/auth/service.test.ts[2m > [22mAuthService[2m > [22mSecurity Tests[2m > [22mshould not return password in login response[32m 1[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mscheduleMaintenance[2m > [22mshould create a new maintenance record[32m 7[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mreportIncident[2m > [22mshould create a new incident[32m 6[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould return all incidents[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by status[32m 5[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by type[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentHistory[2m > [22mshould filter by asset[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mresolveIncident[2m > [22mshould resolve incident record[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentById[2m > [22mshould return incident by id[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mgetIncidentsByAsset[2m > [22mshould return incidents for specific asset[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/incidents/incidentService.test.ts[2m > [22mIncidentService[2m > [22mcloseIncident[2m > [22mshould close a resolved incident[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould return all categories with subcategories[32m 7[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould handle empty categories list[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetAllCategories[2m > [22mshould handle database errors[32m 3[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetCategoryById[2m > [22mshould return category by id[32m 4[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mgetCategoryById[2m > [22mshould throw error when category not found[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mcreateCategory[2m > [22mshould create a new category[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mcreateCategory[2m > [22mshould create category with parentId[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mupdateCategory[2m > [22mshould update an existing category[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mupdateCategory[2m > [22mshould handle update errors[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould delete category without subcategories[32m 3[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould not delete category with subcategories[32m 3[2mms[22m[39m
+ [32m✓[39m src/test/assets/categoryService.test.ts[2m > [22mCategoryService[2m > [22mdeleteCategory[2m > [22mshould throw error when category not found[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mscheduleMaintenance[2m > [22mshould create a new maintenance record[32m 6[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceHistory[2m > [22mshould return all maintenance records[32m 1[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceHistory[2m > [22mshould filter by status[32m 5[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceHistory[2m > [22mshould filter by asset[32m 1[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceHistory[2m > [22mshould filter by type[32m 1[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mcompleteMaintenance[2m > [22mshould complete maintenance record[32m 1[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceById[2m > [22mshould return maintenance record by id[32m 2[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceById[2m > [22mshould return null when maintenance not found[32m 0[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mcancelMaintenance[2m > [22mshould cancel a scheduled maintenance[32m 1[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mcancelMaintenance[2m > [22mshould throw error when cancelling completed maintenance[32m 3[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceById[2m > [22mshould return maintenance record by id[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mgetMaintenanceById[2m > [22mshould return null when maintenance not found[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mcancelMaintenance[2m > [22mshould cancel a scheduled maintenance[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mcancelMaintenance[2m > [22mshould throw error when cancelling completed maintenance[32m 5[2mms[22m[39m
  [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mstartMaintenance[2m > [22mshould start a scheduled maintenance[32m 1[2mms[22m[39m
- [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mstartMaintenance[2m > [22mshould throw error when starting non-scheduled maintenance[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould return paginated assets[32m 7[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould filter assets by status[32m 5[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould filter assets by category[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetById[2m > [22mshould return asset by id for admin[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetById[2m > [22mshould throw error when asset not found[32m 3[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mcreateAsset[2m > [22mshould create a new asset[32m 2[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mcreateAsset[2m > [22mshould throw error when code already exists[32m 2[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mupdateAsset[2m > [22mshould update an existing asset[32m 3[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mdeleteAsset[2m > [22mshould delete an asset[32m 3[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetStats[2m > [22mshould return asset statistics[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetByCode[2m > [22mshould return asset by code[32m 2[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22massignAsset[2m > [22mshould assign asset to user[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22massignAsset[2m > [22mshould throw error when user is inactive[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/maintenance/maintenanceService.test.ts[2m > [22mMaintenanceService[2m > [22mstartMaintenance[2m > [22mshould throw error when starting non-scheduled maintenance[32m 4[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset[2m > [22mshould create a new assignment successfully[32m 6[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset[2m > [22mshould throw error when asset not found[32m 4[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset[2m > [22mshould throw error when asset not found[32m 3[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset[2m > [22mshould throw error when asset has active assignment[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentHistory[2m > [22mshould return all assignments[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentHistory[2m > [22mshould filter by status[32m 7[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentHistory[2m > [22mshould filter by assetId[32m 3[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mreturnAsset[2m > [22mshould return an assignment successfully[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentHistory[2m > [22mshould filter by status[32m 6[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentHistory[2m > [22mshould filter by assetId[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mreturnAsset[2m > [22mshould return an assignment successfully[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mreturnAsset[2m > [22mshould throw error when no active assignment found[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset edge cases[2m > [22mshould throw error when user is inactive[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22massignAsset edge cases[2m > [22mshould throw error when user not found for assignment[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mtransferAsset[2m > [22mshould transfer asset to new user[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mtransferAsset[2m > [22mshould transfer asset to new user[32m 3[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mtransferAsset[2m > [22mshould throw error when no active assignment for transfer[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mtransferAsset[2m > [22mshould throw error when new user is same as current[32m 1[2mms[22m[39m
  [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetActiveAssignments[2m > [22mshould return only active assignments[32m 1[2mms[22m[39m
- [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentById[2m > [22mshould return assignment by id[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assignments/assignmentService.test.ts[2m > [22mAssignmentService[2m > [22mgetAssignmentById[2m > [22mshould return assignment by id[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould return paginated assets[32m 6[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould filter assets by status[32m 4[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssets[2m > [22mshould filter assets by category[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetById[2m > [22mshould return asset by id for admin[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetById[2m > [22mshould throw error when asset not found[32m 4[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mcreateAsset[2m > [22mshould create a new asset[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mcreateAsset[2m > [22mshould throw error when code already exists[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mupdateAsset[2m > [22mshould update an existing asset[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mdeleteAsset[2m > [22mshould delete an asset[32m 2[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetStats[2m > [22mshould return asset statistics[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22mgetAssetByCode[2m > [22mshould return asset by code[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22massignAsset[2m > [22mshould assign asset to user[32m 1[2mms[22m[39m
+ [32m✓[39m src/test/assets/assetService.test.ts[2m > [22mAssetService[2m > [22massignAsset[2m > [22mshould throw error when user is inactive[32m 1[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
 [2m      Tests [22m [1m[32m81 passed[39m[22m[90m (81)[39m
-[2m   Start at [22m 11:53:14
-[2m   Duration [22m 1.41s[2m (transform 761ms, setup 689ms, collect 1.13s, tests 196ms, environment 4ms, prepare 2.27s)[22m
+[2m   Start at [22m 21:18:25
+[2m   Duration [22m 1.47s[2m (transform 587ms, setup 940ms, collect 1.01s, tests 192ms, environment 4ms, prepare 2.20s)[22m
 
 [34m % [39m[2mCoverage report from [22m[33mv8[39m
 -------------------|---------|----------|---------|---------|-------------------
@@ -139,3 +139,4 @@ Sistema de Gestión de Activos:
    Activos: /assets
    Asignaciones: /assignments (historial y control)
    Movimientos: /movements (entradas/salidas)
+   Mantenimientos: /maintenance (preventivo/correctivo)

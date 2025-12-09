@@ -14,7 +14,8 @@
     "test:e2e": "pnpm --filter @sorty/web test:e2e",
     "test:e2e:open": "pnpm --filter @sorty/web cypress:open",
     "test:e2e:headed": "pnpm --filter @sorty/web test:e2e:headed",
-    "cypress": "pnpm --filter @sorty/web cypress:open"
+    "cypress": "pnpm --filter @sorty/web cypress:open",
+    "db:reset": "pnpm --filter api db:reset"
   },
   "devDependencies": {
     "turbo": "2.5.8"
